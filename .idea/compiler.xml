@@ -10,6 +10,7 @@
         <module name="auth" />
         <module name="eureka" />
         <module name="gateway" />
+        <module name="message" />
         <module name="model" />
         <module name="rating" />
         <module name="reservation" />
@@ -21,6 +22,7 @@
       <module name="auth" target="1.8" />
       <module name="eureka" target="1.8" />
       <module name="gateway" target="1.8" />
+      <module name="message" target="1.8" />
       <module name="model" target="1.8" />
       <module name="rating" target="1.8" />
       <module name="reservation" target="1.8" />
@@ -34,6 +36,7 @@
       <module name="auth" options="-parameters" />
       <module name="eureka" options="-parameters" />
       <module name="gateway" options="-parameters" />
+      <module name="message" options="-parameters" />
       <module name="model" options="-parameters" />
       <module name="rating" options="-parameters" />
       <module name="reservation" options="-parameters" />

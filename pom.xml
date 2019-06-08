@@ -14,5 +14,6 @@
         <module>gateway</module>
         <module>eureka</module>
 		<module>model</module>
+        <module>message</module>
     </modules>
 </project>
