@@ -12,18 +12,17 @@ import java.util.List;
 @WebService
 public interface MessageService {
 
+    @WebMethod
+    List<ChatRoomDTO> getChatRooms(@WebParam(name = "UserId") Long userId);
 
     @WebMethod
-    List<MessageDTO> getMessages(@WebParam(name = "UserId") Long userId);
+    List<MessageDTO> getListMessagesForChatRoom(@WebParam(name = "UserId") Long userId, @WebParam(name = "ChatroomId") Long chatRoomId);
 
     @WebMethod
-    List<ChatRoomDTO> getChatrooms(@WebParam(name = "UserId") Long userId);
+    MessageDTO sendMessage(@WebParam(name = "ReceiverId") Long receiverId, MessageDTO messageDTO);
 
     @WebMethod
-    List<MessageDTO> getListMessagesForChatroom(@WebParam(name = "UserId") Long userId, @WebParam(name = "ChatroomId") Long chatRoomId);
-
-
-
+    ChatRoomDTO createChatRoom(ChatRoomDTO chatRoomDTO);
 
 
 
