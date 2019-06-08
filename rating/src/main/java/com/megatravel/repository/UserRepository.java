@@ -1,6 +1,6 @@
-package com.megatravel.rating.repository;
+package com.megatravel.repository;
 
-import com.megatravel.rating.model.User;
+import com.megatravel.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 

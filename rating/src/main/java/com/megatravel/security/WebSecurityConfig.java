@@ -1,7 +1,7 @@
-package com.megatravel.rating.security;
+package com.megatravel.security;
 
-import com.megatravel.rating.jwt.JwtTokenFilterConfigurer;
-import com.megatravel.rating.jwt.JwtTokenUtils;
+import com.megatravel.jwt.JwtTokenFilterConfigurer;
+import com.megatravel.jwt.JwtTokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,7 +1,7 @@
-package com.megatravel.rating.dto;
+package com.megatravel.dto;
 
-import com.megatravel.rating.model.Role;
-import com.megatravel.rating.model.User;
+import com.megatravel.model.Role;
+import com.megatravel.model.User;
 
 public class UserDTO {
 	private Long id;

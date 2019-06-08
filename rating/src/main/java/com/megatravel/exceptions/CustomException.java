@@ -1,4 +1,4 @@
-package com.megatravel.rating.exceptions;
+package com.megatravel.exceptions;
 
 import org.springframework.http.HttpStatus;
 

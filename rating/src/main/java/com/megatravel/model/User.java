@@ -1,7 +1,7 @@
-package com.megatravel.rating.model;
+package com.megatravel.model;
 
 
-import com.megatravel.rating.validation.StaticData;
+import com.megatravel.validation.StaticData;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

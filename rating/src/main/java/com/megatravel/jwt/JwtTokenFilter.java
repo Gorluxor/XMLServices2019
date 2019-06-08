@@ -1,4 +1,4 @@
-package com.megatravel.rating.jwt;
+package com.megatravel.jwt;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

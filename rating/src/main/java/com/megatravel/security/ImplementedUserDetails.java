@@ -1,7 +1,7 @@
-package com.megatravel.rating.security;
+package com.megatravel.security;
 
-import com.megatravel.rating.model.User;
-import com.megatravel.rating.repository.UserRepository;
+import com.megatravel.model.User;
+import com.megatravel.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.security.core.GrantedAuthority;

@@ -1,4 +1,4 @@
-package com.megatravel.rating.validation;
+package com.megatravel.validation;
 
 import java.util.regex.Pattern;
 

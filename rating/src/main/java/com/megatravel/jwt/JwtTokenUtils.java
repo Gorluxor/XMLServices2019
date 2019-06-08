@@ -1,8 +1,8 @@
-package com.megatravel.rating.jwt;
+package com.megatravel.jwt;
 
-import com.megatravel.rating.exceptions.CustomException;
-import com.megatravel.rating.model.Role;
-import com.megatravel.rating.security.ImplementedUserDetails;
+import com.megatravel.exceptions.CustomException;
+import com.megatravel.model.Role;
+import com.megatravel.security.ImplementedUserDetails;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;

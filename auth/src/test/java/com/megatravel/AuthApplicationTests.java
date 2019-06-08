@@ -1,4 +1,4 @@
-package com.megatravel.search;
+package com.megatravel;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,7 +7,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class SearchApplicationTests {
+public class AuthApplicationTests {
 
 	@Test
 	public void contextLoads() {
