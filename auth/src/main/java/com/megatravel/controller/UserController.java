@@ -2,8 +2,12 @@ package com.megatravel.controller;
 
 import java.util.List;
 
-import com.megatravel.models.Role;
-import com.megatravel.models.User;
+import com.megatravel.dtos.admin.LoginDTO;
+import com.megatravel.dtos.admin.RegistrationDTO;
+import com.megatravel.dtos.admin.UserDTO;
+
+import com.megatravel.models.admin.Role;
+import com.megatravel.models.admin.User;
 import com.megatravel.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -19,9 +23,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import com.megatravel.dtos.LoginDTO;
-import com.megatravel.dtos.RegistrationDTO;
-import com.megatravel.dtos.UserDTO;
 
 
 @RestController
@@ -71,7 +72,7 @@ public class UserController {
 	@RequestMapping(value = "signup", method = RequestMethod.POST)
 	public ResponseEntity<Void> signup(@RequestBody RegistrationDTO registrationDTO) {
 
-		if (!registrationDTO.getRepeatedPassword().equals(registrationDTO.getPassword())) {
+		if (!registrationDTO.getRepeatPassword().equals(registrationDTO.getPassword())) {
 			//not the same passwords
 			return new ResponseEntity<>(HttpStatus.LOCKED);
 		}

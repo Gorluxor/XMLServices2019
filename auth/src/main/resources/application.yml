@@ -22,7 +22,7 @@ server:
   error:
     whitelabel:
       enabled: "false"
-  port: "8080"
+  port: "8081"
 #  ssl:
 #    enabled: "true"
 #    key-store: classpath:keystore.p12

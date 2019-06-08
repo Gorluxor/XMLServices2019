@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.megatravel.dtos.admin.UserDTO;
+import com.megatravel.models.admin.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,10 +17,10 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.megatravel.dtos.UserDTO;
+
 import com.megatravel.exceptions.CustomException;
 import com.megatravel.jwt.JwtTokenUtils;
-import com.megatravel.models.User;
+
 import com.megatravel.password.Base64Utility;
 import com.megatravel.password.HashPassword;
 import com.megatravel.repository.UserRepository;
