@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="http://www.megatravel.com/rating" xmlns:ad="http://www.megatravel.com/admin"
+    xmlns:rs="http://megatravel.com/reservations" xmlns:rt="http://www.megatravel.com/rating"
+    xmlns:tp="http://www.megatravel.com/types">
+    <xs:import namespace="http://www.megatravel.com/types" schemaLocation="types.xsd"/>
+    <xs:import namespace="http://www.megatravel.com/admin" schemaLocation="admin.xsd"/>
+    <xs:import namespace="http://megatravel.com/reservations" schemaLocation="reservations.xsd"/>
+    <xs:element name="ratingDTO">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="tp:id"/>
+                <xs:element name="ratingValue" type="tp:rating"/>
+                <xs:element maxOccurs="1" minOccurs="0" name="comment" type="tp:msg"/>
+                <xs:element maxOccurs="1" name="date" type="tp:Date"/>
+                <xs:element name="adminApproved" type="xs:boolean"/>
+                <xs:element ref="ad:userDTO"/>
+                <xs:element ref="rs:reservationDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="http://www.megatravel.com/admin" xmlns:ag="http://www.megatravel.com/agent"
+    xmlns:tp="http://www.megatravel.com/types" xmlns:us="http://www.megatravel.com/user"
+    xmlns:ad="http://www.megatravel.com/admin">
+
+    <xs:import namespace="http://www.megatravel.com/types" schemaLocation="types.xsd"/>
+    <xs:import namespace="http://www.megatravel.com/agent" schemaLocation="agent.xsd"/>
+    <xs:element name="userDTO">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Id" minOccurs="0" type="tp:id"/>
+                <xs:element name="name" type="tp:name"/>
+                <xs:element name="lastName" type="tp:name"/>
+                <xs:element name="email" type="tp:email"/>
+                <xs:element name="password" minOccurs="0" type="tp:password"/>
+                <xs:element name="country" type="tp:name"/>
+                <xs:element name="birthday" type="tp:Date"/>
+                <xs:element name="phoneNumber" type="tp:phoneNumber"/>
+                <xs:element name="pib" type="tp:pib"/>
+                <xs:element name="activatedUser" type="xs:boolean"/>
+                <xs:element minOccurs="0" ref="tp:locationDTO"/>
+                <xs:element ref="ad:roleDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="roleDTO">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="tp:id"/>
+                <xs:element name="name" type="tp:name"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="LoginDTO">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="email" type="tp:email"/>
+                <xs:element name="password" type="tp:password"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="RegistrationDTO">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Id" type="tp:id"/>
+                <xs:element name="name" type="tp:name"/>
+                <xs:element name="lastName" type="tp:name"/>
+                <xs:element name="email" type="tp:email"/>
+                <xs:element name="password" type="tp:password"/>
+                <xs:element name="repeatPassword" type="tp:password"/>
+                <xs:element name="country" type="tp:name"/>
+                <xs:element name="birthday" type="tp:Date"/>
+                <xs:element name="phoneNumber" type="tp:phoneNumber"/>
+                <xs:element name="pib" type="tp:pib"/>
+                <xs:element name="activatedUser" type="xs:boolean"/>
+                <xs:element minOccurs="0" ref="tp:locationDTO"/>
+                <xs:element ref="ad:roleDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

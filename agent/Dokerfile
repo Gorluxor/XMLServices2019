@@ -1,0 +1,4 @@
+FROM anapsix/alpine-java
+ADD target/agent-0.0.1-SNAPSHOT.jar agent.jar
+ENTRYPOINT ["java", "-jar", "/agent.jar"]
+EXPOSE 2222

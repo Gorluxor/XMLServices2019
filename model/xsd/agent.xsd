@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="http://www.megatravel.com/agent" xmlns:tp="http://www.megatravel.com/types"
+    xmlns:ad="http://www.megatravel.com/admin" xmlns:ag="http://www.megatravel.com/agent">
+
+    <xs:import id="typ" namespace="http://www.megatravel.com/types" schemaLocation="types.xsd"/>
+    <xs:import namespace="http://www.megatravel.com/admin" schemaLocation="admin.xsd"/>
+    <xs:element name="serviceDTO">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="tp:id"/>
+                <xs:element name="nameOfService" type="tp:name"/>
+                <xs:element name="description" type="tp:description"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="pricingDTO">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="tp:id"/>
+                <xs:element name="price" type="tp:price"/>
+                <xs:element name="startDate" type="tp:Date"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="imageDTO">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="tp:id"/>
+                <xs:element name="title" type="tp:description"/>
+                <xs:element name="uri" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="accommodationUnitDTO">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="tp:id"/>
+                <xs:element name="capacity" type="tp:capacity"/>
+                <xs:element name="size" type="tp:size"/>
+                <xs:element name="nameOfUnit" type="tp:name"/>
+                <xs:element ref="ag:unitTypeDTO"/>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="ag:pricingDTO"/>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="ag:serviceDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="accommodationDTO">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="tp:id"/>
+                <xs:element name="name" type="tp:name"/>
+                <xs:element name="description" type="tp:description"/>
+                <xs:element name="cancelationDays" type="xs:positiveInteger"/>
+                <xs:element ref="tp:locationDTO"/>
+                <xs:element ref="ag:accommodationTypeDTO"/>
+                <xs:element minOccurs="0" ref="ad:userDTO"/>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="ag:accommodationUnitDTO"/>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="ag:serviceDTO"/>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="ag:imageDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="accommodationTypeDTO">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Id" type="tp:id"/>
+                <xs:element name="nameOfAccType" type="tp:name"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="unitTypeDTO">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Id" type="tp:id"/>
+                <xs:element name="nameOfUnitType" type="tp:name"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

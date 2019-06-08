@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    xmlns:jxb="http://java.sun.com/xml/ns/jaxb" jxb:version="2.1"
+    targetNamespace="http://www.megatravel.com/messages" xmlns:tp="http://www.megatravel.com/types"
+    xmlns:ag="http://www.megatravel.com/agent" xmlns:ad="http://www.megatravel.com/admin"
+    xmlns:msg="http://www.megatravel.com/messages" xmlns:rs="http://megatravel.com/reservations">
+    <xs:import namespace="http://www.megatravel.com/types" schemaLocation="types.xsd"/>
+    <xs:import namespace="http://megatravel.com/reservations" schemaLocation="reservations.xsd"/>
+    <xs:import namespace="http://www.megatravel.com/admin" schemaLocation="admin.xsd"/>
+    <xs:element name="messageDTO">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="tp:id"/>
+                <xs:element name="Msg" type="tp:msg"/>
+                <xs:element name="TimeStamp" type="tp:Date"/>
+                <xs:element ref="ad:userDTO">
+                    <xs:annotation>
+                        <xs:appinfo>
+                            <jxb:property name="sender"/>
+                        </xs:appinfo>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element ref="ad:userDTO">
+                    <xs:annotation>
+                        <xs:appinfo>
+                            <jxb:property name="receiver"/>
+                        </xs:appinfo>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element ref="msg:chatRoomDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="chatRoomDTO">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="tp:id"/>
+                <xs:element name="name" type="tp:name"/>
+                <xs:element ref="rs:reservationDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

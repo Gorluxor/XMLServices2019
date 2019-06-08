@@ -1,0 +1,4 @@
+FROM anapsix/alpine-java
+ADD target/rating-0.0.1-SNAPSHOT.jar rating.jar
+ENTRYPOINT ["java", "-jar", "/rating.jar"]
+EXPOSE 2222

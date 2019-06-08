@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="http://megatravel.com/reservations" xmlns:ad="http://www.megatravel.com/admin"
+    xmlns:ag="http://www.megatravel.com/agent" xmlns:rs="http://megatravel.com/reservations"
+    xmlns:tp="http://www.megatravel.com/types">
+    <xs:import namespace="http://www.megatravel.com/types" schemaLocation="types.xsd"/>
+    <xs:import namespace="http://www.megatravel.com/admin" schemaLocation="admin.xsd"/>
+    <xs:import namespace="http://www.megatravel.com/agent" schemaLocation="agent.xsd"/>
+    <xs:element name="reservationDTO">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="tp:id"/>
+                <xs:element name="arrivalDate" type="tp:Date"/>
+                <xs:element name="departureDate" type="tp:Date"/>
+                <xs:element name="stayRealized" type="xs:boolean"/>
+                <xs:element form="qualified" name="reservationPrice" type="tp:price"/>
+                <xs:element minOccurs="0" ref="ad:userDTO"/>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="ag:accommodationUnitDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="agent" />
+        <module name="auth" />
+        <module name="eureka" />
+        <module name="gateway" />
+        <module name="model" />
+        <module name="rating" />
+        <module name="reservation" />
+        <module name="search" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="agent" target="1.8" />
+      <module name="auth" target="1.8" />
+      <module name="eureka" target="1.8" />
+      <module name="gateway" target="1.8" />
+      <module name="model" target="1.8" />
+      <module name="rating" target="1.8" />
+      <module name="reservation" target="1.8" />
+      <module name="search" target="1.8" />
+      <module name="XML" target="1.5" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="agent" options="-parameters" />
+      <module name="auth" options="-parameters" />
+      <module name="eureka" options="-parameters" />
+      <module name="gateway" options="-parameters" />
+      <module name="model" options="-parameters" />
+      <module name="rating" options="-parameters" />
+      <module name="reservation" options="-parameters" />
+      <module name="search" options="-parameters" />
+    </option>
+  </component>
+</project>

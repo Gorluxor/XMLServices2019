@@ -1,0 +1,4 @@
+FROM anapsix/alpine-java
+ADD target/search-0.0.1-SNAPSHOT.jar search.jar
+ENTRYPOINT ["java", "-jar", "/search.jar"]
+EXPOSE 2222
