@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="RatingServiceMicroService" targetNamespace="http://interfaces.megatravel.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://interfaces.megatravel.com/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.megatravel.com/types" version="1.0">
+<xs:element name="locationDTO">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="id" type="xs:long"/>
+<xs:element name="country" type="xs:string"/>
+<xs:element name="city" type="xs:string"/>
+<xs:element name="street" type="xs:string"/>
+<xs:element name="number" type="xs:positiveInteger"/>
+<xs:element name="postalCode" type="xs:int"/>
+<xs:element minOccurs="0" name="latitude" type="xs:double"/>
+<xs:element minOccurs="0" name="longitude" type="xs:double"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+</xs:schema>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://www.megatravel.com/types" xmlns:ns2="http://www.megatravel.com/admin" xmlns:ns3="http://www.megatravel.com/agent" xmlns:ns4="http://megatravel.com/reservations" elementFormDefault="qualified" targetNamespace="http://www.megatravel.com/rating" version="1.0">
+<xs:import namespace="http://www.megatravel.com/types"/>
+<xs:import namespace="http://www.megatravel.com/admin"/>
+<xs:import namespace="http://www.megatravel.com/agent"/>
+<xs:import namespace="http://megatravel.com/reservations"/>
+<xs:element name="ratingDTO">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="id" type="xs:long"/>
+<xs:element name="ratingValue" type="xs:double"/>
+<xs:element minOccurs="0" name="comment" type="xs:string"/>
+<xs:element name="date" type="xs:string"/>
+<xs:element name="adminApproved" type="xs:boolean"/>
+<xs:element ref="ns2:userDTO"/>
+<xs:element ref="ns4:reservationDTO"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+</xs:schema>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://www.megatravel.com/types" xmlns:ns2="http://www.megatravel.com/admin" xmlns:tns="http://www.megatravel.com/agent" elementFormDefault="qualified" targetNamespace="http://www.megatravel.com/agent" version="1.0">
+<xs:import namespace="http://www.megatravel.com/types"/>
+<xs:import namespace="http://www.megatravel.com/admin"/>
+<xs:element name="accommodationDTO">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="id" type="xs:long"/>
+<xs:element name="name" type="xs:string"/>
+<xs:element name="description" type="xs:string"/>
+<xs:element name="cancelationDays" type="xs:positiveInteger"/>
+<xs:element ref="ns1:locationDTO"/>
+<xs:element ref="tns:accommodationTypeDTO"/>
+<xs:element minOccurs="0" ref="ns2:userDTO"/>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="accommodationUnitDTO" nillable="true">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="id" type="xs:long"/>
+<xs:element name="capacity" type="xs:int"/>
+<xs:element name="size" type="xs:int"/>
+<xs:element name="nameOfUnit" type="xs:string"/>
+<xs:element ref="tns:unitTypeDTO"/>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="pricingDTO" nillable="true">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="id" type="xs:long"/>
+<xs:element name="price" type="xs:decimal"/>
+<xs:element name="startDate" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="serviceDTO" nillable="true">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="id" type="xs:long"/>
+<xs:element name="nameOfService" type="xs:string"/>
+<xs:element name="description" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="serviceDTO" nillable="true"/>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="imageDTO" nillable="true">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="id" type="xs:long"/>
+<xs:element name="title" type="xs:string"/>
+<xs:element name="uri" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="accommodationTypeDTO">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="Id" type="xs:long"/>
+<xs:element name="nameOfAccType" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="accommodationUnitDTO"/>
+<xs:element name="imageDTO"/>
+<xs:element name="pricingDTO"/>
+<xs:element name="serviceDTO"/>
+<xs:element name="unitTypeDTO">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="Id" type="xs:long"/>
+<xs:element name="nameOfUnitType" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+</xs:schema>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://www.megatravel.com/types" xmlns:tns="http://www.megatravel.com/admin" elementFormDefault="qualified" targetNamespace="http://www.megatravel.com/admin" version="1.0">
+<xs:import namespace="http://www.megatravel.com/types"/>
+<xs:element name="roleDTO">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="id" type="xs:long"/>
+<xs:element name="name" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="userDTO">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="Id" type="xs:long"/>
+<xs:element name="name" type="xs:string"/>
+<xs:element name="lastName" type="xs:string"/>
+<xs:element name="email" type="xs:string"/>
+<xs:element minOccurs="0" name="password" type="xs:string"/>
+<xs:element name="country" type="xs:string"/>
+<xs:element name="birthday" type="xs:string"/>
+<xs:element name="phoneNumber" type="xs:string"/>
+<xs:element name="pib" type="xs:string"/>
+<xs:element name="activatedUser" type="xs:boolean"/>
+<xs:element minOccurs="0" ref="ns1:locationDTO"/>
+<xs:element ref="tns:roleDTO"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+</xs:schema>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://www.megatravel.com/types" xmlns:ns2="http://www.megatravel.com/admin" xmlns:ns3="http://www.megatravel.com/agent" elementFormDefault="qualified" targetNamespace="http://megatravel.com/reservations" version="1.0">
+<xs:import namespace="http://www.megatravel.com/types"/>
+<xs:import namespace="http://www.megatravel.com/admin"/>
+<xs:import namespace="http://www.megatravel.com/agent"/>
+<xs:element name="reservationDTO">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="id" type="xs:long"/>
+<xs:element name="arrivalDate" type="xs:string"/>
+<xs:element name="departureDate" type="xs:string"/>
+<xs:element name="stayRealized" type="xs:boolean"/>
+<xs:element name="reservationPrice" type="xs:decimal"/>
+<xs:element minOccurs="0" ref="ns2:userDTO"/>
+<xs:element maxOccurs="unbounded" minOccurs="0" ref="ns3:accommodationUnitDTO"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+</xs:schema>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://www.megatravel.com/admin" xmlns:ns2="http://megatravel.com/reservations" xmlns:ns3="http://www.megatravel.com/rating" xmlns:tns="http://interfaces.megatravel.com/" elementFormDefault="unqualified" targetNamespace="http://interfaces.megatravel.com/" version="1.0">
+<xs:import namespace="http://www.megatravel.com/admin"/>
+<xs:import namespace="http://megatravel.com/reservations"/>
+<xs:import namespace="http://www.megatravel.com/rating"/>
+<xs:element name="RemoveRating" type="tns:RemoveRating"/>
+<xs:element name="RemoveRatingResponse" type="tns:RemoveRatingResponse"/>
+<xs:element name="addRating" type="tns:addRating"/>
+<xs:element name="addRatingResponse" type="tns:addRatingResponse"/>
+<xs:complexType name="addRating">
+<xs:sequence>
+<xs:element minOccurs="0" name="ratingDTO">
+<xs:complexType>
+<xs:sequence>
+<xs:element form="qualified" name="id" type="xs:long"/>
+<xs:element form="qualified" name="ratingValue" type="xs:double"/>
+<xs:element form="qualified" minOccurs="0" name="comment" type="xs:string"/>
+<xs:element form="qualified" name="date" type="xs:string"/>
+<xs:element form="qualified" name="adminApproved" type="xs:boolean"/>
+<xs:element ref="ns1:userDTO"/>
+<xs:element ref="ns2:reservationDTO"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="addRatingResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="return"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="RemoveRating">
+<xs:sequence>
+<xs:element minOccurs="0" name="ratingId" type="xs:long"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="RemoveRatingResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="return"/>
+</xs:sequence>
+</xs:complexType>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="addRating">
+    <wsdl:part name="parameters" element="tns:addRating">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="RemoveRatingResponse">
+    <wsdl:part name="parameters" element="tns:RemoveRatingResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="addRatingResponse">
+    <wsdl:part name="parameters" element="tns:addRatingResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="RemoveRating">
+    <wsdl:part name="parameters" element="tns:RemoveRating">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="RatingService">
+    <wsdl:operation name="addRating">
+      <wsdl:input name="addRating" message="tns:addRating">
+    </wsdl:input>
+      <wsdl:output name="addRatingResponse" message="tns:addRatingResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RemoveRating">
+      <wsdl:input name="RemoveRating" message="tns:RemoveRating">
+    </wsdl:input>
+      <wsdl:output name="RemoveRatingResponse" message="tns:RemoveRatingResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="RatingServiceServiceSoapBinding" type="tns:RatingService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="addRating">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="addRating">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="addRatingResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RemoveRating">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="RemoveRating">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="RemoveRatingResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="RatingServiceMicroService">
+    <wsdl:port name="RatingServicePort" binding="tns:RatingServiceServiceSoapBinding">
+      <soap:address location="http://localhost:9090/RatingServicePort"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
