@@ -31,3 +31,7 @@ sping:
   jpa:
     hibernate:
       dialect: org.hibernate.dialect.MySQLDialect
+
+#eureka:
+#  instance:
+#    instanceId: ${spring.application.name}:${vcap.application.instance_id:${spring.application.instance_id:${random.value}}}

@@ -21,12 +21,12 @@ public class MessageController {
     private MessageServiceImpl messageService;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-    public ResponseEntity<List<ChatRoomDTO>> getInbox(@PathVariable("id") Long id){
+    public  ResponseEntity<List<ChatRoomDTO>> getInbox(@PathVariable("id") Long id){
         return new ResponseEntity<List<ChatRoomDTO>>(this.messageService.getChatRooms(id), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}/chatRoom/{chatRoomId}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-    public ResponseEntity<List<MessageDTO>> getChatRoomMessages(@PathVariable("id") Long id, @PathVariable("chatRoomId") Long chatRoomId){
+    public  ResponseEntity<List<MessageDTO>> getChatRoomMessages(@PathVariable("id") Long id, @PathVariable("chatRoomId") Long chatRoomId){
         return new ResponseEntity<List<MessageDTO>>(this.messageService.getListMessagesForChatRoom(id,chatRoomId), HttpStatus.OK);
     }
 
