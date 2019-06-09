@@ -84,6 +84,11 @@
 
 
 		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-openfeign</artifactId>
+		</dependency>
+
+		<dependency>
 			<groupId>com.megatravel</groupId>
 			<artifactId>model</artifactId>
 			<version>1.0</version>
