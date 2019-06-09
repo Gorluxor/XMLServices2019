@@ -5,10 +5,14 @@ import com.megatravel.dtos.agent.AccommodationUnitDTO;
 import com.megatravel.interfaces.AccommodationInterface;
 import org.springframework.stereotype.Service;
 
+import javax.jws.WebService;
 import java.util.List;
 
+@WebService(endpointInterface = "com.megatravel.interfaces.AccommodationInterface")
 @Service
 public class AccommodationServiceImpl implements AccommodationInterface {
+
+    public static final String ENDPOINT = "/accommodation";
 
     @Override
     public List<AccommodationDTO> getAllAccommodations() {

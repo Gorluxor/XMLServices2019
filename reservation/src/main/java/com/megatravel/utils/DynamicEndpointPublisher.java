@@ -1,6 +1,9 @@
 package com.megatravel.utils;
 
+import com.megatravel.service.AccommodationServiceImpl;
+import com.megatravel.service.AccommodationTypeServiceImpl;
 import com.megatravel.service.ReservationServiceImpl;
+import com.megatravel.service.ServiceServiceImpl;
 import com.netflix.appinfo.ApplicationInfoManager;
 import com.netflix.appinfo.EurekaInstanceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,11 +32,12 @@ public class DynamicEndpointPublisher {
 
         ApplicationInfoManager applicationInfoManager = new ApplicationInfoManager(eurekaInstanceConfig);
         Map<String, String> map = applicationInfoManager.getInfo().getMetadata();
-
-
         int port = this.getEmptyPort();
         map.put(SOAP_PORT, Integer.toString(port));
         publishEndpoint(port, ReservationServiceImpl.ENDPOINT, ReservationServiceImpl.class);
+        publishEndpoint(port, AccommodationServiceImpl.ENDPOINT, AccommodationServiceImpl.class);
+        publishEndpoint(port, AccommodationTypeServiceImpl.ENDPOINT, AccommodationTypeServiceImpl.class);
+        publishEndpoint(port, ServiceServiceImpl.ENDPOINT, ServiceServiceImpl.class);
     }
 
 
