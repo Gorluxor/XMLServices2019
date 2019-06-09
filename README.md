@@ -11,7 +11,7 @@ The project consists of:
   
   XML Frontend -> https://github.com/Gorluxor/XMLServices2019Client
   
-  Agent Backend -> https://github.com/Gorluxor/XMLService2019AgentBackend
+  Agent Backend -> https://github.com/Gorluxor/XMLService2019AgentBackend  (currently in microservice agent, will be seperated later on)
   
   Agent Frontend -> https://github.com/Gorluxor/XMLServices2019Agent
   
