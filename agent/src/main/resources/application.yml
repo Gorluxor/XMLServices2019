@@ -31,7 +31,7 @@ server:
 
 # A more restrictive one
 #  ssl:
-#        key-store: classpath:config/tls/keystore.p12
+#        key-store: classpath:configs/tls/keystore.p12
 #        key-store-password: password
 #        key-store-type: PKCS12
 #        key-alias: megatravel

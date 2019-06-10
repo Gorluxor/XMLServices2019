@@ -20,13 +20,13 @@ public class ServiceController {
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<ServiceDTO> createService(@RequestBody ServiceDTO serviceDTO){
-        return new ResponseEntity<ServiceDTO>(serviceService.createService(serviceDTO), HttpStatus.CREATED);
+        return new ResponseEntity<ServiceDTO>(serviceService.createAccService(serviceDTO), HttpStatus.CREATED);
     }
 
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<ServiceDTO> getService(@PathVariable Long id){
-        return new ResponseEntity<ServiceDTO>(serviceService.getService(id), HttpStatus.OK);
+        return new ResponseEntity<ServiceDTO>(serviceService.getAccService(id), HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -37,12 +37,12 @@ public class ServiceController {
 
     @RequestMapping(method = RequestMethod.PUT)
     public ResponseEntity<ServiceDTO> updateService(@RequestBody ServiceDTO serviceDTO){
-        return new ResponseEntity<>(serviceService.updateService(serviceDTO), HttpStatus.OK);
+        return new ResponseEntity<>(serviceService.updateAccService(serviceDTO), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}",method = RequestMethod.DELETE)
     public ResponseEntity<ServiceDTO> deleteService(@PathVariable Long id){
-        return new ResponseEntity<>(serviceService.deleteService(id), HttpStatus.OK);
+        return new ResponseEntity<>(serviceService.deleteAccService(id), HttpStatus.OK);
     }
 
 

@@ -37,17 +37,17 @@ import javax.xml.bind.annotation.XmlType;
  * 
  * 
  */
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "id",
-    "nameOfUnitType"
-})
-@XmlRootElement(name = "unitTypeDTO")
+//@XmlAccessorType(XmlAccessType.FIELD)
+//@XmlType(name = "", propOrder = {
+//    "id",
+//    "nameOfUnitType"
+//})
+//@XmlRootElement(name = "unitTypeDTO")
 public class UnitTypeDTO {
 
-    @XmlElement(name = "Id")
+//    @XmlElement(name = "Id")
     protected long id;
-    @XmlElement(required = true)
+//    @XmlElement(required = true)
     protected String nameOfUnitType;
 
     public UnitTypeDTO() {

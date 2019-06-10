@@ -27,7 +27,7 @@
       <module name="rating" target="1.8" />
       <module name="reservation" target="1.8" />
       <module name="search" target="1.8" />
-      <module name="XML" target="1.5" />
+      <module name="XML" target="1.6" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">

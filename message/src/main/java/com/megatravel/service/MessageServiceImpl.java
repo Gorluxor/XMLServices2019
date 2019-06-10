@@ -1,6 +1,6 @@
 package com.megatravel.service;
 
-import com.megatravel.config.WebConfig;
+import com.megatravel.configs.WebConfig;
 import com.megatravel.dtos.messages.ChatRoomDTO;
 import com.megatravel.dtos.messages.MessageDTO;
 import com.megatravel.interfaces.MessageService;

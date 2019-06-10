@@ -1,5 +1,6 @@
 package com.megatravel.utils;
 
+
 import com.megatravel.service.*;
 import com.netflix.appinfo.ApplicationInfoManager;
 import com.netflix.appinfo.EurekaInstanceConfig;
@@ -13,6 +14,7 @@ import java.net.ServerSocket;
 import java.util.Map;
 
 @SuppressWarnings("Duplicates")
+
 @Component
 public class DynamicEndpointPublisher {
 
@@ -35,7 +37,7 @@ public class DynamicEndpointPublisher {
         publishEndpoint(port, AccommodationServiceImpl.ENDPOINT, AccommodationServiceImpl.class);
         publishEndpoint(port, AccommodationTypeServiceImpl.ENDPOINT, AccommodationTypeServiceImpl.class);
         publishEndpoint(port, ServiceServiceImpl.ENDPOINT, ServiceServiceImpl.class);
-        publishEndpoint(port, UnitTypeServiceImpl.ENDPOINT, UnitTypeServiceImpl.class);
+        publishEndpoint(port, UnitTypeImpl.ENDPOINT, UnitTypeImpl.class);
     }
 
 

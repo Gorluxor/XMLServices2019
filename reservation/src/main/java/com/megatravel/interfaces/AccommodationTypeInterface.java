@@ -4,6 +4,7 @@ package com.megatravel.interfaces;
 import com.megatravel.dtos.agent.AccommodationTypeDTO;
 
 import javax.jws.WebMethod;
+import javax.jws.WebParam;
 import javax.jws.WebService;
 import javax.xml.bind.annotation.XmlElement;
 import java.util.List;
@@ -13,13 +14,13 @@ public interface AccommodationTypeInterface {
 
 
     @WebMethod
-    AccommodationTypeDTO createService(@XmlElement(name = "accommodationTypeDTO", required = true) AccommodationTypeDTO accommodationTypeDTO);
+    AccommodationTypeDTO createService(@WebParam(name = "AccommodationTypeDTO") AccommodationTypeDTO accommodationTypeDTO);
     @WebMethod
-    AccommodationTypeDTO updateService(@XmlElement(name = "accommodationTypeDTO", required = true) AccommodationTypeDTO serviceDTO);
+    AccommodationTypeDTO updateService(@WebParam(name = "AccommodationTypeDTO") AccommodationTypeDTO serviceDTO);
     @WebMethod
-    AccommodationTypeDTO deleteService(@XmlElement(name = "accommodationTypeId", required = true) Long accommodationTypeId);
+    AccommodationTypeDTO deleteService(@WebParam(name = "AccommodationTypeId") Long accommodationTypeId);
     @WebMethod
-    AccommodationTypeDTO getService(@XmlElement(name = "accommodationTypeId", required = true) Long accommodationTypeId);
+    AccommodationTypeDTO getService(@WebParam(name = "AccommodationTypeId") Long accommodationTypeId);
     @WebMethod
     List<AccommodationTypeDTO> getAllServices();
 

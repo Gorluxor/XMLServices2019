@@ -1,24 +1,24 @@
 package com.megatravel.service;
 
-
 import com.megatravel.configs.WebConfig;
 import com.megatravel.dtos.agent.ServiceDTO;
-import com.megatravel.interfaces.ServiceInterface;
+import com.megatravel.dtos.agent.UnitTypeDTO;
+import com.megatravel.interfaces.UnitTypeServiceInterface;
 import org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.WebApplicationContext;
 
-
 import javax.jws.WebService;
 import java.util.List;
 
-@WebService(endpointInterface = "com.megatravel.interfaces.ServiceInterface")
+
+@WebService(endpointInterface = "com.megatravel.interfaces.UnitTypeServiceInterface")
 @Service
-public class ServiceServiceImpl implements ServiceInterface {
+public class UnitTypeImpl implements UnitTypeServiceInterface {
 
-    public static final String ENDPOINT = "/service";
+    public static final String ENDPOINT = "/unitType";
 
-    public ServiceServiceImpl() {
+    public UnitTypeImpl() {
         AutowiredAnnotationBeanPostProcessor bpp = new AutowiredAnnotationBeanPostProcessor();
         WebApplicationContext currentContext = WebConfig.getWebApplicationContext();
         bpp.setBeanFactory(currentContext.getAutowireCapableBeanFactory());
@@ -26,27 +26,27 @@ public class ServiceServiceImpl implements ServiceInterface {
     }
 
     @Override
-    public ServiceDTO createAccService(ServiceDTO serviceDTO) {
+    public UnitTypeDTO createAccUnitType(UnitTypeDTO unitTypeDTO) {
         return null;
     }
 
     @Override
-    public ServiceDTO updateAccService(ServiceDTO serviceDTO) {
+    public UnitTypeDTO updateAccUnitType(UnitTypeDTO unitTypeDTO) {
         return null;
     }
 
     @Override
-    public ServiceDTO deleteAccService(Long serviceId) {
+    public UnitTypeDTO deleteAccUnitType(Long unitTypeId) {
         return null;
     }
 
     @Override
-    public ServiceDTO getAccService(Long serviceId) {
+    public UnitTypeDTO getAccUnitType(Long unitTypeId) {
         return null;
     }
 
     @Override
-    public List<ServiceDTO> getAllServices() {
+    public List<UnitTypeDTO> getAllUnitType() {
         return null;
     }
 }

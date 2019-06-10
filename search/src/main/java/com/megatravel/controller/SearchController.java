@@ -24,7 +24,7 @@ public class SearchController {
         return new ResponseEntity<>(this.searchService.normalSearch(accommodationDTO), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/normal", method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    @RequestMapping(value = "/advanced", method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<List<AccommodationDTO>> advancedSearch(@RequestBody AccommodationDTO accommodationDTO){
         return new ResponseEntity<>(this.searchService.normalSearch(accommodationDTO), HttpStatus.OK);
     }

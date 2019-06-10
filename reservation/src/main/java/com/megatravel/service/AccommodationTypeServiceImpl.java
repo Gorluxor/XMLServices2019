@@ -1,9 +1,12 @@
 package com.megatravel.service;
 
 
+import com.megatravel.configs.WebConfig;
 import com.megatravel.dtos.agent.AccommodationTypeDTO;
 import com.megatravel.interfaces.AccommodationTypeInterface;
+import org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.WebApplicationContext;
 
 import javax.jws.WebService;
 import java.util.List;
@@ -13,6 +16,13 @@ import java.util.List;
 public class AccommodationTypeServiceImpl implements AccommodationTypeInterface {
 
     public static final String ENDPOINT = "/accType";
+
+    public AccommodationTypeServiceImpl() {
+        AutowiredAnnotationBeanPostProcessor bpp = new AutowiredAnnotationBeanPostProcessor();
+        WebApplicationContext currentContext = WebConfig.getWebApplicationContext();
+        bpp.setBeanFactory(currentContext.getAutowireCapableBeanFactory());
+        bpp.processInjection(this);
+    }
 
     @Override
     public AccommodationTypeDTO createService(AccommodationTypeDTO accommodationTypeDTO) {

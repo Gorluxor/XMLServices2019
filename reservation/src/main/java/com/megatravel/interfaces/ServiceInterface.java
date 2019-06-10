@@ -3,6 +3,7 @@ package com.megatravel.interfaces;
 import com.megatravel.dtos.agent.ServiceDTO;
 
 import javax.jws.WebMethod;
+import javax.jws.WebParam;
 import javax.jws.WebService;
 import javax.xml.bind.annotation.XmlElement;
 import java.util.List;
@@ -11,13 +12,13 @@ import java.util.List;
 public interface ServiceInterface {
 
     @WebMethod
-    ServiceDTO createService(@XmlElement(name = "serviceDTO", required = true) ServiceDTO serviceDTO);
+    ServiceDTO createAccService(@WebParam(name = "ServiceDTO") ServiceDTO serviceDTO);
     @WebMethod
-    ServiceDTO updateService(@XmlElement(name = "serviceDTO", required = true) ServiceDTO serviceDTO);
+    ServiceDTO updateAccService(@WebParam(name = "ServiceDTO") ServiceDTO serviceDTO);
     @WebMethod
-    ServiceDTO deleteService(@XmlElement(name = "serviceId", required = true) Long serviceId);
+    ServiceDTO deleteAccService(@WebParam(name = "ServiceId") Long serviceId);
     @WebMethod
-    ServiceDTO getService(@XmlElement(name = "serviceId", required = true) Long serviceId);
+    ServiceDTO getAccService(@WebParam(name = "ServiceId") Long serviceId);
     @WebMethod
     List<ServiceDTO> getAllServices();
 
