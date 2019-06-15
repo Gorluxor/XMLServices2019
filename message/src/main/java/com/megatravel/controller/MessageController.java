@@ -20,19 +20,19 @@ public class MessageController {
     @Autowired
     private MessageServiceImpl messageService;
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-    public  ResponseEntity<List<ChatRoomDTO>> getInbox(@PathVariable("id") Long id){
-        return new ResponseEntity<List<ChatRoomDTO>>(this.messageService.getChatRooms(id), HttpStatus.OK);
+    @RequestMapping(value = "/{id}/page/{page}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    public  ResponseEntity<List<ChatRoomDTO>> getInbox(@PathVariable("id") Long id, @PathVariable("page") String page){
+        return new ResponseEntity<List<ChatRoomDTO>>(this.messageService.getChatRooms(id, page), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{id}/chatRoom/{chatRoomId}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-    public  ResponseEntity<List<MessageDTO>> getChatRoomMessages(@PathVariable("id") Long id, @PathVariable("chatRoomId") Long chatRoomId){
-        return new ResponseEntity<List<MessageDTO>>(this.messageService.getListMessagesForChatRoom(id,chatRoomId), HttpStatus.OK);
+    @RequestMapping(value = "/{id}/chatRoom/{chatRoomId}/page/{page}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    public  ResponseEntity<List<MessageDTO>> getChatRoomMessages(@PathVariable("id") Long id, @PathVariable("chatRoomId") Long chatRoomId, @PathVariable("page") String page){
+        return new ResponseEntity<List<MessageDTO>>(this.messageService.getListMessagesForChatRoom(id,chatRoomId,page), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{receiverId}", method = RequestMethod.POST, produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<MessageDTO> sendMessage(@PathVariable("receiverId") Long id, @RequestBody MessageDTO messageDTO){
-        return new ResponseEntity<>(this.messageService.sendMessage(id, messageDTO), HttpStatus.OK);
+    @RequestMapping(value = "/{chatRoomId}", method = RequestMethod.POST, produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<MessageDTO> sendMessage(@PathVariable("chatRoomId") Long chatRoomId, @RequestBody MessageDTO messageDTO){
+        return new ResponseEntity<>(this.messageService.sendMessage(chatRoomId, messageDTO), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/chatRoom", method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
