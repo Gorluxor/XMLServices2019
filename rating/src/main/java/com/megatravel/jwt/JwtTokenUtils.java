@@ -1,7 +1,8 @@
 package com.megatravel.jwt;
 
 import com.megatravel.exceptions.CustomException;
-import com.megatravel.model.Role;
+
+import com.megatravel.models.admin.Role;
 import com.megatravel.security.ImplementedUserDetails;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;

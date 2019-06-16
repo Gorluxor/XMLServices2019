@@ -1,6 +1,6 @@
 package com.megatravel.repository;
 
-import com.megatravel.model.User;
+import com.megatravel.models.admin.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 

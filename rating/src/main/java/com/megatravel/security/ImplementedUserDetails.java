@@ -1,6 +1,7 @@
 package com.megatravel.security;
 
-import com.megatravel.model.User;
+
+import com.megatravel.models.admin.User;
 import com.megatravel.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
