@@ -1,23 +1,20 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/xmlagent?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&createDatabaseIfNotExist=true
+    url: jdbc:mysql://localhost:3306/xmlagent?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&createDatabaseIfNotExist=true&characterEncoding=UTF-8
     username: XML
     password: XMLSecureMYSQL!
     initialization-mode: always
     continue-on-error: "true"
-  datasourse:
-    data: /resources/data.sql
+#  datasourse:
+#    data: /resources/data.sql
   jpa:
     hibernate:
-      show_sql: "true"
-      format_sql: "true"
       ddl-auto: update
-      jdbc:
-        batch_size: "50"
-      connection:
-        CharSet: utf8
-        characterEncoding: utf8
-        useUnicode: "true"
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+  application:
+    name: Auth
 server:
   error:
     whitelabel:
@@ -39,7 +36,4 @@ server:
 #        enabled-protocols: TLSv1.2
 #  http2:
 #       enabled: true
-sping:
-  jpa:
-    hibernate:
-      dialect: org.hibernate.dialect.MySQLDialect
+

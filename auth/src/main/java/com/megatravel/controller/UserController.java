@@ -8,7 +8,7 @@ import com.megatravel.dtos.admin.UserDTO;
 
 import com.megatravel.models.admin.Role;
 import com.megatravel.models.admin.User;
-import com.megatravel.service.UserService;
+import com.megatravel.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -30,36 +30,36 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class UserController {
 	
 	@Autowired
-    UserService userService;
+    UserServiceImpl userServiceImpl;
 	
 	@RequestMapping(value = "/users", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE,
 			MediaType.APPLICATION_XML_VALUE })
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
-	public ResponseEntity<List<UserDTO>> getAllUsers(Pageable page) {
-		return new ResponseEntity<>(userService.findAll(page), HttpStatus.OK);
+	public ResponseEntity<List<UserDTO>> getAllUsers() {
+		return new ResponseEntity<>(userServiceImpl.findAll(), HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "user/{id}", method = RequestMethod.GET)
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
 	public ResponseEntity<UserDTO> getUser(@PathVariable Long id) {
-		return new ResponseEntity<>(userService.findOne(id), HttpStatus.OK);
+		return new ResponseEntity<>(userServiceImpl.findOne(id), HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "user/email/{email}", method = RequestMethod.GET)
 	public ResponseEntity<UserDTO> getUserByEmail(@PathVariable String email) {
-		return new ResponseEntity<>(new UserDTO(userService.findByEmail(email)), HttpStatus.OK);
+		return new ResponseEntity<>(new UserDTO(userServiceImpl.findByEmail(email)), HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "login", method = RequestMethod.POST, consumes = "application/json")
 	public ResponseEntity<String> login(@RequestBody LoginDTO loginDTO) {
 
-		User user = userService.findByEmail(loginDTO.getEmail());
+		User user = userServiceImpl.findByEmail(loginDTO.getEmail());
 		if(user == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 
 		try {
-			String jwt = userService.signin(loginDTO.getEmail(), loginDTO.getPassword());
+			String jwt = userServiceImpl.signin(loginDTO.getEmail(), loginDTO.getPassword());
 			ObjectMapper mapper = new ObjectMapper();
 			return new ResponseEntity<>(mapper.writeValueAsString(jwt), HttpStatus.OK);
 		} catch (Exception e) {
@@ -77,7 +77,7 @@ public class UserController {
 			return new ResponseEntity<>(HttpStatus.LOCKED);
 		}
 		
-		User tempKorisnik = userService.findByEmail(registrationDTO.getEmail());
+		User tempKorisnik = userServiceImpl.findByEmail(registrationDTO.getEmail());
 		if(tempKorisnik != null) {
 			//unique mail for the user
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -91,7 +91,7 @@ public class UserController {
 		Role role = new Role();
 		role.setId(1L);
 		user.setRole(role);
-		userService.signup(user);
+		userServiceImpl.signup(user);
 
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}

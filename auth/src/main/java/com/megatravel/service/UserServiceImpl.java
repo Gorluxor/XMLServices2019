@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.megatravel.dtos.admin.UserDTO;
+import com.megatravel.interfaces.UserSoapInterface;
 import com.megatravel.models.admin.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,6 +16,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 
@@ -25,9 +27,13 @@ import com.megatravel.password.Base64Utility;
 import com.megatravel.password.HashPassword;
 import com.megatravel.repository.UserRepository;
 
+import javax.jws.WebService;
 
+
+@WebService(endpointInterface = "com.megatravel.interfaces.UserSoapInterface")
+@Service
 @Component
-public class UserService {
+public class UserServiceImpl implements UserSoapInterface {
 	@Autowired
 	UserRepository userRepository;
 
@@ -37,10 +43,12 @@ public class UserService {
 	@Autowired
 	private AuthenticationManager authenticationManager;
 
-	public List<UserDTO> findAll(Pageable page) {
-		Page<User> users = userRepository.findAll(page);
+	public static final String ENDPOINT = "/user";
 
-		if(users.hasContent()) {
+	public List<UserDTO> findAll() {
+		List<User> users = userRepository.findAll();
+
+		if(!users.isEmpty()) {
 			List<UserDTO> retVal = new ArrayList<UserDTO>();
 	
 			for (User user : users) {
@@ -51,7 +59,7 @@ public class UserService {
 			return retVal;
 		}
 		else {
-			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Requested page is empty.");
+			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Requested content is empty.");
 		}
 	}
 
