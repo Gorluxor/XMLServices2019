@@ -9,9 +9,9 @@ import sun.misc.BASE64Encoder;
 @SuppressWarnings("restriction")
 public class Base64Utility {
 	 /**
-	  * Function to encode bytes into a String
-	  * @param data - array of bytes, that are encoded before putting into a file
-	  * @return - Bytes encoded into a String
+	  * Pomocna funkcija za enkodovanje bajtova u string
+	  * @param data - niz bajtova koje enkodiramo pre sacuvavanja u file
+	  * @return - vraca konvertovane bajtove u string
 	  */
 	 public static String encode(byte[] data){
 		 BASE64Encoder encoder = new BASE64Encoder();
@@ -19,9 +19,9 @@ public class Base64Utility {
 	 }
 	 
 	 /**
-	  * Decodes the String into a byte array
-	  * @param base64Data - The string that we want to decode
-	  * @return - Returns the decoded string
+	  * Pomocna funkcija za dekodovanje stringa u bajt niz
+	  * @param base64Data - string koji zelimo da dekoiramo u niz bajtova
+	  * @return - vraca dekodiran string u niz bajtova
 	  * @throws IOException
 	  */
 	 public static byte[] decode(String base64Data) throws IOException{
@@ -30,9 +30,9 @@ public class Base64Utility {
 	 }
 	 
 	 /**
-	  * Generate the string of a given len with numbers ranging from 0 to 9
-	  * @param len - the length of the string
-	  * @return String with the given length (containing the numbers 0 to 9)
+	  * generise string po zadatoj duzini koji sadri cifre od 0-9
+	  * @param len - duzina stringa koji ce biri izgenerisan od random brojeva izmedju 0-9
+	  * @return vraca generisani string
 	  */
 	 public static String generateRandomNumberForLength(int len){
 		   SecureRandom sr = new SecureRandom();

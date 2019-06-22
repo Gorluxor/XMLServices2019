@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import com.megatravel.dtos.admin.UserDTO;
-import com.megatravel.interfaces.UserSoapInterface;
+import com.megatravel.exceptions.CustomException;
 import com.megatravel.models.admin.User;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,26 +16,25 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.megatravel.dtos.admin.UserDTO;
 
-import com.megatravel.exceptions.CustomException;
 import com.megatravel.jwt.JwtTokenUtils;
-
+import com.megatravel.models.admin.Role;
 import com.megatravel.password.Base64Utility;
 import com.megatravel.password.HashPassword;
+import com.megatravel.repository.RoleRepository;
 import com.megatravel.repository.UserRepository;
 
-import javax.jws.WebService;
 
-
-@WebService(endpointInterface = "com.megatravel.interfaces.UserSoapInterface")
-@Service
 @Component
-public class UserServiceImpl implements UserSoapInterface {
+public class UserService {
 	@Autowired
 	UserRepository userRepository;
+	
+	@Autowired
+	RoleRepository roleRepository;
 
 	@Autowired
 	private JwtTokenUtils jwtTokenProvider;
@@ -43,42 +42,57 @@ public class UserServiceImpl implements UserSoapInterface {
 	@Autowired
 	private AuthenticationManager authenticationManager;
 
-	public static final String ENDPOINT = "/user";
+	public List<UserDTO> findAll(Pageable page) {
+		Page<User> users = userRepository.findAll(page);
 
-	public List<UserDTO> findAll() {
-		List<User> users = userRepository.findAll();
-
-		if(!users.isEmpty()) {
+		if(users.hasContent()) {
 			List<UserDTO> retVal = new ArrayList<UserDTO>();
 	
 			for (User user : users) {
 				UserDTO userDTO = new UserDTO(user);
 				retVal.add(userDTO);
 			}
-			
+
 			return retVal;
 		}
 		else {
-			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Requested content is empty.");
+
+			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "No users!");
 		}
 	}
 
 	public UserDTO findOne(Long id) {
 		Optional<User> user = userRepository.findById(id);
 		if(user.isPresent()) {
+
 			return new UserDTO(user.get());
 		}
 		else {
-			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Requested user with id " + id + " doesn't exist.");
+
+			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "No user with requested id");
+		}
+	}
+	
+	public User findOneUser(Long id) {
+		Optional<User> user = userRepository.findById(id);
+		if(user.isPresent()) {
+
+			return user.get();
+		}
+		else {
+
+			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "No user with requested id");
 		}
 	}
 
 	public User save(User user) {
+
 		return userRepository.save(user);
 	}
 
 	public void remove(Long id) {
 		userRepository.deleteById(id);
+
 	}
 	
 	public String signin(String email, String password) {
@@ -93,8 +107,10 @@ public class UserServiceImpl implements UserSoapInterface {
 				e.printStackTrace();
 			}
 			
+
 			return jwtTokenProvider.createToken(email, userRepository.findByEmail(email).getRole());
 		} catch (AuthenticationException e) {
+
 			throw new CustomException("Invalid username/password supplied", HttpStatus.UNPROCESSABLE_ENTITY);
 		}
 	}
@@ -109,11 +125,25 @@ public class UserServiceImpl implements UserSoapInterface {
 			user.setSalt(Base64Utility.encode(salt));
 			return userRepository.save(user);
 		} else {
-			throw new CustomException("Username is already in use", HttpStatus.UNPROCESSABLE_ENTITY);
+			throw new CustomException("Email is already in use", HttpStatus.UNPROCESSABLE_ENTITY);
 		}
 	}
 	
 	public User findByEmail(String email) {
 		return userRepository.findByEmail(email);
 	}
+
+	public void changeRoleUser(Long userId, Long roleId) {
+		User user = this.findOneUser(userId);
+		Optional<Role> role = roleRepository.findById(roleId);
+		if(role.isPresent()) {
+			user.setRole(role.get());
+			userRepository.save(user);
+		}
+		else {
+			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Invalid role id");
+		}	
+	}
+	
+
 }

@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.xml.ws.Endpoint;
 
+import com.megatravel.webservice.WebMessageServiceImpl;
 import com.netflix.appinfo.EurekaInstanceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -14,13 +15,11 @@ import org.springframework.stereotype.Component;
 import com.megatravel.service.MessageServiceImpl;
 import com.netflix.appinfo.ApplicationInfoManager;
 
+@SuppressWarnings("Duplicates")
 @Component
 public class DynamicEndpointPublisher {
 
     private static final String SOAP_PORT = "soap-port";
-
-    @SuppressWarnings("Autowired")
-
 
     @Autowired
     private EurekaInstanceConfig eurekaInstanceConfig;
@@ -29,14 +28,10 @@ public class DynamicEndpointPublisher {
     public void init() {
 
         ApplicationInfoManager applicationInfoManager = new ApplicationInfoManager(eurekaInstanceConfig);
-        Map<String, String> map = applicationInfoManager.getInfo().getMetadata();
-
-
         int port = this.getEmptyPort();
-        map.put(SOAP_PORT, Integer.toString(port));
-        publishEndpoint(port, MessageServiceImpl.ENDPOINT, MessageServiceImpl.class);
+        applicationInfoManager.getInfo().getMetadata().put(SOAP_PORT,Integer.toString(port));
+        publishEndpoint(port, WebMessageServiceImpl.ENDPOINT, WebMessageServiceImpl.class);
     }
-
 
     private int getEmptyPort() {
             try {

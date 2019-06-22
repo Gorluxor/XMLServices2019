@@ -86,7 +86,7 @@ public class ReservationDTO {
         this.departureDate = reservation.getDepartureDate();
         this.stayRealized = reservation.isStayRealized();
         this.reservationPrice = reservation.getReservationPrice();
-        this.userDTO = new UserDTO(reservation.getUser());
+        this.userDTO = reservation.getUser() == null? null : new UserDTO(reservation.getUser());
         this.accommodationUnitDTO = new ArrayList<>();
 
         for (AccommodationUnit au : reservation.getAccommodationUnit()){

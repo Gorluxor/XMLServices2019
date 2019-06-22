@@ -21,7 +21,7 @@ public class JwtTokenFilter extends GenericFilterBean {
 	public JwtTokenFilter(JwtTokenUtils jwtTokenProvider) {
 		this.jwtTokenProvider = jwtTokenProvider;
 	}
-	//Interceptor that adds the token if its missing
+	//prestretne zahtev izvlaci/ubacuje token iz/u zahteva
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse res, FilterChain filterChain)
 			throws IOException, ServletException {
@@ -31,7 +31,7 @@ public class JwtTokenFilter extends GenericFilterBean {
 			Authentication auth = token != null ? jwtTokenProvider.getAuthentication(token) : null;
 			SecurityContextHolder.getContext().setAuthentication(auth);
 		}
-		
+
 		filterChain.doFilter(req, res);
 	}
 

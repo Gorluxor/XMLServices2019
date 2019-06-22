@@ -2,6 +2,7 @@ package com.megatravel.controller;
 
 import com.megatravel.dtos.rating.RatingDTO;
 import com.megatravel.dtos.reservations.ReservationDTO;
+import com.megatravel.models.rating.Rating;
 import com.megatravel.service.RatingServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -39,6 +40,12 @@ public class RatingController {
     public ResponseEntity<List<RatingDTO>> accommodationRatings(@PathVariable("id") Long accommodationId){
         return new ResponseEntity<>(this.ratingService.ratingForReservation(accommodationId), HttpStatus.OK);
     }
+
+    @RequestMapping(value = "/AllNotApproved", method = RequestMethod.GET)
+    public ResponseEntity<List<RatingDTO>> listNotApproved(){
+        return new ResponseEntity<List<RatingDTO>>(this.ratingService.ratingNotApproved(), HttpStatus.OK);
+    }
+
 
 
     @RequestMapping(value = "/accommodation/{id}/average/")

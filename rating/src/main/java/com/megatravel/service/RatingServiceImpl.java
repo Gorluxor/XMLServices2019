@@ -90,4 +90,14 @@ public class RatingServiceImpl {
     }
 
 
+    public List<RatingDTO> ratingNotApproved(){
+        List<Rating> ratings =  ratingRepository.findAllByAdminApprovedIsFalse();
+        List<RatingDTO> retVal = new ArrayList<>();
+        for (Rating r : ratings){
+            retVal.add(new RatingDTO(r));
+        }
+        return retVal;
+    }
+
+
 }

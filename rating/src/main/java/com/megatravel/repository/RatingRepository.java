@@ -19,7 +19,7 @@ public interface RatingRepository extends JpaRepository<Rating, Long> {
             "\t on r.reservation_id = rr.id \n" +
             "\t inner join accommodation_unit au \n" +
             "\t on au.id = (select MIN(rau.accommodation_unit_id) from reservation_accommodation_unit rau)\n" +
-            "\t where au.accommodation_id = 1 and r.admin_approved = true;", nativeQuery = true)
+            "\t where au.accommodation_id = ?1 and r.admin_approved = true;", nativeQuery = true)
     Page<Rating> forAccommodation(Long accommodationId, Pageable pageable);
 
     @Query(value = "select r.* from rating r \n" +
@@ -27,7 +27,7 @@ public interface RatingRepository extends JpaRepository<Rating, Long> {
             "\t on r.reservation_id = rr.id \n" +
             "\t inner join accommodation_unit au \n" +
             "\t on au.id = (select MIN(rau.accommodation_unit_id) from reservation_accommodation_unit rau)\n" +
-            "\t where au.accommodation_id = 1 and r.admin_approved = true;", nativeQuery = true)
+            "\t where au.accommodation_id = ?1 and r.admin_approved = true;", nativeQuery = true)
     List<Rating> forAccommodation(Long accommodationId);
 
     @Query(value = " select IFNULL(AVG(r.rating_value),0) from rating r \n" +
@@ -35,10 +35,12 @@ public interface RatingRepository extends JpaRepository<Rating, Long> {
             "\t on r.reservation_id = rr.id \n" +
             "\t inner join accommodation_unit au \n" +
             "\t on au.id = (select MIN(rau.accommodation_unit_id) from reservation_accommodation_unit rau)\n" +
-            "\t where au.accommodation_id = 1 and r.admin_approved = true;", nativeQuery = true)
+            "\t where au.accommodation_id = ?1 and r.admin_approved = true;", nativeQuery = true)
     Double forAccommodationAverage(Long accommodationId);
 
-    //
+
+    List<Rating> findAllByAdminApprovedIsFalse();
+
 //    @Query("select r from Rating r where r.reservation.accommodation in (select res.id from Reservation res where )")
 //    Page<Rating> forAccommodationUnit(Long accommodationUnitId, Pageable pageable);
 

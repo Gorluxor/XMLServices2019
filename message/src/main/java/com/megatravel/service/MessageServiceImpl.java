@@ -1,10 +1,9 @@
 package com.megatravel.service;
 
-import com.megatravel.configs.WebConfig;
 import com.megatravel.dtos.messages.ChatRoomDTO;
 import com.megatravel.dtos.messages.MessageDTO;
-import com.megatravel.interfaces.MessageService;
 import com.megatravel.models.admin.User;
+import com.megatravel.models.agent.AccommodationUnit;
 import com.megatravel.models.messages.ChatRoom;
 import com.megatravel.models.messages.Message;
 import com.megatravel.models.reservations.Reservation;
@@ -14,24 +13,16 @@ import com.megatravel.repository.ReservationRepository;
 import com.megatravel.repository.UserRepository;
 import com.megatravel.utils.PageRequestProvider;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.server.ResponseStatusException;
 
-import javax.jws.WebService;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-
-@WebService(endpointInterface = "com.megatravel.interfaces.MessageService")
 @Service
-public class MessageServiceImpl implements MessageService {
-
-    public static final String ENDPOINT = "/msg";
+public class MessageServiceImpl {
 
     @Autowired
     ChatRoomRepository chatRoomRepository;
@@ -44,45 +35,28 @@ public class MessageServiceImpl implements MessageService {
     @Autowired
     ReservationRepository reservationRepository;
 
-    public MessageServiceImpl() {
-        AutowiredAnnotationBeanPostProcessor bpp = new AutowiredAnnotationBeanPostProcessor();
-        WebApplicationContext currentContext = WebConfig.getWebApplicationContext();
-        bpp.setBeanFactory(currentContext.getAutowireCapableBeanFactory());
-        bpp.processInjection(this);
-    }
-
-
-    @Override // Page<ChatRoomDTO>
-    public List<ChatRoomDTO> getChatRooms(Long userId, String page) throws ResponseStatusException {
+    public List<ChatRoomDTO> getChatRooms(Long userId) throws ResponseStatusException {
         if (!userRepository.existsById(userId)){
             throw new ResponseStatusException(HttpStatus.NO_CONTENT, "No such object in database");
         }
 
-        Page<ChatRoom> results = chatRoomRepository.findAllByReservation_User_Id(userId, pageRequestProvider.provideRequest(page));
+        List<ChatRoom> results = chatRoomRepository.allByUserId(userId);
         List<ChatRoomDTO> retVal = new ArrayList<>();
-        for (ChatRoom chat: results.getContent() ) {
+        for (ChatRoom chat: results ) {
             retVal.add(new ChatRoomDTO(chat));
         }
         return retVal;
     }
 
-    @Override
-    public List<MessageDTO> getListMessagesForChatRoom(Long userId, Long chatRoomId, String page) throws ResponseStatusException {
-        Page<Message> results = messageRepository.allMessagesToChat(chatRoomId, userId, pageRequestProvider.provideRequest(page));
-
+    public List<Message> getListMessagesForChatRoom(Long userId, Long chatRoomId) throws ResponseStatusException {
+        List<Message> results = messageRepository.allMessagesToChat(chatRoomId, userId);
         if (!userRepository.existsById(userId)){
             throw new ResponseStatusException(HttpStatus.NO_CONTENT, "No such object in database");
         }
-
-        List<MessageDTO> retVal = new ArrayList<>();
-        for (Message m : results.getContent()){
-            retVal.add(new MessageDTO(m));
-        }
-        return retVal;
+        return results;
     }
 
-    @Override
-    public MessageDTO sendMessage(Long chatRoomId, MessageDTO messageDTO) throws ResponseStatusException {
+    public Message sendMessage(Long chatRoomIdOrReservationId, MessageDTO messageDTO) throws ResponseStatusException {
 
         Message msg = new Message(messageDTO);
 
@@ -103,13 +77,13 @@ public class MessageServiceImpl implements MessageService {
         msg.setChatRoom(chatRoom);
         msg.setReceiver(receiver);
         msg.setSender(sender);
+
         messageRepository.save(msg);
 
-        return new MessageDTO(msg);
+        return msg;
     }
 
-    @Override
-    public ChatRoomDTO createChatRoom(ChatRoomDTO chatRoomDTO) throws ResponseStatusException{
+    public ChatRoom createChatRoom(ChatRoomDTO chatRoomDTO) throws ResponseStatusException{
 
         ChatRoom chatRoom = new ChatRoom(chatRoomDTO);
 
@@ -122,9 +96,22 @@ public class MessageServiceImpl implements MessageService {
             throw new ResponseStatusException(HttpStatus.NO_CONTENT, "No such object in database");
         }
 
+        Message starterMessage = new Message();
+        starterMessage.setSender(reservation.getUser());
+        starterMessage.setTimeStamp(new Date());
+        starterMessage.setMsg("Your chat has started");
+        AccommodationUnit accommodationUnit = reservation.getAccommodationUnit().get(0);
+        if (accommodationUnit == null){
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT, "No such object in database");
+        }
+        starterMessage.setReceiver(accommodationUnit.getAccommodation().getUser());
+
         chatRoom.setReservation(reservation);
         chatRoomRepository.save(chatRoom);
 
-        return new ChatRoomDTO(chatRoom);
+        starterMessage.setChatRoom(chatRoom);
+        messageRepository.save(starterMessage);
+
+        return chatRoom;
     }
 }

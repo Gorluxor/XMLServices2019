@@ -18,6 +18,8 @@ spring:
         CharSet: utf8
         characterEncoding: utf8
         useUnicode: "true"
+  application:
+    name: Agent
 server:
   error:
     whitelabel:

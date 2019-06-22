@@ -2,19 +2,21 @@ package com.megatravel.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.megatravel.dtos.admin.LoginDTO;
 import com.megatravel.dtos.admin.RegistrationDTO;
 import com.megatravel.dtos.admin.UserDTO;
-
 import com.megatravel.models.admin.Role;
 import com.megatravel.models.admin.User;
-import com.megatravel.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,43 +25,77 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import com.megatravel.service.RoleService;
+import com.megatravel.service.UserService;
 
 
+
+
+@SuppressWarnings("Duplicates")
 @RestController
-@RequestMapping(value = "/api")
+@CrossOrigin
+@RequestMapping(value = "/users")
 public class UserController {
 	
 	@Autowired
-    UserServiceImpl userServiceImpl;
+	UserService userService;
 	
-	@RequestMapping(value = "/users", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE,
-			MediaType.APPLICATION_XML_VALUE })
-	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
-	public ResponseEntity<List<UserDTO>> getAllUsers() {
-		return new ResponseEntity<>(userServiceImpl.findAll(), HttpStatus.OK);
-	}
-	
-	@RequestMapping(value = "user/{id}", method = RequestMethod.GET)
-	@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
-	public ResponseEntity<UserDTO> getUser(@PathVariable Long id) {
-		return new ResponseEntity<>(userServiceImpl.findOne(id), HttpStatus.OK);
-	}
-	
-	@RequestMapping(value = "user/email/{email}", method = RequestMethod.GET)
-	public ResponseEntity<UserDTO> getUserByEmail(@PathVariable String email) {
-		return new ResponseEntity<>(new UserDTO(userServiceImpl.findByEmail(email)), HttpStatus.OK);
-	}
-	
-	@RequestMapping(value = "login", method = RequestMethod.POST, consumes = "application/json")
-	public ResponseEntity<String> login(@RequestBody LoginDTO loginDTO) {
+	@Autowired
+	RoleService roleService;
 
-		User user = userServiceImpl.findByEmail(loginDTO.getEmail());
+	@RequestMapping(method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE,
+			MediaType.APPLICATION_XML_VALUE })
+
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	public ResponseEntity<List<UserDTO>> getAllUsers(Pageable page, HttpServletRequest request) {
+		
+		System.out.println(request.getHeader("Authorization"));
+		request.getHeader("Authorization");
+		
+		
+		List<UserDTO> found = userService.findAll(page);
+		HttpHeaders headers = new HttpHeaders();
+		long usersTotal= found.size();
+		headers.add("X-Total-Count", String.valueOf(usersTotal));
+		
+		return new ResponseEntity<>(found, headers, HttpStatus.OK);
+	}
+
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@RequestMapping(value = "/{userId}/role/{roleId}", method = RequestMethod.GET)
+	public ResponseEntity<Void> changeRoleUser(@PathVariable Long userId, @PathVariable Long roleId) {
+
+		userService.changeRoleUser(userId, roleId);
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+
+
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+
+	public ResponseEntity<UserDTO> getUser(@PathVariable Long id) {
+		return new ResponseEntity<>(userService.findOne(id), HttpStatus.OK);
+	}
+
+	
+	@RequestMapping(value = "/email/{email}", method = RequestMethod.GET)
+	public ResponseEntity<UserDTO> getUserByEmail(@PathVariable String email) {
+		return new ResponseEntity<>(new UserDTO(userService.findByEmail(email)), HttpStatus.OK);
+	}
+	
+
+
+
+	
+	@RequestMapping(value = "/login", method = RequestMethod.POST, consumes = "application/json")
+	public ResponseEntity<String> login(@RequestBody LoginDTO loginDTO) {
+		
+		User user = userService.findByEmail(loginDTO.getEmail());
 		if(user == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 
 		try {
-			String jwt = userServiceImpl.signin(loginDTO.getEmail(), loginDTO.getPassword());
+			String jwt = userService.signin(loginDTO.getEmail(), loginDTO.getPassword());
 			ObjectMapper mapper = new ObjectMapper();
 			return new ResponseEntity<>(mapper.writeValueAsString(jwt), HttpStatus.OK);
 		} catch (Exception e) {
@@ -73,13 +109,11 @@ public class UserController {
 	public ResponseEntity<Void> signup(@RequestBody RegistrationDTO registrationDTO) {
 
 		if (!registrationDTO.getRepeatPassword().equals(registrationDTO.getPassword())) {
-			//not the same passwords
 			return new ResponseEntity<>(HttpStatus.LOCKED);
 		}
-		
-		User tempKorisnik = userServiceImpl.findByEmail(registrationDTO.getEmail());
-		if(tempKorisnik != null) {
-			//unique mail for the user
+
+		User tmp = userService.findByEmail(registrationDTO.getEmail());
+		if(tmp != null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		
@@ -88,30 +122,13 @@ public class UserController {
 		user.setPassword(registrationDTO.getPassword());
 		user.setName(registrationDTO.getName());
 		user.setLastName(registrationDTO.getLastName());
-		Role role = new Role();
-		role.setId(1L);
+		Role role = roleService.findByRoleName("Role_User");
+
 		user.setRole(role);
-		userServiceImpl.signup(user);
+		userService.signup(user);
 
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
-	
-	/*@PreAuthorize("hasAnyRole('ROLE_Registrovani_korisnik')")
-	@RequestMapping(value = "api", method = RequestMethod.GET)
-	public ResponseEntity<Void> pomocna( HttpServletRequest req) {
-		
-		String token = jwtTokenUtils.resolveToken(req);
-		Korisnik korisnik = null;
-		
-		if(token != null) {
-			String email = jwtTokenUtils.getUsername(token);
-			korisnik = korisnikService.findByEmail(email);
-		}
 
-		if(korisnik == null) {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
-	}*/
 	
 }
-

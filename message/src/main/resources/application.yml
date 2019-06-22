@@ -20,12 +20,23 @@ spring:
         characterEncoding: utf8
         useUnicode: "true"
   application:
-    name: Message
+    name: message
+
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    register-with-eureka: true
+    fetch-registry: false
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
 server:
   error:
     whitelabel:
       enabled: "false"
-  port: 0 #"8084"
+  port: 8888 #"8084"
 
 sping:
   jpa:

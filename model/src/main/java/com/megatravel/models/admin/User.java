@@ -46,6 +46,7 @@ public class User {
     @OneToOne
     private Role role;
 
+
     // Above needed for spring security, below extra info
 
     protected String country;
@@ -68,7 +69,6 @@ public class User {
     protected Accommodation accommodation;
 
     public User() {
-
     }
 
     public User(UserDTO userDTO) {
@@ -94,6 +94,7 @@ public class User {
         this.location = new Location(registrationDTO.getLocationDTO());
         this.reservations = new ArrayList<>();
         this.accommodation = null;
+
     }
 
     // Minimum for security
@@ -104,7 +105,10 @@ public class User {
         this.password = password;
         this.salt = salt;
         this.email = email;
+
     }
+
+
 
     public List<Reservation> getReservations() {
         return reservations;

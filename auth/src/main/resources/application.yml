@@ -14,12 +14,13 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
   application:
-    name: Auth
+    name: auth
 server:
   error:
     whitelabel:
       enabled: "false"
   port: "8081"
+
 #  ssl:
 #    enabled: "true"
 #    key-store: classpath:keystore.p12

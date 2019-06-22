@@ -35,7 +35,7 @@
       <module name="agent" options="-parameters" />
       <module name="auth" options="-parameters" />
       <module name="eureka" options="-parameters" />
-      <module name="gateway" options="-parameters" />
+      <module name="gateway" options="" />
       <module name="message" options="-parameters" />
       <module name="model" options="-parameters" />
       <module name="rating" options="-parameters" />

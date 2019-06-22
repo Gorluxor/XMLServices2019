@@ -46,11 +46,14 @@ public class Reservation {
 
 
     public Reservation(ReservationDTO reservationDTO) {
+        this.id = reservationDTO.getId();
         this.arrivalDate = reservationDTO.getArrivalDate();
         this.departureDate = reservationDTO.getDepartureDate();
         this.stayRealized = reservationDTO.isStayRealized();
         this.reservationPrice = reservationDTO.getReservationPrice();
-        this.user = new User(reservationDTO.getUserDTO());
+        this.user = reservationDTO.getUserDTO() == null ? null : new User(reservationDTO.getUserDTO());
+        this.accommodationUnit = null; //should get from database
+
     }
 
 

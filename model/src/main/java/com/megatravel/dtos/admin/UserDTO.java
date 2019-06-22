@@ -96,17 +96,18 @@ public class UserDTO {
     }
 
     public UserDTO(User user) {
+
         this.id = user.getId();
         this.name = user.getName();
         this.lastName = user.getLastName();
         this.email = user.getEmail();
-        this.password = user.getPassword();
+        //this.password = user.getPassword(); // Should not give back to frontned
         this.country = user.getCountry();
         this.birthday = user.getBirthday();
         this.phoneNumber = user.getPhoneNumber();
         this.pib = user.getPib();
         this.activatedUser = user.isActivatedUser();
-        this.locationDTO = new LocationDTO(user.getLocation());
+        this.locationDTO = user.getLocation() == null ? null : new LocationDTO(user.getLocation());
         this.roleDTO = new RoleDTO(user.getRole());
     }
 

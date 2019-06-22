@@ -1,0 +1,90 @@
+{
+	"info": {
+		"_postman_id": "1f385d0d-b049-4563-8889-e70b9930410b",
+		"name": "Message",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "AddChatRoom",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DirectCreateChatroom",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getInbox",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getMesagesForUser",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "sendMessage",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept-Encoding",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"msg\":\"Test message\",\n\t\"timeStamp\":\"2015-01-01\",\n\t\"sender\":{\n\t\t\"id\":2\n\t},\n\t\"receiver\":{\n\t\t\"id\":3\n\t},\n\t\"chatRoomDTO\":{\n\t\t\"id\":9\n\t}\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8888/msg/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"msg",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

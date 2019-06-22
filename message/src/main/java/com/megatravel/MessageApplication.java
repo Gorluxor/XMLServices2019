@@ -8,7 +8,6 @@ import org.springframework.ws.config.annotation.EnableWs;
 
 @EnableFeignClients
 @EnableEurekaClient
-@EnableWs
 @SpringBootApplication
 public class MessageApplication {
 

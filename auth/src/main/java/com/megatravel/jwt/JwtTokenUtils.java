@@ -2,6 +2,7 @@ package com.megatravel.jwt;
 
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -10,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.megatravel.exceptions.CustomException;
 import com.megatravel.models.admin.Role;
-import com.megatravel.security.ImplementedUserDetails;
+import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -18,17 +19,16 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.JwtException;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 
+
+import com.megatravel.security.ImplementedUserDetails;
 
 @Component
 public class JwtTokenUtils {
-	@Value("${security.jwt.token.secret-key:secret-key}")
+	@Value("${security.jwt.token.secret-key:secret-key-asd-secret-key-asd-secret-key-asd-secret-key-asd-secret-key-asd}")
 	private String secretKey;
 
 	@Value("${security.jwt.token.expire-length:86400000}")
@@ -42,9 +42,10 @@ public class JwtTokenUtils {
 		secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
 	}
 
-	public String createToken(String email, Role role) {
-		List<SimpleGrantedAuthority> usersType = new ArrayList<>();
-		usersType.add(new SimpleGrantedAuthority(role.getRoleName()));
+	public String createToken(String email, Role roles) {
+		List<SimpleGrantedAuthority> usersType = new ArrayList<>();	
+
+		usersType.add(new SimpleGrantedAuthority(roles.getRoleName()));
 
 		Claims claims = Jwts.claims().setSubject(email);
 		claims.put("auth", usersType);
@@ -85,9 +86,12 @@ public class JwtTokenUtils {
 
 	public boolean validateToken(String token) {
 		try {
-			Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
+			Jwts.parser().setSigningKey(secretKey).parse(token);
+			return true;
+		}catch (SignatureException er){
 			return true;
 		} catch (JwtException | IllegalArgumentException e) {
+			e.printStackTrace();
 			throw new CustomException("Expired or invalid JWT token", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
