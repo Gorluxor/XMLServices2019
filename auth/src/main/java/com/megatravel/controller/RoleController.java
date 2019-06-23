@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.megatravel.dtos.admin.RoleDTO;
 import com.megatravel.models.admin.Role;
-import com.megatravel.service.RoleService;
+import com.megatravel.service.RoleServiceImpl;
 
 @SuppressWarnings("Duplicates")
 @RestController
@@ -27,12 +27,12 @@ import com.megatravel.service.RoleService;
 public class RoleController {
 
 	@Autowired
-	private RoleService roleService;
+	private RoleServiceImpl roleServiceImpl;
 
 	@RequestMapping(method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public ResponseEntity<List<RoleDTO>> getAllRoles(Pageable pageable) {
-		List<com.megatravel.dtos.admin.RoleDTO> found = roleService.findAll(pageable);
+		List<com.megatravel.dtos.admin.RoleDTO> found = roleServiceImpl.findAll(pageable);
 		HttpHeaders headers = new HttpHeaders();
 		long rolesTotal = found.size();
 		headers.add("X-Total-Count", String.valueOf(rolesTotal));
@@ -43,25 +43,25 @@ public class RoleController {
 	@RequestMapping(value = "/{id}",method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public ResponseEntity<RoleDTO> getRole(@PathVariable("id") Long id) {
-		return new ResponseEntity<RoleDTO>(roleService.findOne(id), HttpStatus.OK);
+		return new ResponseEntity<RoleDTO>(roleServiceImpl.findOne(id), HttpStatus.OK);
 	}
 	
 	@RequestMapping( method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public ResponseEntity<RoleDTO> createRole(@RequestBody RoleDTO roleDTO) {
-		return new ResponseEntity<RoleDTO>(new RoleDTO(roleService.save(new Role(roleDTO))), HttpStatus.CREATED);
+		return new ResponseEntity<RoleDTO>(new RoleDTO(roleServiceImpl.save(new Role(roleDTO))), HttpStatus.CREATED);
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT, produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public ResponseEntity<RoleDTO> updateRole(@PathVariable("id") Long id, @RequestBody RoleDTO roleDTO){
-		return new ResponseEntity<RoleDTO>(new RoleDTO(roleService.update(id, new Role(roleDTO))), HttpStatus.ACCEPTED);
+		return new ResponseEntity<RoleDTO>(new RoleDTO(roleServiceImpl.update(id, new Role(roleDTO))), HttpStatus.ACCEPTED);
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public ResponseEntity<?> deleteRole(@PathVariable("id") Long id) {
-		roleService.remove(id);
+		roleServiceImpl.remove(id);
 		return ResponseEntity.ok().build();
 	}
 	

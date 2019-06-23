@@ -30,13 +30,17 @@ public class Pricing {
     @ManyToOne
     protected AccommodationUnit priceForUnit;
 
+    protected Date lastChangedDate;
+
     public Pricing() {
+        this.lastChangedDate = new Date();
     }
 
     public Pricing(PricingDTO pricingDTO) {
         this.id = pricingDTO.getId();
         this.price = pricingDTO.getPrice();
         this.startDate = pricingDTO.getStartDate();
+        this.lastChangedDate = pricingDTO.getLastChangedDate();
     }
 
 
@@ -79,4 +83,11 @@ public class Pricing {
         this.startDate = value;
     }
 
+    public Date getLastChangedDate() {
+        return lastChangedDate;
+    }
+
+    public void setLastChangedDate(Date lastChangedDate) {
+        this.lastChangedDate = lastChangedDate;
+    }
 }

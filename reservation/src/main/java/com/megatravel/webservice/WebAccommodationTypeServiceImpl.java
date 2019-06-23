@@ -1,24 +1,22 @@
-package com.megatravel.service;
-
+package com.megatravel.webservice;
 
 import com.megatravel.configs.WebConfig;
-import com.megatravel.dtos.agent.ServiceDTO;
-import com.megatravel.interfaces.ServiceInterface;
+import com.megatravel.dtos.agent.AccommodationTypeDTO;
+import com.megatravel.interfaces.AccommodationTypeInterface;
 import org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.WebApplicationContext;
 
-
 import javax.jws.WebService;
 import java.util.List;
 
-@WebService(endpointInterface = "com.megatravel.interfaces.ServiceInterface")
+@WebService(endpointInterface = "com.megatravel.interfaces.AccommodationTypeInterface")
 @Service
-public class ServiceServiceImpl implements ServiceInterface {
+public class WebAccommodationTypeServiceImpl implements AccommodationTypeInterface {
 
-    public static final String ENDPOINT = "/service";
+    public static final String ENDPOINT = "/accType";
 
-    public ServiceServiceImpl() {
+    public WebAccommodationTypeServiceImpl() {
         AutowiredAnnotationBeanPostProcessor bpp = new AutowiredAnnotationBeanPostProcessor();
         WebApplicationContext currentContext = WebConfig.getWebApplicationContext();
         bpp.setBeanFactory(currentContext.getAutowireCapableBeanFactory());
@@ -26,27 +24,27 @@ public class ServiceServiceImpl implements ServiceInterface {
     }
 
     @Override
-    public ServiceDTO createAccService(ServiceDTO serviceDTO) {
+    public AccommodationTypeDTO createAccType(AccommodationTypeDTO accommodationTypeDTO) {
         return null;
     }
 
     @Override
-    public ServiceDTO updateAccService(ServiceDTO serviceDTO) {
+    public AccommodationTypeDTO updateAccType(AccommodationTypeDTO serviceDTO) {
         return null;
     }
 
     @Override
-    public ServiceDTO deleteAccService(Long serviceId) {
+    public AccommodationTypeDTO deleteAccType(Long accommodationTypeId) {
         return null;
     }
 
     @Override
-    public ServiceDTO getAccService(Long serviceId) {
+    public AccommodationTypeDTO getAccType(Long accommodationTypeId) {
         return null;
     }
 
     @Override
-    public List<ServiceDTO> getAllServices() {
+    public List<AccommodationTypeDTO> getAllAccType() {
         return null;
     }
 }

@@ -17,6 +17,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Date;
 
 @Entity
 public class Role {
@@ -27,6 +28,8 @@ public class Role {
     @Size(min= StaticData.minLength, max= StaticData.lengthValue)
     private String roleName;
 
+    protected Date lastChangedDate;
+
     public Role() {
         super();
     }
@@ -35,6 +38,7 @@ public class Role {
         super();
         this.id = roleDTO.getId();
         this.roleName = roleDTO.getName();
+        this.lastChangedDate = roleDTO.getLastChangedDate();
     }
 
     public Role(@NotNull @Size(min = StaticData.minLength, max = StaticData.lengthValue) String roleName) {
@@ -52,5 +56,13 @@ public class Role {
     }
     public void setRoleName(String roleName) {
         this.roleName = roleName;
+    }
+
+    public Date getLastChangedDate() {
+        return lastChangedDate;
+    }
+
+    public void setLastChangedDate(Date lastChangedDate) {
+        this.lastChangedDate = lastChangedDate;
     }
 }

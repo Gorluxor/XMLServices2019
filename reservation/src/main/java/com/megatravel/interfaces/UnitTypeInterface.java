@@ -9,7 +9,7 @@ import javax.jws.WebService;
 import java.util.List;
 
 @WebService
-public interface UnitTypeServiceInterface {
+public interface UnitTypeInterface {
 
     @WebMethod
     UnitTypeDTO createAccUnitType(@WebParam(name = "UnitTypeDTO") UnitTypeDTO unitTypeDTO);

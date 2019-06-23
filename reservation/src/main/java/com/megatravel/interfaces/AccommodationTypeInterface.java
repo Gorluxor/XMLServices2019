@@ -14,15 +14,15 @@ public interface AccommodationTypeInterface {
 
 
     @WebMethod
-    AccommodationTypeDTO createService(@WebParam(name = "AccommodationTypeDTO") AccommodationTypeDTO accommodationTypeDTO);
+    AccommodationTypeDTO createAccType(@WebParam(name = "AccommodationTypeDTO") AccommodationTypeDTO accommodationTypeDTO);
     @WebMethod
-    AccommodationTypeDTO updateService(@WebParam(name = "AccommodationTypeDTO") AccommodationTypeDTO serviceDTO);
+    AccommodationTypeDTO updateAccType(@WebParam(name = "AccommodationTypeDTO") AccommodationTypeDTO serviceDTO);
     @WebMethod
-    AccommodationTypeDTO deleteService(@WebParam(name = "AccommodationTypeId") Long accommodationTypeId);
+    AccommodationTypeDTO deleteAccType(@WebParam(name = "AccommodationTypeId") Long accommodationTypeId);
     @WebMethod
-    AccommodationTypeDTO getService(@WebParam(name = "AccommodationTypeId") Long accommodationTypeId);
+    AccommodationTypeDTO getAccType(@WebParam(name = "AccommodationTypeId") Long accommodationTypeId);
     @WebMethod
-    List<AccommodationTypeDTO> getAllServices();
+    List<AccommodationTypeDTO> getAllAccType();
 
 
 

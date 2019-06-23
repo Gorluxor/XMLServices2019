@@ -4,11 +4,16 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.megatravel.models.admin.User;
 
+import java.util.List;
+
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
-	public User findByEmail(String email);
+	User findByEmail(String email);
 	
-	public boolean existsByEmail(String email);
+	boolean existsByEmail(String email);
+
+	List<User> findByRole_IdAndAccommodationIsNull(Long id);
+
 	
 }

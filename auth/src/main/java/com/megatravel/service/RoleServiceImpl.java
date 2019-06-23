@@ -10,14 +10,19 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.megatravel.dtos.admin.RoleDTO;
 import com.megatravel.models.admin.Role;
 import com.megatravel.repository.RoleRepository;
 
+import javax.jws.WebService;
+
+
+
 @Component
-public class RoleService {
+public class RoleServiceImpl {
 	@Autowired
 	RoleRepository roleRepository;
 

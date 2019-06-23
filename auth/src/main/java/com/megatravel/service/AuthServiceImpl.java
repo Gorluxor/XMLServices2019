@@ -1,7 +1,5 @@
 package com.megatravel.service;
 
-import java.util.HashSet;
-
 import javax.jws.WebService;
 
 import com.megatravel.dtos.admin.LoginDTO;
@@ -30,10 +28,10 @@ public class AuthServiceImpl implements AuthServiceInterface {
 	public static final String ENDPOINT = "/login";
 
 	@Autowired
-	UserService userService;
+	UserServiceImpl userServiceImpl;
 	
 	@Autowired
-	RoleService roleService;
+	RoleServiceImpl roleServiceImpl;
 	
 
 	
@@ -53,13 +51,13 @@ public class AuthServiceImpl implements AuthServiceInterface {
 	@Override
 	public String login(LoginDTO loginDTO) {
 		
-		User user = userService.findByEmail(loginDTO.getEmail());
+		User user = userServiceImpl.findByEmail(loginDTO.getEmail());
 		if(user == null) {
 			return null;
 		}
 
 		try {
-			String jwt = userService.signin(loginDTO.getEmail(), loginDTO.getPassword());
+			String jwt = userServiceImpl.signin(loginDTO.getEmail(), loginDTO.getPassword());
 			ObjectMapper mapper = new ObjectMapper();
 			System.out.println("JWT token" + mapper.writeValueAsString(jwt));
 			return mapper.writeValueAsString(jwt);
@@ -76,7 +74,7 @@ public class AuthServiceImpl implements AuthServiceInterface {
 			return;
 		}
 
-		User tempKorisnik = userService.findByEmail(registrationDTO.getEmail());
+		User tempKorisnik = userServiceImpl.findByEmail(registrationDTO.getEmail());
 		if(tempKorisnik != null) {
 			//mora biti jedinstveni mail za korisnika
 			return;
@@ -87,10 +85,10 @@ public class AuthServiceImpl implements AuthServiceInterface {
 		user.setPassword(registrationDTO.getPassword());
 		user.setName(registrationDTO.getName());
 		user.setLastName(registrationDTO.getLastName());
-		Role role = roleService.findByRoleName("Role_USER");
+		Role role = roleServiceImpl.findByRoleName("Role_USER");
 
 		user.setRole(role);
-		userService.signup(user);
+		userServiceImpl.signup(user);
 
 	}
 	

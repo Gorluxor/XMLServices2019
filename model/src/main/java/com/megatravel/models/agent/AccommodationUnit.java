@@ -9,15 +9,30 @@
 package com.megatravel.models.agent;
 
 import com.megatravel.dtos.agent.AccommodationUnitDTO;
+import com.megatravel.dtos.agent.ImageDTO;
+import com.megatravel.dtos.types.LocationDTO;
+import com.megatravel.models.types.Location;
 
 import javax.persistence.*;
-import javax.xml.bind.annotation.*;
+import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @SuppressWarnings("WeakerAccess")
 @Entity
 public class AccommodationUnit {
+
+
+
+
+
+
+    //    protected List<PricingDTO> pricingDTO;
+    //    protected List<ExtraServiceDTO> extraServiceDTO;
+    //    protected List<ImageDTO> imageDTO;
+    //    @XmlElement(namespace = "http://www.megatravel.com/types")
+    //
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,18 +40,27 @@ public class AccommodationUnit {
     protected int capacity;
     protected int size;
     protected String nameOfUnit;
+    protected BigInteger cancelationDays;
 
     @ManyToOne
     protected UnitType unitType;
     @OneToMany(mappedBy = "priceForUnit")
     protected List<Pricing> pricing = new ArrayList<>();
     @OneToMany(mappedBy = "serviceForAccUnit")
-    protected List<Service> service = new ArrayList<>();
+    protected List<ExtraService> extraService = new ArrayList<>();
+    @OneToMany(mappedBy = "belongsToAccommodationUnit")
+    protected List<Image> images = new ArrayList<>();
+    @ManyToOne
+    protected Location location;
 
     @ManyToOne
     protected Accommodation accommodation;
 
+    protected Date lastChangedDate;
+
+
     public AccommodationUnit() {
+        this.lastChangedDate = new Date();
     }
 
     public AccommodationUnit(AccommodationUnitDTO accommodationUnitDTO) {
@@ -45,15 +69,64 @@ public class AccommodationUnit {
         this.size = accommodationUnitDTO.getSize();
         this.nameOfUnit = accommodationUnitDTO.getNameOfUnit();
         this.unitType = new UnitType(accommodationUnitDTO.getUnitTypeDTO());
+        this.lastChangedDate = accommodationUnitDTO.getLastChangedDate();
+        this.cancelationDays = accommodationUnitDTO.getCancelationDays();
+        this.location = new Location(accommodationUnitDTO.getLocationDTO());
+        List<ImageDTO> images = accommodationUnitDTO.getImageDTO();
+        List<Image> values = new ArrayList<>();
+        if (images != null){
+            for (ImageDTO imageDTO : images){
+                Image im = new Image();
+                im.lastChangedDate = imageDTO.getLastChangedDate() == null ? new Date() : imageDTO.getLastChangedDate();
+                im.uri = imageDTO.getUri();
+                im.title = imageDTO.getTitle();
+                values.add(im);
+            }
+        }
+        this.images = values;
+
+
     }
 
-    public AccommodationUnit(int capacity, int size, String nameOfUnit, UnitType unitType, List<Pricing> pricing, List<Service> service) {
+    public AccommodationUnit(int capacity, int size, String nameOfUnit, UnitType unitType, List<Pricing> pricing, List<ExtraService> extraService) {
         this.capacity = capacity;
         this.size = size;
         this.nameOfUnit = nameOfUnit;
         this.unitType = unitType;
         this.pricing = pricing;
-        this.service = service;
+        this.extraService = extraService;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
+    public List<Image> getImages() {
+        return images;
+    }
+
+    public void setImages(List<Image> images) {
+        this.images = images;
+    }
+
+    public BigInteger getCancelationDays() {
+        return cancelationDays;
+    }
+
+    public void setCancelationDays(BigInteger cancelationDays) {
+        this.cancelationDays = cancelationDays;
+    }
+
+    public Date getLastChangedDate() {
+        return lastChangedDate;
+    }
+
+    public void setLastChangedDate(Date lastChangedDate) {
+        this.lastChangedDate = lastChangedDate;
     }
 
     public Accommodation getAccommodation() {
@@ -76,8 +149,8 @@ public class AccommodationUnit {
         this.pricing = pricing;
     }
 
-    public void setService(List<Service> service) {
-        this.service = service;
+    public void setExtraService(List<ExtraService> extraService) {
+        this.extraService = extraService;
     }
 
     public int getCapacity() {
@@ -125,11 +198,11 @@ public class AccommodationUnit {
     }
 
 
-    public List<Service> getService() {
-        if (service == null) {
-            service = new ArrayList<Service>();
+    public List<ExtraService> getExtraService() {
+        if (extraService == null) {
+            extraService = new ArrayList<ExtraService>();
         }
-        return this.service;
+        return this.extraService;
     }
 
 }

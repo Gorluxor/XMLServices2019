@@ -41,7 +41,10 @@ public class Reservation {
     @ManyToMany
     protected List<AccommodationUnit> accommodationUnit;
 
+    protected Date lastChangedDate;
+
     public Reservation() {
+        this.lastChangedDate = new Date();
     }
 
 
@@ -53,7 +56,7 @@ public class Reservation {
         this.reservationPrice = reservationDTO.getReservationPrice();
         this.user = reservationDTO.getUserDTO() == null ? null : new User(reservationDTO.getUserDTO());
         this.accommodationUnit = null; //should get from database
-
+        this.lastChangedDate = reservationDTO.getLastChangedDate();
     }
 
 
@@ -67,6 +70,13 @@ public class Reservation {
     }
 
 
+    public Date getLastChangedDate() {
+        return lastChangedDate;
+    }
+
+    public void setLastChangedDate(Date lastChangedDate) {
+        this.lastChangedDate = lastChangedDate;
+    }
 
     public long getId() {
         return id;

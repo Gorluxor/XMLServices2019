@@ -47,7 +47,7 @@
 </xs:sequence>
 </xs:complexType>
 </xs:element>
-<xs:element maxOccurs="unbounded" minOccurs="0" name="serviceDTO" nillable="true">
+<xs:element maxOccurs="unbounded" minOccurs="0" name="extraServiceDTO" nillable="true">
 <xs:complexType>
 <xs:sequence>
 <xs:element name="id" type="xs:long"/>
@@ -59,7 +59,7 @@
 </xs:sequence>
 </xs:complexType>
 </xs:element>
-<xs:element maxOccurs="unbounded" minOccurs="0" name="serviceDTO" nillable="true"/>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="extraServiceDTO" nillable="true"/>
 <xs:element maxOccurs="unbounded" minOccurs="0" name="imageDTO" nillable="true">
 <xs:complexType>
 <xs:sequence>
@@ -83,7 +83,7 @@
 <xs:element name="accommodationUnitDTO"/>
 <xs:element name="imageDTO"/>
 <xs:element name="pricingDTO"/>
-<xs:element name="serviceDTO"/>
+<xs:element name="extraServiceDTO"/>
 <xs:element name="unitTypeDTO">
 <xs:complexType>
 <xs:sequence>
@@ -171,7 +171,7 @@
 </xs:sequence>
 </xs:complexType>
 </xs:element>
-<xs:element form="qualified" maxOccurs="unbounded" minOccurs="0" name="serviceDTO" nillable="true">
+<xs:element form="qualified" maxOccurs="unbounded" minOccurs="0" name="extraServiceDTO" nillable="true">
 <xs:complexType>
 <xs:sequence>
 <xs:element form="qualified" name="id" type="xs:long"/>
@@ -212,7 +212,7 @@
 <xs:element ref="ns1:accommodationTypeDTO"/>
 <xs:element minOccurs="0" ref="ns3:userDTO"/>
 <xs:element form="qualified" maxOccurs="unbounded" minOccurs="0" name="accommodationUnitDTO" nillable="true"/>
-<xs:element form="qualified" maxOccurs="unbounded" minOccurs="0" name="serviceDTO" nillable="true"/>
+<xs:element form="qualified" maxOccurs="unbounded" minOccurs="0" name="extraServiceDTO" nillable="true"/>
 <xs:element form="qualified" maxOccurs="unbounded" minOccurs="0" name="imageDTO" nillable="true">
 <xs:complexType>
 <xs:sequence>
@@ -536,9 +536,9 @@
       </wsdl:output>
     </wsdl:operation>
   </wsdl:binding>
-  <wsdl:service name="AccommodationInterfaceMicroService">
+  <wsdl:extraService name="AccommodationInterfaceMicroService">
     <wsdl:port name="AccommodationInterfacePort" binding="tns:AccommodationInterfaceServiceSoapBinding">
       <soap:address location="http://localhost:9090/AccommodationInterfacePort"/>
     </wsdl:port>
-  </wsdl:service>
+  </wsdl:extraService>
 </wsdl:definitions>

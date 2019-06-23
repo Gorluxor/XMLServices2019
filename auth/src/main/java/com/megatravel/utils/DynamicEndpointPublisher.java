@@ -1,19 +1,16 @@
 package com.megatravel.utils;
 
 
-
 import com.megatravel.service.AuthServiceImpl;
 import com.netflix.appinfo.ApplicationInfoManager;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.xml.ws.Endpoint;
 import java.io.IOException;
 import java.net.ServerSocket;
-import java.util.Map;
 
 @SuppressWarnings("Duplicates")
 @Component
@@ -21,14 +18,10 @@ public class DynamicEndpointPublisher {
 
 	private static final String SOAP_PORT = "soap-port";
 
-	@SuppressWarnings("Autowired")
+
 	@Autowired
 	@Qualifier(value = "eurekaApplicationInfoManager")
 	ApplicationInfoManager applicationInfoManager;
-
-
-//	@Autowired
-//	private EurekaInstanceConfig eurekaInstanceConfig;
 
 	@PostConstruct
 	public void init() {

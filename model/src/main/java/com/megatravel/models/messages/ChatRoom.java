@@ -12,6 +12,7 @@ import com.megatravel.dtos.messages.ChatRoomDTO;
 import com.megatravel.models.reservations.Reservation;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @SuppressWarnings("WeakerAccess")
 @Entity
@@ -20,18 +21,30 @@ public class ChatRoom {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected long id;
+
     protected String name;
+
+    protected Date lastChangedDate;
 
     @ManyToOne
     protected Reservation reservation;
 
     public ChatRoom() {
+        this.lastChangedDate = new Date();
     }
 
-    public  ChatRoom(ChatRoomDTO chatRoomDTO){
+    public ChatRoom(ChatRoomDTO chatRoomDTO) {
         this.id = chatRoomDTO.getId();
         this.name = chatRoomDTO.getName();
         this.reservation = chatRoomDTO.getReservationDTO() == null ? null : new Reservation(chatRoomDTO.getReservationDTO());
+    }
+
+    public Date getLastChangedDate() {
+        return lastChangedDate;
+    }
+
+    public void setLastChangedDate(Date lastChangedDate) {
+        this.lastChangedDate = lastChangedDate;
     }
 
     public ChatRoom(String name) {

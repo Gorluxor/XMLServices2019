@@ -5,7 +5,7 @@
 
     <xs:import id="typ" namespace="http://www.megatravel.com/types" schemaLocation="types.xsd"/>
     <xs:import namespace="http://www.megatravel.com/admin" schemaLocation="admin.xsd"/>
-    <xs:element name="serviceDTO">
+    <xs:element name="extraServiceDTO">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="id" type="tp:id"/>
@@ -41,7 +41,7 @@
                 <xs:element name="nameOfUnit" type="tp:name"/>
                 <xs:element ref="ag:unitTypeDTO"/>
                 <xs:element maxOccurs="unbounded" minOccurs="0" ref="ag:pricingDTO"/>
-                <xs:element maxOccurs="unbounded" minOccurs="0" ref="ag:serviceDTO"/>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="ag:extraServiceDTO"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -56,7 +56,7 @@
                 <xs:element ref="ag:accommodationTypeDTO"/>
                 <xs:element minOccurs="0" ref="ad:userDTO"/>
                 <xs:element maxOccurs="unbounded" minOccurs="0" ref="ag:accommodationUnitDTO"/>
-                <xs:element maxOccurs="unbounded" minOccurs="0" ref="ag:serviceDTO"/>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="ag:extraServiceDTO"/>
                 <xs:element maxOccurs="unbounded" minOccurs="0" ref="ag:imageDTO"/>
             </xs:sequence>
         </xs:complexType>

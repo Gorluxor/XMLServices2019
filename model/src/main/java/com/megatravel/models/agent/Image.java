@@ -11,6 +11,7 @@ package com.megatravel.models.agent;
 import com.megatravel.dtos.agent.ImageDTO;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @SuppressWarnings("WeakerAccess")
 @Entity
@@ -25,15 +26,20 @@ public class Image {
     protected String uri;
 
     @ManyToOne
-    protected Image belongsToAccommodation;
+    protected AccommodationUnit belongsToAccommodationUnit;
+
+    protected Date lastChangedDate;
+
 
     public Image() {
+        this.lastChangedDate = new Date();
     }
 
     public Image(ImageDTO imageDTO){
         this.id = imageDTO.getId();
         this.title = imageDTO.getTitle();
         this.uri = imageDTO.getUri();
+        this.lastChangedDate = imageDTO.getLastChangedDate();
     }
 
     public Image(String title, String uri) {
@@ -41,12 +47,20 @@ public class Image {
         this.uri = uri;
     }
 
-    public Image getBelongsToAccommodation() {
-        return belongsToAccommodation;
+    public Date getLastChangedDate() {
+        return lastChangedDate;
     }
 
-    public void setBelongsToAccommodation(Image belongsToAccommodation) {
-        this.belongsToAccommodation = belongsToAccommodation;
+    public void setLastChangedDate(Date lastChangedDate) {
+        this.lastChangedDate = lastChangedDate;
+    }
+
+    public AccommodationUnit getBelongsToAccommodationUnit() {
+        return belongsToAccommodationUnit;
+    }
+
+    public void setBelongsToAccommodationUnit(AccommodationUnit belongsToAccommodationUnit) {
+        this.belongsToAccommodationUnit = belongsToAccommodationUnit;
     }
 
     public long getId() {

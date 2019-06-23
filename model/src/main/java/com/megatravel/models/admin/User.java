@@ -46,6 +46,7 @@ public class User {
     @OneToOne
     private Role role;
 
+    protected Date lastChangedDate;
 
     // Above needed for spring security, below extra info
 
@@ -78,6 +79,7 @@ public class User {
         this.email = userDTO.getEmail();
         this.role = userDTO.getRoleDTO() == null ? null : new Role(userDTO.getRoleDTO());
         this.id = userDTO.getId();
+        this.lastChangedDate = userDTO.getLastChangedDate();
     }
 
     public User(RegistrationDTO registrationDTO) {
@@ -94,7 +96,7 @@ public class User {
         this.location = new Location(registrationDTO.getLocationDTO());
         this.reservations = new ArrayList<>();
         this.accommodation = null;
-
+        this.lastChangedDate = new Date();
     }
 
     // Minimum for security
@@ -109,6 +111,13 @@ public class User {
     }
 
 
+    public Date getLastChangedDate() {
+        return lastChangedDate;
+    }
+
+    public void setLastChangedDate(Date lastChangedDate) {
+        this.lastChangedDate = lastChangedDate;
+    }
 
     public List<Reservation> getReservations() {
         return reservations;

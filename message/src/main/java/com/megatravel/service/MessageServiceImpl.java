@@ -65,15 +65,11 @@ public class MessageServiceImpl {
         }
         User sender = userRepository.getOne(msg.getSender().getId());
         User receiver = userRepository.getOne(msg.getReceiver().getId());
-        if (sender == null || receiver == null){
-            throw new ResponseStatusException(HttpStatus.NO_CONTENT, "No such object in database");
-        }
+
+        // sender and receiver are not null by .getId (otherwise throws exception)
         msg.setTimeStamp(new Date());
         ChatRoom chatRoom = chatRoomRepository.getOne(msg.getChatRoom().getId());
 
-        if (chatRoom == null){
-            throw new ResponseStatusException(HttpStatus.NO_CONTENT, "No such object in database");
-        }
         msg.setChatRoom(chatRoom);
         msg.setReceiver(receiver);
         msg.setSender(sender);
@@ -91,10 +87,7 @@ public class MessageServiceImpl {
             throw new ResponseStatusException(HttpStatus.NO_CONTENT, "No such object in database");
         }
 
-        Reservation reservation = reservationRepository.getOne(chatRoom.getReservation().getId());
-        if (reservation == null){
-            throw new ResponseStatusException(HttpStatus.NO_CONTENT, "No such object in database");
-        }
+        Reservation reservation = reservationRepository.getOne(chatRoom.getReservation().getId()); // returns not null
 
         Message starterMessage = new Message();
         starterMessage.setSender(reservation.getUser());

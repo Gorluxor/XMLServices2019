@@ -36,8 +36,10 @@ public class Message {
     @ManyToOne
     protected ChatRoom chatRoom;
 
+    protected Date lastChangedDate;
 
     public Message() {
+        this.lastChangedDate = new Date();
     }
 
     public Message(String msg) {
@@ -45,12 +47,13 @@ public class Message {
         this.timeStamp = new Date();
     }
 
-    public Message(MessageDTO messageDTO){
+    public Message(MessageDTO messageDTO) {
         this.msg = messageDTO.getMsg();
         this.id = messageDTO.getId();
         this.chatRoom = new ChatRoom(messageDTO.getChatRoomDTO());
         this.receiver = new User(messageDTO.getReceiver());
         this.sender = new User(messageDTO.getSender());
+        this.lastChangedDate = messageDTO.getLastChangedDate();
 
     }
 
@@ -103,4 +106,11 @@ public class Message {
         this.chatRoom = value;
     }
 
+    public Date getLastChangedDate() {
+        return lastChangedDate;
+    }
+
+    public void setLastChangedDate(Date lastChangedDate) {
+        this.lastChangedDate = lastChangedDate;
+    }
 }

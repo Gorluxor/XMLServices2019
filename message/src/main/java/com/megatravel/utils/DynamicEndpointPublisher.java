@@ -10,6 +10,7 @@ import javax.xml.ws.Endpoint;
 import com.megatravel.webservice.WebMessageServiceImpl;
 import com.netflix.appinfo.EurekaInstanceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import com.megatravel.service.MessageServiceImpl;
@@ -22,12 +23,11 @@ public class DynamicEndpointPublisher {
     private static final String SOAP_PORT = "soap-port";
 
     @Autowired
-    private EurekaInstanceConfig eurekaInstanceConfig;
-
+    @Qualifier(value = "eurekaApplicationInfoManager")
+    ApplicationInfoManager applicationInfoManager;
     @PostConstruct
     public void init() {
 
-        ApplicationInfoManager applicationInfoManager = new ApplicationInfoManager(eurekaInstanceConfig);
         int port = this.getEmptyPort();
         applicationInfoManager.getInfo().getMetadata().put(SOAP_PORT,Integer.toString(port));
         publishEndpoint(port, WebMessageServiceImpl.ENDPOINT, WebMessageServiceImpl.class);

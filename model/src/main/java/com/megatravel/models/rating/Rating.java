@@ -37,7 +37,10 @@ public class Rating {
     @ManyToOne
     protected Reservation reservation;
 
+    protected Date lastChangedDate;
+
     public Rating() {
+        this.lastChangedDate = new Date();
     }
 
     public Rating(RatingDTO ratingDTO) {
@@ -47,6 +50,7 @@ public class Rating {
         this.date = ratingDTO.getDate();
         this.user = new User(ratingDTO.getUserDTO());
         this.reservation = new Reservation(ratingDTO.getReservationDTO());
+        this.lastChangedDate = ratingDTO.getLastChangedDate();
     }
 
     public Rating(double ratingValue, String comment, Date date) {
@@ -54,7 +58,6 @@ public class Rating {
         this.comment = comment;
         this.date = date;
     }
-
 
 
     public long getId() {
@@ -121,4 +124,11 @@ public class Rating {
         this.reservation = value;
     }
 
+    public Date getLastChangedDate() {
+        return lastChangedDate;
+    }
+
+    public void setLastChangedDate(Date lastChangedDate) {
+        this.lastChangedDate = lastChangedDate;
+    }
 }

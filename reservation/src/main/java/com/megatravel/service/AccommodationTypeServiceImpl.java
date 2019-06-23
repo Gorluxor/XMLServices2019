@@ -1,51 +1,56 @@
 package com.megatravel.service;
 
 
-import com.megatravel.configs.WebConfig;
 import com.megatravel.dtos.agent.AccommodationTypeDTO;
-import com.megatravel.interfaces.AccommodationTypeInterface;
-import org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor;
+import com.megatravel.models.agent.AccommodationType;
+import com.megatravel.repository.AccommodationTypeRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.server.ResponseStatusException;
 
-import javax.jws.WebService;
+import java.util.Date;
 import java.util.List;
 
-@WebService(endpointInterface = "com.megatravel.interfaces.AccommodationTypeInterface")
+
 @Service
-public class AccommodationTypeServiceImpl implements AccommodationTypeInterface {
+public class AccommodationTypeServiceImpl {
 
-    public static final String ENDPOINT = "/accType";
+    @Autowired
+    private AccommodationTypeRepository accommodationTypeRepository;
 
-    public AccommodationTypeServiceImpl() {
-        AutowiredAnnotationBeanPostProcessor bpp = new AutowiredAnnotationBeanPostProcessor();
-        WebApplicationContext currentContext = WebConfig.getWebApplicationContext();
-        bpp.setBeanFactory(currentContext.getAutowireCapableBeanFactory());
-        bpp.processInjection(this);
+    public AccommodationType createAccType(AccommodationTypeDTO typeDTO) throws ResponseStatusException {
+        if (typeDTO == null){
+        throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "No AccTypeDTO");
+        }
+        AccommodationType accommodationType = new AccommodationType(typeDTO);
+        accommodationType.setLastChangedDate(new Date());
+        accommodationTypeRepository.save(accommodationType);
+        return accommodationType;
     }
 
-    @Override
-    public AccommodationTypeDTO createService(AccommodationTypeDTO accommodationTypeDTO) {
-        return null;
+    public AccommodationType updateAccType(AccommodationTypeDTO typeDTO) throws ResponseStatusException  {
+        if (typeDTO == null || typeDTO.getId() == 0){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "No AccTypeDTO");
+        }
+        AccommodationType accommodationType = accommodationTypeRepository.getOne(typeDTO.getId());
+        accommodationType.setLastChangedDate(new Date());
+        accommodationType.setNameOfAccType(typeDTO.getNameOfAccType());
+        accommodationTypeRepository.save(accommodationType);
+        return accommodationType;
     }
 
-    @Override
-    public AccommodationTypeDTO updateService(AccommodationTypeDTO serviceDTO) {
-        return null;
+    public AccommodationType deleteAccType(Long accommodationTypeId) {
+        AccommodationType accommodationType = accommodationTypeRepository.getOne(accommodationTypeId);
+        accommodationTypeRepository.delete(accommodationType);
+        return accommodationType;
     }
 
-    @Override
-    public AccommodationTypeDTO deleteService(Long accommodationTypeId) {
-        return null;
+    public AccommodationType getAccType(Long accommodationTypeId) {
+        return accommodationTypeRepository.getOne(accommodationTypeId);
     }
 
-    @Override
-    public AccommodationTypeDTO getService(Long accommodationTypeId) {
-        return null;
-    }
-
-    @Override
-    public List<AccommodationTypeDTO> getAllServices() {
-        return null;
+    public List<AccommodationType> getAllAccType() {
+        return accommodationTypeRepository.findAll();
     }
 }

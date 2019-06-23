@@ -14,7 +14,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
+import java.util.Date;
 
 
 @SuppressWarnings("WeakerAccess")
@@ -27,15 +27,17 @@ public class AccommodationType {
 
     protected String nameOfAccType;
 
+    protected Date lastChangedDate;
+
     public AccommodationType() {
-        super();
+        this.lastChangedDate = new Date();
     }
 
     public AccommodationType(AccommodationTypeDTO accommodationTypeDTO) {
         this.id = accommodationTypeDTO.getId();
         this.nameOfAccType = accommodationTypeDTO.getNameOfAccType();
+        this.lastChangedDate = accommodationTypeDTO.getLastChangedDate();
     }
-
 
 
     public AccommodationType(String nameOfAccType) {
@@ -59,4 +61,11 @@ public class AccommodationType {
         this.nameOfAccType = value;
     }
 
+    public Date getLastChangedDate() {
+        return lastChangedDate;
+    }
+
+    public void setLastChangedDate(Date lastChangedDate) {
+        this.lastChangedDate = lastChangedDate;
+    }
 }

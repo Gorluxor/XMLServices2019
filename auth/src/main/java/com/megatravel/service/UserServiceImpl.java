@@ -16,6 +16,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.megatravel.dtos.admin.UserDTO;
@@ -29,7 +30,7 @@ import com.megatravel.repository.UserRepository;
 
 
 @Component
-public class UserService {
+public class UserServiceImpl {
 	@Autowired
 	UserRepository userRepository;
 	
@@ -144,6 +145,11 @@ public class UserService {
 			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Invalid role id");
 		}	
 	}
-	
+
+
+	public List<User> findFreeAgents(){
+		return userRepository.findByRole_IdAndAccommodationIsNull(3l); // 3 == ROLE_AGENT
+	}
+
 
 }

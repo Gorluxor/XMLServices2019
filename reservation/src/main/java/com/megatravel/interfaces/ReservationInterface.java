@@ -10,7 +10,7 @@ import javax.jws.WebService;
 import java.util.List;
 
 @WebService
-public interface ReservationService {
+public interface ReservationInterface {
 
 
     @WebMethod
@@ -18,9 +18,6 @@ public interface ReservationService {
 
     @WebMethod
     ReservationDTO cancelReservation(@WebParam(name = "ReservationId") Long reservationId);
-
-    @WebMethod
-    ReservationDTO confirmReservation(@WebParam(name = "ReservationId") Long reservationId);
 
 
 

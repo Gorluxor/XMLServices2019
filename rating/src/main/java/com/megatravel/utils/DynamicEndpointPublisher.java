@@ -1,6 +1,6 @@
 //package com.megatravel.utils;
 //
-//import com.megatravel.service.RatingServiceImpl;
+//import com.megatravel.extraService.RatingServiceImpl;
 //import com.netflix.appinfo.ApplicationInfoManager;
 //import com.netflix.appinfo.EurekaInstanceConfig;
 //import org.springframework.beans.factory.annotation.Autowired;

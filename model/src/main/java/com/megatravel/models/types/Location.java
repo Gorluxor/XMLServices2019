@@ -15,6 +15,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.math.BigInteger;
+import java.util.Date;
 
 @SuppressWarnings("WeakerAccess")
 @Entity
@@ -31,11 +32,13 @@ public class Location {
     protected int postalCode;
     protected Double latitude;
     protected Double longitude;
+    protected Date lastChangedDate;
 
     public Location() {
+        this.lastChangedDate = new Date();
     }
 
-    public Location(LocationDTO locationDTO){
+    public Location(LocationDTO locationDTO) {
         this.id = locationDTO.getId();
         this.country = locationDTO.getCountry();
         this.city = locationDTO.getCity();
@@ -44,6 +47,7 @@ public class Location {
         this.postalCode = locationDTO.getPostalCode();
         this.latitude = locationDTO.getLatitude();
         this.longitude = locationDTO.getLongitude();
+        this.lastChangedDate = locationDTO.getLastChangedDate();
     }
 
     public Location(String country, String city, String street, BigInteger number, int postalCode, Double latitude, Double longitude) {
@@ -56,10 +60,18 @@ public class Location {
         this.longitude = longitude;
     }
 
+    public Date getLastChangedDate() {
+        return lastChangedDate;
+    }
+
+    public void setLastChangedDate(Date lastChangedDate) {
+        this.lastChangedDate = lastChangedDate;
+    }
 
     public long getId() {
         return id;
     }
+
     public void setId(long value) {
         this.id = value;
     }
@@ -71,6 +83,7 @@ public class Location {
     public void setCountry(String value) {
         this.country = value;
     }
+
     public String getCity() {
         return city;
     }

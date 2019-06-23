@@ -16,20 +16,16 @@ public interface AccommodationInterface {
     List<AccommodationDTO> getAllAccommodations();
     @WebMethod
     AccommodationDTO getAccommodation(@WebParam(name = "AccId") Long accId);
-    @WebMethod
-    List<AccommodationUnitDTO> getAllUnits(@WebParam(name = "AccId") Long accId);
-    @WebMethod
-    AccommodationUnitDTO getUnit(@WebParam(name = "AccId") Long accId, @WebParam(name = "UnitId") Long unitId);
+
+
     @WebMethod
     AccommodationDTO createAccommodation(AccommodationDTO accommodationDTO);
-    @WebMethod
-    AccommodationUnitDTO createUnit(@WebParam(name = "AccId") Long accId, AccommodationUnitDTO accommodationUnitDTO);
+
     @WebMethod
     AccommodationDTO updateAccommodation(AccommodationDTO accommodationDTO);
-    @WebMethod
-    AccommodationUnitDTO updateUnit(@WebParam(name = "AccId") Long accId, AccommodationUnitDTO accommodationUnitDTO);
+
     @WebMethod
     AccommodationDTO deleteAccommodation(@WebParam(name = "AccId") Long accId);
-    @WebMethod
-    AccommodationUnitDTO deleteUnit(@WebParam(name = "AccId") Long accId, @WebParam(name = "UnitId") Long unitId);
+
+
 }

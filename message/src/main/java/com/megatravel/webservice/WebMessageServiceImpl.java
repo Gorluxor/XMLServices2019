@@ -10,10 +10,15 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.jws.WebService;
+import javax.jws.soap.SOAPBinding;
 import java.util.List;
 
-@WebService(endpointInterface = "com.megatravel.interfaces.MessageService")
+@WebService(portName = "MessagePort",
+            serviceName = "MessageServiceInterface",
+            targetNamespace = "http://interfaces.megatravel.com",
+            endpointInterface = "com.megatravel.interfaces.MessageService")
 @Service
+@SOAPBinding(style=SOAPBinding.Style.RPC)
 public class WebMessageServiceImpl implements MessageService {
 
     public static final String ENDPOINT = "/msg";

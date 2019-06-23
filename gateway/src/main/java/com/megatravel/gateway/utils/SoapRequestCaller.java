@@ -15,8 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.megatravel.gateway.interfaces.XmlServiceFeignClient;
-
 @Component
 public class SoapRequestCaller {
 
@@ -28,10 +26,7 @@ public class SoapRequestCaller {
 
 	@Autowired
 	private StringUtilities utilites;
-	
-	@Autowired
-	private XmlServiceFeignClient service;
-	
+
 	public ServiceResponse sendRequestTo(String fullUrl, String recipient, HttpServletRequest request) {
 		URL url;
 		HttpURLConnection connection = null;
@@ -44,9 +39,6 @@ public class SoapRequestCaller {
 				connection.setRequestProperty("Content-Type", "text/xml; charset=utf-8");
 				connection.setRequestProperty("SOAPAction", utilites.returnSoapAction(fullUrl, message));
 				connection.setDoOutput(true);
-				boolean test = false;
-				if(test)
-					message = this.service.verifySignatureAndDecode(message, recipient).getBody();
 				OutputStream outStream = connection.getOutputStream();
 				OutputStreamWriter outStreamWriter = new OutputStreamWriter(outStream);
 				outStreamWriter.write(message);

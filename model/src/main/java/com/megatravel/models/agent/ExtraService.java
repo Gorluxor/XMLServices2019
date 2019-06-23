@@ -9,13 +9,14 @@
 package com.megatravel.models.agent;
 
 
-import com.megatravel.dtos.agent.ServiceDTO;
+import com.megatravel.dtos.agent.ExtraServiceDTO;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @SuppressWarnings("WeakerAccess")
 @Entity
-public class Service {
+public class ExtraService {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,29 +26,39 @@ public class Service {
 
     protected String description;
 
-    // Note that one service can be global - for Accommodation, or local only for some Accommodation unit
+    // Note that one extraService can be global - for Accommodation, or local only for some Accommodation unit
     // Shouldn't have links to both at the same time (as it would be redundant)
 
-    @ManyToOne
-    protected AccommodationUnit serviceForAccUnit;
 
-    @ManyToOne
-    protected Accommodation serviceForAcc;
 
-    public Service() {
+    protected Date lastChangedDate;
+
+    public ExtraService() {
+        this.lastChangedDate = new Date();
     }
 
-    public Service(ServiceDTO serviceDTO) {
-        this.id = serviceDTO.getId();
-        this.nameOfService = serviceDTO.getNameOfService();
-        this.description = serviceDTO.getDescription();
+    public ExtraService(ExtraServiceDTO extraServiceDTO) {
+        this.id = extraServiceDTO.getId();
+        this.nameOfService = extraServiceDTO.getNameOfService();
+        this.description = extraServiceDTO.getDescription();
+        this.lastChangedDate = extraServiceDTO.getLastChangedDate();
     }
 
-    public Service(long id, String nameOfService, String description) {
+    public ExtraService(long id, String nameOfService, String description) {
         this.id = id;
         this.nameOfService = nameOfService;
         this.description = description;
     }
+
+
+    public Date getLastChangedDate() {
+        return lastChangedDate;
+    }
+
+    public void setLastChangedDate(Date lastChangedDate) {
+        this.lastChangedDate = lastChangedDate;
+    }
+
 
     public long getId() {
         return id;

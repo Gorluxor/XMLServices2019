@@ -14,6 +14,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.util.Date;
 
 @SuppressWarnings("WeakerAccess")
 @Entity
@@ -22,14 +23,27 @@ public class UnitType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected long id;
+
     protected String nameOfUnitType;
 
+    protected Date lastChangedDate;
+
     public UnitType() {
+        this.lastChangedDate = new Date();
     }
 
-    public UnitType(UnitTypeDTO unitTypeDTO){
+    public UnitType(UnitTypeDTO unitTypeDTO) {
         this.id = unitTypeDTO.getId();
         this.nameOfUnitType = unitTypeDTO.getNameOfUnitType();
+        this.lastChangedDate = unitTypeDTO.getLastChangedDate();
+    }
+
+    public Date getLastChangedDate() {
+        return lastChangedDate;
+    }
+
+    public void setLastChangedDate(Date lastChangedDate) {
+        this.lastChangedDate = lastChangedDate;
     }
 
     public UnitType(String nameOfUnitType) {

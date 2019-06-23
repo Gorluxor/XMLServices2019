@@ -16,6 +16,7 @@ import com.megatravel.models.types.Location;
 import javax.persistence.*;
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -30,8 +31,6 @@ public class Accommodation {
 
     protected String description;
 
-    protected BigInteger cancelationDays;
-
     @ManyToOne
     protected Location location;
 
@@ -44,32 +43,31 @@ public class Accommodation {
     @OneToMany(mappedBy = "accommodation")
     protected List<AccommodationUnit> accommodationUnit = new ArrayList<>();
 
-    @OneToMany(mappedBy = "serviceForAcc")
-    protected List<Service> service = new ArrayList<>();
+    @ManyToMany
+    protected List<ExtraService> extraService = new ArrayList<>();
 
-    @OneToMany(mappedBy = "belongsToAccommodation")
-    protected List<Image> image = new ArrayList<>();
+
+    protected Date lastChangedDate;
 
     public Accommodation() {
-        super();
+        this.lastChangedDate = new Date();
     }
 
-    public Accommodation(AccommodationDTO accommodationDTO){
+    public Accommodation(AccommodationDTO accommodationDTO) {
         this.id = accommodationDTO.getId();
         this.name = accommodationDTO.getName();
         this.description = accommodationDTO.getDescription();
-        this.cancelationDays = accommodationDTO.getCancelationDays();
         this.location = new Location(accommodationDTO.getLocationDTO());
+        this.lastChangedDate = accommodationDTO.getLastChangedDate();
     }
 
-    public Accommodation(String name, String description, BigInteger cancelationDays) {
-        this.name = name;
-        this.description = description;
-        this.cancelationDays = cancelationDays;
+    public Date getLastChangedDate() {
+        return lastChangedDate;
     }
 
-
-
+    public void setLastChangedDate(Date lastChangedDate) {
+        this.lastChangedDate = lastChangedDate;
+    }
 
     public long getId() {
         return id;
@@ -98,16 +96,6 @@ public class Accommodation {
 
     public void setDescription(String value) {
         this.description = value;
-    }
-
-
-    public BigInteger getCancelationDays() {
-        return cancelationDays;
-    }
-
-
-    public void setCancelationDays(BigInteger value) {
-        this.cancelationDays = value;
     }
 
 
@@ -145,13 +133,10 @@ public class Accommodation {
         this.accommodationUnit = accommodationUnit;
     }
 
-    public void setService(List<Service> service) {
-        this.service = service;
+    public void setExtraService(List<ExtraService> extraService) {
+        this.extraService = extraService;
     }
 
-    public void setImage(List<Image> image) {
-        this.image = image;
-    }
 
     public List<AccommodationUnit> getAccommodationUnit() {
         if (accommodationUnit == null) {
@@ -161,19 +146,13 @@ public class Accommodation {
     }
 
 
-    public List<Service> getService() {
-        if (service == null) {
-            service = new ArrayList<Service>();
+    public List<ExtraService> getExtraService() {
+        if (extraService == null) {
+            extraService = new ArrayList<ExtraService>();
         }
-        return this.service;
+        return this.extraService;
     }
 
 
-    public List<Image> getImage() {
-        if (image == null) {
-            image = new ArrayList<Image>();
-        }
-        return this.image;
-    }
 
 }

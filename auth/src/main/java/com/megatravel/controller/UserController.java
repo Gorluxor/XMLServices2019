@@ -1,5 +1,6 @@
 package com.megatravel.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,8 +26,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import com.megatravel.service.RoleService;
-import com.megatravel.service.UserService;
+import com.megatravel.service.RoleServiceImpl;
+import com.megatravel.service.UserServiceImpl;
 
 
 
@@ -38,10 +39,10 @@ import com.megatravel.service.UserService;
 public class UserController {
 	
 	@Autowired
-	UserService userService;
+	UserServiceImpl userServiceImpl;
 	
 	@Autowired
-	RoleService roleService;
+	RoleServiceImpl roleServiceImpl;
 
 	@RequestMapping(method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE,
 			MediaType.APPLICATION_XML_VALUE })
@@ -53,7 +54,7 @@ public class UserController {
 		request.getHeader("Authorization");
 		
 		
-		List<UserDTO> found = userService.findAll(page);
+		List<UserDTO> found = userServiceImpl.findAll(page);
 		HttpHeaders headers = new HttpHeaders();
 		long usersTotal= found.size();
 		headers.add("X-Total-Count", String.valueOf(usersTotal));
@@ -65,23 +66,33 @@ public class UserController {
 	@RequestMapping(value = "/{userId}/role/{roleId}", method = RequestMethod.GET)
 	public ResponseEntity<Void> changeRoleUser(@PathVariable Long userId, @PathVariable Long roleId) {
 
-		userService.changeRoleUser(userId, roleId);
+		userServiceImpl.changeRoleUser(userId, roleId);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-
 	public ResponseEntity<UserDTO> getUser(@PathVariable Long id) {
-		return new ResponseEntity<>(userService.findOne(id), HttpStatus.OK);
+		return new ResponseEntity<>(userServiceImpl.findOne(id), HttpStatus.OK);
 	}
 
 	
 	@RequestMapping(value = "/email/{email}", method = RequestMethod.GET)
 	public ResponseEntity<UserDTO> getUserByEmail(@PathVariable String email) {
-		return new ResponseEntity<>(new UserDTO(userService.findByEmail(email)), HttpStatus.OK);
+		return new ResponseEntity<>(new UserDTO(userServiceImpl.findByEmail(email)), HttpStatus.OK);
 	}
-	
+
+
+	@RequestMapping(value = "/free", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+	public ResponseEntity<List<UserDTO>> getFreeAgents(){
+		List<User> list = userServiceImpl.findFreeAgents();
+		List<UserDTO> values = new ArrayList<>();
+		for (User u : list){
+			values.add(new UserDTO(u));
+		}
+		return new ResponseEntity<>(values, HttpStatus.OK);
+	}
+
 
 
 
@@ -89,13 +100,13 @@ public class UserController {
 	@RequestMapping(value = "/login", method = RequestMethod.POST, consumes = "application/json")
 	public ResponseEntity<String> login(@RequestBody LoginDTO loginDTO) {
 		
-		User user = userService.findByEmail(loginDTO.getEmail());
+		User user = userServiceImpl.findByEmail(loginDTO.getEmail());
 		if(user == null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 
 		try {
-			String jwt = userService.signin(loginDTO.getEmail(), loginDTO.getPassword());
+			String jwt = userServiceImpl.signin(loginDTO.getEmail(), loginDTO.getPassword());
 			ObjectMapper mapper = new ObjectMapper();
 			return new ResponseEntity<>(mapper.writeValueAsString(jwt), HttpStatus.OK);
 		} catch (Exception e) {
@@ -112,7 +123,7 @@ public class UserController {
 			return new ResponseEntity<>(HttpStatus.LOCKED);
 		}
 
-		User tmp = userService.findByEmail(registrationDTO.getEmail());
+		User tmp = userServiceImpl.findByEmail(registrationDTO.getEmail());
 		if(tmp != null) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
@@ -122,10 +133,10 @@ public class UserController {
 		user.setPassword(registrationDTO.getPassword());
 		user.setName(registrationDTO.getName());
 		user.setLastName(registrationDTO.getLastName());
-		Role role = roleService.findByRoleName("Role_User");
+		Role role = roleServiceImpl.findByRoleName("Role_User");
 
 		user.setRole(role);
-		userService.signup(user);
+		userServiceImpl.signup(user);
 
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}

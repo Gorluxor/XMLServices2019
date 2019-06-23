@@ -2,9 +2,11 @@ package com.megatravel.utils;
 
 
 import com.megatravel.service.*;
+import com.megatravel.webservice.*;
 import com.netflix.appinfo.ApplicationInfoManager;
 import com.netflix.appinfo.EurekaInstanceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -22,22 +24,20 @@ public class DynamicEndpointPublisher {
 
     @SuppressWarnings("Autowired")
 
-
     @Autowired
-    private EurekaInstanceConfig eurekaInstanceConfig;
+    @Qualifier(value = "eurekaApplicationInfoManager")
+    ApplicationInfoManager applicationInfoManager;
 
     @PostConstruct
     public void init() {
-
-        ApplicationInfoManager applicationInfoManager = new ApplicationInfoManager(eurekaInstanceConfig);
         Map<String, String> map = applicationInfoManager.getInfo().getMetadata();
         int port = this.getEmptyPort();
         map.put(SOAP_PORT, Integer.toString(port));
-        publishEndpoint(port, ReservationServiceImpl.ENDPOINT, ReservationServiceImpl.class);
-        publishEndpoint(port, AccommodationServiceImpl.ENDPOINT, AccommodationServiceImpl.class);
-        publishEndpoint(port, AccommodationTypeServiceImpl.ENDPOINT, AccommodationTypeServiceImpl.class);
-        publishEndpoint(port, ServiceServiceImpl.ENDPOINT, ServiceServiceImpl.class);
-        publishEndpoint(port, UnitTypeImpl.ENDPOINT, UnitTypeImpl.class);
+        publishEndpoint(port, WebReservationServiceImpl.ENDPOINT, WebReservationServiceImpl.class);
+        publishEndpoint(port, WebAccommodationServiceImpl.ENDPOINT, WebAccommodationServiceImpl.class);
+        publishEndpoint(port, WebAccommodationTypeServiceImpl.ENDPOINT, WebAccommodationTypeServiceImpl.class);
+        publishEndpoint(port, WebExtraServiceExtraServiceImpl.ENDPOINT, WebExtraServiceExtraServiceImpl.class);
+        publishEndpoint(port, WebUnitTypeServiceImpl.ENDPOINT, WebUnitTypeServiceImpl.class);
     }
 
 

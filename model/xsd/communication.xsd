@@ -48,7 +48,7 @@
     <xs:element name="serviceList">
         <xs:complexType>
             <xs:sequence>
-                <xs:element maxOccurs="unbounded" minOccurs="0" ref="ag:serviceDTO"/>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="ag:extraServiceDTO"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>

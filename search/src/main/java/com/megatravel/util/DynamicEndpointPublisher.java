@@ -5,6 +5,7 @@ import com.megatravel.service.SearchServiceImpl;
 import com.netflix.appinfo.ApplicationInfoManager;
 import com.netflix.appinfo.EurekaInstanceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -21,14 +22,12 @@ public class DynamicEndpointPublisher {
 
     @SuppressWarnings("Autowired")
 
-
     @Autowired
-    private EurekaInstanceConfig eurekaInstanceConfig;
+    @Qualifier(value = "eurekaApplicationInfoManager")
+    ApplicationInfoManager applicationInfoManager;
 
     @PostConstruct
     public void init() {
-
-        ApplicationInfoManager applicationInfoManager = new ApplicationInfoManager(eurekaInstanceConfig);
         Map<String, String> map = applicationInfoManager.getInfo().getMetadata();
 
 
