@@ -108,6 +108,7 @@ public class SearchServiceImpl {
         return accommodationUnitRepository.normalSearch(searchDTO.getCity(), startDate, endDate, value);
     }
 
+    @Deprecated
     public List<AccommodationUnit> advanceSearchAccommodationUnit(SearchDTO searchDTO, Long id){
         validSearch(searchDTO);
         String startDate = changeToString(searchDTO.getStartDate());

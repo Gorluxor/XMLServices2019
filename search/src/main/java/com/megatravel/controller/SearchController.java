@@ -39,6 +39,7 @@ public class SearchController {
         return new ResponseEntity<>(convertToAccommodationUnitListDTO(searchService.normalSearchAccommodationUnit(searchDTO, id)), HttpStatus.OK);
     }
 
+    @Deprecated
     @RequestMapping(value = "/accommodation/{id}/advanced", method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<List<AccommodationUnitDTO>> advancedSearchAccommodationUnit(@RequestBody SearchDTO searchDTO, @PathVariable(name = "id") Long id){
         return new ResponseEntity<>(convertToAccommodationUnitListDTO(searchService.advanceSearchAccommodationUnit(searchDTO, id)), HttpStatus.OK);
