@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class SoapRequestCaller {
 
-	private static final int TIMEOUT = 50000;
+	private static final int TIMEOUT = 50000000;
 	
 	private static final String POST = "POST";
 	
@@ -46,6 +46,7 @@ public class SoapRequestCaller {
 				outStreamWriter.close();
 				outStream.close();
 			}
+
 			connection.setConnectTimeout(TIMEOUT);
 			connection.setReadTimeout(TIMEOUT);
 			int status = connection.getResponseCode();
@@ -61,7 +62,7 @@ public class SoapRequestCaller {
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 			return new ServiceResponse(INTERNAL_SERVER_ERROR, 500);
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return new ServiceResponse(INTERNAL_SERVER_ERROR, 500);
 		}

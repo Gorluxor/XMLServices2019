@@ -46,6 +46,12 @@ public class Accommodation {
     @ManyToMany
     protected List<ExtraService> extraService = new ArrayList<>();
 
+    protected String category;
+
+    protected boolean freeToCancel;
+
+    protected int freeToCancelDays;
+
 
     protected Date lastChangedDate;
 
@@ -59,6 +65,48 @@ public class Accommodation {
         this.description = accommodationDTO.getDescription();
         this.location = new Location(accommodationDTO.getLocationDTO());
         this.lastChangedDate = accommodationDTO.getLastChangedDate();
+        this.freeToCancel = accommodationDTO.isFreeToCancel();
+        this.freeToCancelDays = accommodationDTO.getFreeToCancelDays() >= 0 ? accommodationDTO.getFreeToCancelDays() : 0 ;
+        this.category = validCategory(accommodationDTO.getCategory());
+    }
+
+    public static String validCategory(String value){
+        switch (value){
+            case "One star":
+                return "One star";
+            case "Two star":
+                return "Two star";
+            case "Three star":
+                return "Three star";
+            case "Four star":
+                return "Five star";
+            default:
+                return "Uncategorized";
+        }
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = validCategory(category);
+    }
+
+    public boolean isFreeToCancel() {
+        return freeToCancel;
+    }
+
+    public void setFreeToCancel(boolean freeToCancel) {
+        this.freeToCancel = freeToCancel;
+    }
+
+    public int getFreeToCancelDays() {
+        return freeToCancelDays;
+    }
+
+    public void setFreeToCancelDays(int freeToCancelDays) {
+        this.freeToCancelDays = freeToCancelDays;
     }
 
     public Date getLastChangedDate() {

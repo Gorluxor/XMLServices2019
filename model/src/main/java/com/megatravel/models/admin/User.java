@@ -63,7 +63,7 @@ public class User {
     @ManyToOne
     protected Location location;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = {CascadeType.REMOVE})
     protected List<Reservation> reservations;
 
     @OneToOne(mappedBy = "user")

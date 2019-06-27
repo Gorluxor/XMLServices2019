@@ -1,6 +1,7 @@
+
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/xmlagent?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/xmlagent?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&createDatabaseIfNotExist=true
     username: XML
     password: XMLSecureMYSQL!
     initialization-mode: always
@@ -19,21 +20,24 @@ spring:
         characterEncoding: utf8
         useUnicode: "true"
   application:
-    name: Search
+    name: search
+
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    register-with-eureka: true
+    fetch-registry: false
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
 server:
   error:
     whitelabel:
       enabled: "false"
-  port: 0 #"8082" previously, now randomly
-eureka:
-  instance:
-    prefer-ip-address: true
-    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
-  client:
-    register-with-eureka: true
-    fetch-registry: true
-    service-url:
-      defaultZone: http://localhost:8761/eureka/
+  port: "8084"
+
 sping:
   jpa:
     hibernate:

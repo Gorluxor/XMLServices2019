@@ -53,7 +53,10 @@ public class AccommodationUnitController {
     }
 
 
-
+    @RequestMapping(value = "/test", method = RequestMethod.GET)
+    public ResponseEntity<String> test(){
+        return new ResponseEntity<>("This is a hello from Agent microservice!", HttpStatus.OK);
+    }
 
 
 }

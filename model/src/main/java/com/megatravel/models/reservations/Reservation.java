@@ -9,6 +9,7 @@
 package com.megatravel.models.reservations;
 
 
+import com.megatravel.dtos.agent.AccommodationUnitDTO;
 import com.megatravel.dtos.reservations.ReservationDTO;
 import com.megatravel.models.admin.User;
 import com.megatravel.models.agent.AccommodationUnit;
@@ -55,7 +56,17 @@ public class Reservation {
         this.stayRealized = reservationDTO.isStayRealized();
         this.reservationPrice = reservationDTO.getReservationPrice();
         this.user = reservationDTO.getUserDTO() == null ? null : new User(reservationDTO.getUserDTO());
-        this.accommodationUnit = null; //should get from database
+
+        if (reservationDTO.getAccommodationUnitDTO() == null){
+            this.accommodationUnit = null;
+        }else {
+            List<AccommodationUnit> list = new ArrayList<>();
+            for (AccommodationUnitDTO accommodationUnitDTO : reservationDTO.getAccommodationUnitDTO()){
+                list.add(new AccommodationUnit(accommodationUnitDTO));
+            }
+            this.accommodationUnit = list;
+        }
+
         this.lastChangedDate = reservationDTO.getLastChangedDate();
     }
 

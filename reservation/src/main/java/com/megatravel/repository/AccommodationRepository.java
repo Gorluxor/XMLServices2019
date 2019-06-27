@@ -9,6 +9,5 @@ import org.springframework.stereotype.Repository;
 public interface AccommodationRepository extends JpaRepository<Accommodation, Long> {
 
 
-    AccommodationUnit findFirstByAccommodation_Id(Long id);
 
 }

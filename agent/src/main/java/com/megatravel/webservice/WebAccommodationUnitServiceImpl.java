@@ -10,12 +10,18 @@ import org.springframework.web.context.WebApplicationContext;
 import javax.jws.WebService;
 import java.util.List;
 
-@WebService(endpointInterface = "com.megatravel.interfaces.AccommodationUnitInterface")
+
+
+
+@WebService(portName="AccommodationUnitPort",
+            serviceName="AccommodationUnitServiceInterface",
+            targetNamespace="http://interfaces.megatravel.com/",
+            endpointInterface = "com.megatravel.interfaces.AccommodationUnitInterface")
 @Service
 public class WebAccommodationUnitServiceImpl implements AccommodationUnitInterface {
 
 
-    public static final String ENDPOINT = "/extraservice";
+    public static final String ENDPOINT = "/unit";
 
     public WebAccommodationUnitServiceImpl() {
         AutowiredAnnotationBeanPostProcessor bpp = new AutowiredAnnotationBeanPostProcessor();

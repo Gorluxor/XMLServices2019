@@ -1,8 +1,16 @@
 spring:
   application:
     name: gateway
+#  cloud: # Disable Hystrix
+#    circuit:
+#      breaker:
+#        enabled: false
 server:
   port: 9999
+  connection-timeout: 20000
+  servlet:
+    session:
+      timeout: 5000
 eureka:
   instance:
     prefer-ip-address: true
@@ -11,18 +19,39 @@ eureka:
     fetch-registry: true
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/
+    eureka-server-read-timeout-seconds: 60000
+    eureka-connection-idle-timeout-seconds: 30000
 zuul:
   sensitiveHeaders: Cookie, Set-Cookie
-  ignoredServices: auth, agent, message, search, rating, reservation
+  ignoredServices: auth, agent, search,rating, message, reservation
   prefix:  /api
   host:
-    socket-timeout-millis: 40000
+    connect-timeout-millis: 200000
+    socket-timeout-millis: 600000
   routes:
     auth: /auth/**
-    agent: /login/**
+    agent: /agent/**
     search: /search/**
     rating: /rating/**
     message: /message/**
     reservation: /reservation/**
+#  command:
+#    default:
+#      execution:
+#        isolation:
+#          thread:
+#            timeoutInMilliseconds: 60000
+#ribbon:
+#  ConnectTimeout: 2000000
+#  ReadTimeout: 600000
 
 
+# Disable Hystrix
+#hystrix:
+#  command:
+#    default:
+#      circuitBreaker:
+#        enabled: false
+feign:
+  httpclient:
+    connection-timeout: 200000

@@ -46,7 +46,7 @@ public class AccommodationUnit {
     protected UnitType unitType;
     @OneToMany(mappedBy = "priceForUnit")
     protected List<Pricing> pricing = new ArrayList<>();
-    @OneToMany(mappedBy = "serviceForAccUnit")
+    @ManyToMany
     protected List<ExtraService> extraService = new ArrayList<>();
     @OneToMany(mappedBy = "belongsToAccommodationUnit")
     protected List<Image> images = new ArrayList<>();

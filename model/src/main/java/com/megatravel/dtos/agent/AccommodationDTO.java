@@ -62,7 +62,10 @@ import com.megatravel.models.agent.ExtraService;
     "lastChangedDate",
     "userDTO",
     "accommodationUnitDTO",
-    "extraServiceDTO"
+    "extraServiceDTO",
+    "category",
+    "freeToCancel",
+    "freeToCancelDays"
 })
 @XmlRootElement(name = "accommodationDTO")
 public class AccommodationDTO {
@@ -84,6 +87,10 @@ public class AccommodationDTO {
     protected List<AccommodationUnitDTO> accommodationUnitDTO;
     protected List<ExtraServiceDTO> extraServiceDTO;
 
+    protected String category;
+    protected boolean freeToCancel;
+    protected int freeToCancelDays;
+
     public AccommodationDTO() {
     }
 
@@ -102,8 +109,43 @@ public class AccommodationDTO {
         for (ExtraService s : accommodation.getExtraService()){
             this.extraServiceDTO.add(new ExtraServiceDTO(s));
         }
+        this.category = accommodation.getCategory();
+        this.freeToCancel = accommodation.isFreeToCancel();
+        this.freeToCancelDays = accommodation.getFreeToCancelDays();
+
     }
 
+    public void setAccommodationUnitDTO(List<AccommodationUnitDTO> accommodationUnitDTO) {
+        this.accommodationUnitDTO = accommodationUnitDTO;
+    }
+
+    public void setExtraServiceDTO(List<ExtraServiceDTO> extraServiceDTO) {
+        this.extraServiceDTO = extraServiceDTO;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public boolean isFreeToCancel() {
+        return freeToCancel;
+    }
+
+    public void setFreeToCancel(boolean freeToCancel) {
+        this.freeToCancel = freeToCancel;
+    }
+
+    public int getFreeToCancelDays() {
+        return freeToCancelDays;
+    }
+
+    public void setFreeToCancelDays(int freeToCancelDays) {
+        this.freeToCancelDays = freeToCancelDays;
+    }
 
     /**
      * Gets the value of the id property.

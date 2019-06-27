@@ -2,6 +2,8 @@ package com.megatravel.utils;
 
 
 import com.megatravel.webservice.WebAccommodationUnitServiceImpl;
+import com.megatravel.webservice.WebPricingServiceImpl;
+import com.megatravel.webservice.WebReservationServiceImpl;
 import com.netflix.appinfo.ApplicationInfoManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -29,6 +31,8 @@ public class DynamicEndpointPublisher {
 		int port = this.getEmptyPort();
 		applicationInfoManager.getInfo().getMetadata().put(SOAP_PORT,Integer.toString(port));
 		publishEndpoint(port, WebAccommodationUnitServiceImpl.ENDPOINT, WebAccommodationUnitServiceImpl.class);
+		publishEndpoint(port, WebPricingServiceImpl.ENDPOINT, WebPricingServiceImpl.class);
+		publishEndpoint(port, WebReservationServiceImpl.ENDPOINT, WebReservationServiceImpl.class);
 	}
 
 

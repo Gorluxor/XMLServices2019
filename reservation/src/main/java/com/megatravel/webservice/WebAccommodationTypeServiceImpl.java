@@ -10,7 +10,10 @@ import org.springframework.web.context.WebApplicationContext;
 import javax.jws.WebService;
 import java.util.List;
 
-@WebService(endpointInterface = "com.megatravel.interfaces.AccommodationTypeInterface")
+@WebService(portName = "AccommodationTypePort",
+            serviceName = "AccommodationTypeServiceInterface",
+            targetNamespace = "http://interfaces.megatravel.com",
+            endpointInterface = "com.megatravel.interfaces.AccommodationTypeInterface")
 @Service
 public class WebAccommodationTypeServiceImpl implements AccommodationTypeInterface {
 

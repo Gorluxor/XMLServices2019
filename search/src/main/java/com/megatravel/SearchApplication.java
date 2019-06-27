@@ -9,7 +9,6 @@ import org.springframework.ws.config.annotation.EnableWs;
 
 @EnableEurekaClient
 @EnableFeignClients
-@EnableWs
 @SpringBootApplication
 public class SearchApplication {
 

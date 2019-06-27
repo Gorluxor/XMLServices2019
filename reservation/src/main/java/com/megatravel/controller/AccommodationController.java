@@ -7,12 +7,14 @@ import com.megatravel.models.agent.AccommodationUnit;
 import com.megatravel.service.AccommodationServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@CrossOrigin
 @RequestMapping(value = "/acc")
 @RestController
 public class AccommodationController {
@@ -53,7 +55,10 @@ public class AccommodationController {
         return new ResponseEntity<>(new AccommodationDTO(accommodationService.deleteAccommodation(accommodationId)), HttpStatus.OK);
     }
 
-
+    @RequestMapping(value = "/test", method = RequestMethod.GET)
+    public ResponseEntity<String> test(){
+        return new ResponseEntity<>("This is a hello from Reservation", HttpStatus.OK);
+    }
 
 
 

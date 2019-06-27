@@ -13,11 +13,6 @@ import javax.jws.soap.SOAPBinding;
 import java.util.List;
 
 
-/*@WebService(portName="AuthPort",
-	serviceName="AuthServiceInterface",
-	targetNamespace="http://interfaces.megatravel.com/",
-	endpointInterface = "com.megatravel.interfaces.AuthServiceInterface")*/
-
 @WebService(portName = "AccommodationPort",
             serviceName = "AccommodationServiceInterface",
             targetNamespace = "http://interfaces.megatravel.com",

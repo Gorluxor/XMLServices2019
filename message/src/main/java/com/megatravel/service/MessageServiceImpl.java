@@ -60,20 +60,21 @@ public class MessageServiceImpl {
 
         Message msg = new Message(messageDTO);
 
-        if (msg.getSender() == null || msg.getReceiver() == null || msg.getChatRoom() == null){
+        if (msg.getSender() == null || msg.getReceiver() == null ){
             throw new ResponseStatusException(HttpStatus.NO_CONTENT, "No such object in database");
         }
         User sender = userRepository.getOne(msg.getSender().getId());
         User receiver = userRepository.getOne(msg.getReceiver().getId());
 
+        Date date = new Date();
         // sender and receiver are not null by .getId (otherwise throws exception)
-        msg.setTimeStamp(new Date());
-        ChatRoom chatRoom = chatRoomRepository.getOne(msg.getChatRoom().getId());
+        msg.setTimeStamp(date);
+        ChatRoom chatRoom = chatRoomRepository.getOne(chatRoomIdOrReservationId);
 
         msg.setChatRoom(chatRoom);
         msg.setReceiver(receiver);
         msg.setSender(sender);
-
+        msg.setLastChangedDate(date);
         messageRepository.save(msg);
 
         return msg;

@@ -133,7 +133,8 @@ public class UserController {
 		user.setPassword(registrationDTO.getPassword());
 		user.setName(registrationDTO.getName());
 		user.setLastName(registrationDTO.getLastName());
-		Role role = roleServiceImpl.findByRoleName("Role_User");
+		user.setActivatedUser(true);
+		Role role = roleServiceImpl.findByRoleName("ROLE_USER");
 
 		user.setRole(role);
 		userServiceImpl.signup(user);
