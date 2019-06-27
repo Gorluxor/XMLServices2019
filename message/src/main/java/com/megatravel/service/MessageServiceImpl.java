@@ -58,6 +58,7 @@ public class MessageServiceImpl {
 
     public Message sendMessage(Long chatRoomIdOrReservationId, MessageDTO messageDTO) throws ResponseStatusException {
 
+
         Message msg = new Message(messageDTO);
 
         if (msg.getSender() == null || msg.getReceiver() == null ){
