@@ -61,7 +61,7 @@ public class SearchServiceImpl {
         List<Accommodation> list = null;
 
         String searchString = "all";
-        if (!searchDTO.getCategory().equals("")){
+        if (searchDTO.getCategory() != ""){
             searchString = Accommodation.validCategory(searchDTO.getCategory());
         }
 
@@ -69,11 +69,16 @@ public class SearchServiceImpl {
 
             AccommodationType accommodationType = accommodationTypeRepository.findByNameOfAccType(searchDTO.getAccommodationType());
 
-            list = accommodationRepository.advancedSearch(searchDTO.getCity(), startDate, endDate, searchDTO.getNumberOfPeople(), accommodationType.getId(), searchString);
+            System.out.println("City:"+searchDTO.getCity() + "Start:" + startDate + "EndDate:" + endDate+ "People:" + searchDTO.getNumberOfPeople()+ "TypeId:" + accommodationType.getId()+ "SearchString:" + searchString + "FreeDays:" + searchDTO.getSearchFreeDays()+ "\n");
+            try{
+                list = accommodationRepository.advancedSearch(searchDTO.getCity(), startDate, endDate, searchDTO.getNumberOfPeople(), accommodationType.getId(), searchString, searchDTO.isFreeToCancel(), searchDTO.getSearchFreeDays() );
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         }else {
             list = accommodationRepository.normalSearch(searchDTO.getCity(), startDate, endDate, searchDTO.getNumberOfPeople());
         }
-
+        System.out.println("ListBeforeExtraServices:" + list.size());
         List<ExtraService> extraServices = findExtraServices(searchDTO.getExtraServices());
 
         List<Accommodation> afterFilter = new ArrayList<>();
@@ -85,27 +90,37 @@ public class SearchServiceImpl {
             }
         }
 
-
+        if (searchDTO.getDistance() != 0)
+            afterFilter = calculateDistanceFromCity(afterFilter, searchDTO.getDistance(), searchDTO.getCity());
 
         return afterFilter;
 
     }
 
-    public List<AccommodationUnit> normalSearchAccommodationUnit(SearchDTO searchDTO){
+    public List<AccommodationUnit> normalSearchAccommodationUnit(SearchDTO searchDTO, Long id){
         validSearch(searchDTO);
         String startDate = changeToString(searchDTO.getStartDate());
         String endDate = changeToString(searchDTO.getEndDate());
-        return accommodationUnitRepository.normalSearch(searchDTO.getCity(),startDate, endDate, searchDTO.getNumberOfPeople());
+
+        Accommodation accommodation = accommodationRepository.getOne(id);
+        Long value = accommodation.getId();
+        System.out.println("Address:"+searchDTO.getCity()+ "Date:"+startDate + "EndDate:" + endDate + "AccommodationId:" + value);
+        return accommodationUnitRepository.normalSearch(searchDTO.getCity(), startDate, endDate, value);
     }
 
-    public List<AccommodationUnit> advanceSearchAccommodationUnit(SearchDTO searchDTO){
+    public List<AccommodationUnit> advanceSearchAccommodationUnit(SearchDTO searchDTO, Long id){
         validSearch(searchDTO);
         String startDate = changeToString(searchDTO.getStartDate());
         String endDate = changeToString(searchDTO.getEndDate());
         List<AccommodationUnit> list;
 
+        System.out.println("Advance search");
+
+        Accommodation accommodation = accommodationRepository.getOne(id);
+        Long value = accommodation.getId();
+
         String searchString = "all";
-        if (!searchDTO.getCategory().equals("")){
+        if (searchDTO.getCategory() != ""){
             searchString = Accommodation.validCategory(searchDTO.getCategory());
         }
 
@@ -113,16 +128,29 @@ public class SearchServiceImpl {
         if (searchDTO.getAccommodationType() != null){
 
             UnitType accommodationType = unitTypeRepository.findByNameOfUnitType(searchDTO.getAccommodationType());
-
-            list = accommodationUnitRepository.advanceSearch(searchDTO.getCity(), startDate, endDate, searchDTO.getNumberOfPeople(), accommodationType.getId());
+            long val = 0L;
+            if (accommodationType == null){
+                val = -1L;
+            }else {
+                val = accommodationType.getId();
+            }
+           try{
+               list = accommodationUnitRepository.advanceSearch(searchDTO.getCity(), startDate, endDate, val, value);
+           }catch (Exception e){
+               e.printStackTrace();
+               list = null;
+           }
         }else {
-            list = accommodationUnitRepository.normalSearch(searchDTO.getCity(), startDate, endDate, searchDTO.getNumberOfPeople());
+            list = accommodationUnitRepository.normalSearch(searchDTO.getCity(), startDate, endDate, value);
         }
 
         List<ExtraService> extraServices = findExtraServices(searchDTO.getExtraServices());
 
+
+
         List<AccommodationUnit> afterFilter = new ArrayList<>();
         if (searchDTO.getExtraServices() != null && list != null){
+            System.out.println("Advance Unit search before filter:" + list.size());
             for (AccommodationUnit accommodationUnit : list){
                 if (accommodationUnit.getExtraService().containsAll(extraServices)){
 
@@ -130,8 +158,8 @@ public class SearchServiceImpl {
                 }
             }
         }
-        if (searchDTO.getDistance() != 0)
-            afterFilter = calculateDistanceFromCity(afterFilter, searchDTO.getDistance(), searchDTO.getCity());
+//        if (searchDTO.getDistance() != 0)
+//            afterFilter = calculateDistanceFromCity(afterFilter, searchDTO.getDistance(), searchDTO.getCity());
 
         return afterFilter;
     }
@@ -175,15 +203,15 @@ public class SearchServiceImpl {
 
     private final double degreesToKm = 111.32;
 
-    private List<AccommodationUnit> calculateDistanceFromCity(List<AccommodationUnit> units, double distance, String city) {
+    private List<Accommodation> calculateDistanceFromCity(List<Accommodation> accommodations, double distance, String city) {
         List<Location> locationList = locationRepository.findByCity(city);
 
-        List<AccommodationUnit> retVal = new ArrayList<>();
+        List<Accommodation> retVal = new ArrayList<>();
 
         locationList.forEach(address -> {
-            units.forEach(unit -> {
-                double x = unit.getAccommodation().getLocation().getLongitude();
-                double y = unit.getAccommodation().getLocation().getLatitude();
+            accommodations.forEach(accommodation -> {
+                double x = accommodation.getLocation().getLongitude();
+                double y = accommodation.getLocation().getLatitude();
                 double calculatedDistance =
                         Math.sqrt(Math.pow(x - address.getLongitude(), 2) + Math.pow(y - address.getLatitude(), 2));
 
@@ -191,8 +219,8 @@ public class SearchServiceImpl {
                 System.out.println("Distance provided: " + distance);
 
                 if (calculatedDistance * degreesToKm <= distance) {
-                    if (!retVal.contains(unit)) {
-                        retVal.add(unit);
+                    if (!retVal.contains(accommodation)) {
+                        retVal.add(accommodation);
                     }
                     return;
                 }

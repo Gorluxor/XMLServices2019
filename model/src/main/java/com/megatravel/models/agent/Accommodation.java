@@ -71,6 +71,10 @@ public class Accommodation {
     }
 
     public static String validCategory(String value){
+        if (value == null){
+            return "Uncategorized";
+        }
+
         switch (value){
             case "One star":
                 return "One star";

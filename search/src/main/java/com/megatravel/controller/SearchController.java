@@ -34,14 +34,14 @@ public class SearchController {
         return new ResponseEntity<>(convertToAccommodationListDTO(searchService.advanceSearchAccommodation(searchDTO)), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/unit/normal", method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-    public ResponseEntity<List<AccommodationUnitDTO>> normalSearchAccommodationUnit(@RequestBody SearchDTO searchDTO){
-        return new ResponseEntity<>(convertToAccommodationUnitListDTO(searchService.normalSearchAccommodationUnit(searchDTO)), HttpStatus.OK);
+    @RequestMapping(value = "/accommodation/{id}/normal", method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    public ResponseEntity<List<AccommodationUnitDTO>> normalSearchAccommodationUnit(@RequestBody SearchDTO searchDTO, @PathVariable(name = "id") Long id){
+        return new ResponseEntity<>(convertToAccommodationUnitListDTO(searchService.normalSearchAccommodationUnit(searchDTO, id)), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/unit/advanced", method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-    public ResponseEntity<List<AccommodationUnitDTO>> advancedSearchAccommodationUnit(@RequestBody SearchDTO searchDTO){
-        return new ResponseEntity<>(convertToAccommodationUnitListDTO(searchService.advanceSearchAccommodationUnit(searchDTO)), HttpStatus.OK);
+    @RequestMapping(value = "/accommodation/{id}/advanced", method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    public ResponseEntity<List<AccommodationUnitDTO>> advancedSearchAccommodationUnit(@RequestBody SearchDTO searchDTO, @PathVariable(name = "id") Long id){
+        return new ResponseEntity<>(convertToAccommodationUnitListDTO(searchService.advanceSearchAccommodationUnit(searchDTO, id)), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/test", method = RequestMethod.POST)
