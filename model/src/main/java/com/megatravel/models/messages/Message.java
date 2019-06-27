@@ -49,12 +49,11 @@ public class Message {
 
     public Message(MessageDTO messageDTO) {
         this.msg = messageDTO.getMsg();
-        this.id = messageDTO.getId();
         this.chatRoom = messageDTO.getChatRoomDTO() == null ? null : new ChatRoom(messageDTO.getChatRoomDTO());
         this.receiver = new User(messageDTO.getReceiver());
         this.sender = new User(messageDTO.getSender());
         this.lastChangedDate = messageDTO.getLastChangedDate();
-
+        this.timeStamp = messageDTO.getTimeStamp();
     }
 
 
