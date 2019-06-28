@@ -103,6 +103,7 @@ public class AccommodationDTO {
         this.userDTO = new UserDTO(accommodation.getUser());
         this.accommodationUnitDTO = new ArrayList<>();
         this.extraServiceDTO = new ArrayList<>();
+        this.lastChangedDate = accommodation.getLastChangedDate();
         for (AccommodationUnit au : accommodation.getAccommodationUnit()){
             this.accommodationUnitDTO.add(new AccommodationUnitDTO(au));
         }

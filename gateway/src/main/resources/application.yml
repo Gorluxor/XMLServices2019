@@ -35,15 +35,16 @@ zuul:
     rating: /rating/**
     message: /message/**
     reservation: /reservation/**
-#  command:
-#    default:
-#      execution:
-#        isolation:
-#          thread:
-#            timeoutInMilliseconds: 60000
-#ribbon:
-#  ConnectTimeout: 2000000
-#  ReadTimeout: 600000
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000
+ribbon:
+  ConnectTimeout: 2000000
+  ReadTimeout: 600000
 
 
 # Disable Hystrix

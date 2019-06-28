@@ -1,6 +1,7 @@
 package com.megatravel.utils;
 
 
+import com.megatravel.webservice.WebAccommodationServiceImpl;
 import com.megatravel.webservice.WebAccommodationUnitServiceImpl;
 import com.megatravel.webservice.WebPricingServiceImpl;
 import com.megatravel.webservice.WebReservationServiceImpl;
@@ -30,6 +31,7 @@ public class DynamicEndpointPublisher {
 
 		int port = this.getEmptyPort();
 		applicationInfoManager.getInfo().getMetadata().put(SOAP_PORT,Integer.toString(port));
+		publishEndpoint(port, WebAccommodationServiceImpl.ENDPOINT, WebAccommodationServiceImpl.class);
 		publishEndpoint(port, WebAccommodationUnitServiceImpl.ENDPOINT, WebAccommodationUnitServiceImpl.class);
 		publishEndpoint(port, WebPricingServiceImpl.ENDPOINT, WebPricingServiceImpl.class);
 		publishEndpoint(port, WebReservationServiceImpl.ENDPOINT, WebReservationServiceImpl.class);

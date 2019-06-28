@@ -33,8 +33,6 @@ public class DynamicEndpointPublisher {
         Map<String, String> map = applicationInfoManager.getInfo().getMetadata();
         int port = this.getEmptyPort();
         map.put(SOAP_PORT, Integer.toString(port));
-        publishEndpoint(port, WebReservationServiceImpl.ENDPOINT, WebReservationServiceImpl.class);
-        publishEndpoint(port, WebAccommodationServiceImpl.ENDPOINT, WebAccommodationServiceImpl.class);
         publishEndpoint(port, WebAccommodationTypeServiceImpl.ENDPOINT, WebAccommodationTypeServiceImpl.class);
         publishEndpoint(port, WebExtraServiceExtraServiceImpl.ENDPOINT, WebExtraServiceExtraServiceImpl.class);
         publishEndpoint(port, WebUnitTypeServiceImpl.ENDPOINT, WebUnitTypeServiceImpl.class);

@@ -95,10 +95,12 @@ public class ReservationDTO {
         this.reservationPrice = reservation.getReservationPrice();
         this.userDTO = reservation.getUser() == null? null : new UserDTO(reservation.getUser());
         this.accommodationUnitDTO = new ArrayList<>();
-
+        this.lastChangedDate = reservation.getLastChangedDate();
         for (AccommodationUnit au : reservation.getAccommodationUnit()){
             this.accommodationUnitDTO.add(new AccommodationUnitDTO(au));
         }
+        this.reservationPrice = reservation.getReservationPrice();
+
     }
 
 

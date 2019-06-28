@@ -3,6 +3,7 @@ package com.megatravel.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.print.attribute.standard.Media;
 import javax.servlet.http.HttpServletRequest;
 
 import com.megatravel.dtos.admin.LoginDTO;
@@ -97,7 +98,7 @@ public class UserController {
 
 
 	
-	@RequestMapping(value = "/login", method = RequestMethod.POST, consumes = "application/json")
+	@RequestMapping(value = "/login", method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_VALUE})
 	public ResponseEntity<String> login(@RequestBody LoginDTO loginDTO) {
 		
 		User user = userServiceImpl.findByEmail(loginDTO.getEmail());

@@ -68,6 +68,7 @@ public class ExtraServiceDTO {
         this.id = extraService.getId();
         this.nameOfService = extraService.getNameOfService();
         this.description = extraService.getDescription();
+        this.lastChangedDate = extraService.getLastChangedDate();
     }
 
 

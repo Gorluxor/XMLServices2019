@@ -92,6 +92,7 @@ public class LocationDTO {
         this.postalCode = location.getPostalCode();
         this.latitude = location.getLatitude();
         this.longitude = location.getLongitude();
+        this.lastChangedDate = location.getLastChangedDate();
     }
 
 

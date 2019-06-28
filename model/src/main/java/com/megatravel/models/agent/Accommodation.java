@@ -68,6 +68,8 @@ public class Accommodation {
         this.freeToCancel = accommodationDTO.isFreeToCancel();
         this.freeToCancelDays = accommodationDTO.getFreeToCancelDays() >= 0 ? accommodationDTO.getFreeToCancelDays() : 0 ;
         this.category = validCategory(accommodationDTO.getCategory());
+        this.accommodationType = accommodationDTO.getAccommodationTypeDTO() == null ? null : new AccommodationType(accommodationDTO.getAccommodationTypeDTO());
+        this.user = accommodationDTO.getUserDTO() == null ? null : new User(accommodationDTO.getUserDTO());
     }
 
     public static String validCategory(String value){

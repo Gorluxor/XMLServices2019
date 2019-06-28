@@ -44,7 +44,7 @@ public class AccommodationUnit {
 
     @ManyToOne
     protected UnitType unitType;
-    @OneToMany(mappedBy = "priceForUnit")
+    @OneToMany(mappedBy = "priceForUnit", fetch = FetchType.EAGER)
     protected List<Pricing> pricing = new ArrayList<>();
     @ManyToMany
     protected List<ExtraService> extraService = new ArrayList<>();

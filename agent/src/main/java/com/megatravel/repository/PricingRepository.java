@@ -10,12 +10,12 @@ import java.util.List;
 @Repository
 public interface PricingRepository extends JpaRepository<Pricing, Long> {
 
-    List<Pricing> findAllByPriceForUnit(Long id);
+    List<Pricing> findAllByPriceForUnit_Id(Long id);
 
-    Pricing findFirstByPriceForUnitAndId(Long unitId, Long priceId);
+    Pricing findFirstByPriceForUnit_IdAndId(Long unitId, Long priceId);
 
 
 
-    Pricing findFirstByPriceForUnitAndStartDateBeforeOrderByStartDateDesc(Long unitId, Date date);
+    Pricing findFirstByPriceForUnit_IdAndStartDateBeforeOrderByStartDateDesc(Long unitId, Date date);
 
 }

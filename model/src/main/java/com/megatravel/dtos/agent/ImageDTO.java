@@ -16,6 +16,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import com.megatravel.dtos.admin.Adapter1;
+import com.megatravel.models.agent.Image;
 
 
 /**
@@ -58,6 +59,20 @@ public class ImageDTO {
     protected Date lastChangedDate;
     @XmlElement(required = true)
     protected String uri;
+
+    public ImageDTO(){
+
+    }
+
+    public ImageDTO(Image image){
+        if (image != null){
+            this.title = image.getTitle();
+            this.id = image.getId();
+            this.lastChangedDate = image.getLastChangedDate();
+            this.uri = image.getUri();
+        }
+    }
+
 
     /**
      * Gets the value of the id property.

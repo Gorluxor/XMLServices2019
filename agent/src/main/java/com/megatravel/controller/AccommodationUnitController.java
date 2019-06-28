@@ -48,15 +48,12 @@ public class AccommodationUnitController {
     }
 
     @RequestMapping(value = "/{accId}/unit/{unitId}", method = RequestMethod.DELETE)
-    public ResponseEntity<AccommodationUnitDTO> deleteUnit(@PathVariable("accId") Long accommodationId, @PathVariable("unitId") Long unitId){
-        return new ResponseEntity<>(new AccommodationUnitDTO(accommodationService.deleteUnit(accommodationId, unitId)), HttpStatus.OK);
+    public ResponseEntity<?> deleteUnit(@PathVariable("accId") Long accommodationId, @PathVariable("unitId") Long unitId){
+        accommodationService.deleteUnit(accommodationId, unitId);
+        return new ResponseEntity<>("Removed unit", HttpStatus.OK);
     }
 
 
-    @RequestMapping(value = "/test", method = RequestMethod.GET)
-    public ResponseEntity<String> test(){
-        return new ResponseEntity<>("This is a hello from Agent microservice!", HttpStatus.OK);
-    }
 
 
 }

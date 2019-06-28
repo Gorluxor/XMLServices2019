@@ -11,5 +11,12 @@ public interface ReservationInterface {
     @WebMethod
     ReservationDTO confirmReservation(@WebParam(name = "ReservationId") Long reservationId);
 
+    @WebMethod
+    ReservationDTO createReservation(@WebParam(name = "ReservationDTO") ReservationDTO reservationDTO);
+
+    @WebMethod
+    ReservationDTO cancelReservation(@WebParam(name = "ReservationId") Long reservationId);
+
+
 
 }

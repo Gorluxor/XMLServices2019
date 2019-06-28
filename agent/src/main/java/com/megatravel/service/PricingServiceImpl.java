@@ -25,18 +25,18 @@ public class PricingServiceImpl{
     private AccommodationUnitRepository accommodationUnitRepository;
 
     public List<Pricing> getAllPricesForUnit(Long unitId) {
-        return pricingRepository.findAllByPriceForUnit(unitId);
+        return pricingRepository.findAllByPriceForUnit_Id(unitId);
     }
 
     public Pricing getPricesForUnit(Long unitId, Long priceId) {
-        return pricingRepository.findFirstByPriceForUnitAndId(unitId, priceId);
+        return pricingRepository.findFirstByPriceForUnit_IdAndId(unitId, priceId);
     }
 
     public Pricing updatePriceForUnit(Long unitId, PricingDTO pricingDTO) throws ResponseStatusException {
         if (pricingDTO == null){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "No object");
         }
-        Pricing pricing = pricingRepository.findFirstByPriceForUnitAndId(unitId, pricingDTO.getId());
+        Pricing pricing = pricingRepository.findFirstByPriceForUnit_IdAndId(unitId, pricingDTO.getId());
         if (pricing == null){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Bad UnitId or Price Id");
         }
@@ -51,13 +51,15 @@ public class PricingServiceImpl{
         return pricing;
     }
 
-    public Pricing deletePriceForUnit(Long unitId, Long priceId) throws ResponseStatusException{
-        Pricing pricing = pricingRepository.findFirstByPriceForUnitAndId(unitId,priceId);
+    public void deletePriceForUnit(Long unitId, Long priceId) throws ResponseStatusException{
+        Pricing pricing = pricingRepository.findFirstByPriceForUnit_IdAndId(unitId,priceId);
         if (pricing == null){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "No object");
         }
+        AccommodationUnit accommodationUnit = accommodationUnitRepository.getOne(pricing.getPriceForUnit().getId());
+        accommodationUnit.getPricing().remove(pricing);
+        accommodationUnitRepository.save(accommodationUnit);
         pricingRepository.delete(pricing);
-        return pricing;
     }
 
     public Pricing createPriceForUnit(Long unitId, PricingDTO pricingDTO) throws ResponseStatusException {
@@ -95,7 +97,7 @@ public class PricingServiceImpl{
         BigDecimal totalPrice = new BigDecimal(0);
 
         for (Date date = start.getTime(); start.before(end); start.add(Calendar.DATE, 1), date = start.getTime()) {
-           totalPrice = totalPrice.add(pricingRepository.findFirstByPriceForUnitAndStartDateBeforeOrderByStartDateDesc(unitId,date).getPrice()) ;
+           totalPrice = totalPrice.add(pricingRepository.findFirstByPriceForUnit_IdAndStartDateBeforeOrderByStartDateDesc(unitId,date).getPrice()) ;
         }
 
         return totalPrice.doubleValue();
@@ -103,9 +105,13 @@ public class PricingServiceImpl{
 
     public double getPriceForDatesAccId(Long accId, Date startDate, Date endDate){
 
-        double minPrice = 0;
+        double minPrice = Double.MAX_VALUE;
 
         List<AccommodationUnit> list = accommodationUnitRepository.findAllByAccommodation_Id(accId);
+
+        if (list == null){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "No accommodation units for the accommodation");
+        }
 
         for (AccommodationUnit a : list){
            double something = getPriceForDatesUnitId(a.getId(), startDate, endDate);
@@ -113,6 +119,12 @@ public class PricingServiceImpl{
                minPrice = something;
            }
         }
+
+        if (minPrice == Double.MAX_VALUE){
+            // didn't find better price
+            minPrice = -1;
+        }
+
         // Should be price starting at ...
         return minPrice;
     }

@@ -63,6 +63,12 @@ public class AccommodationUnitServiceImpl {
 
         unit.setUnitType(unitType);
 
+        unit.setAccommodation(accommodation);
+        unit.setLastChangedDate(new Date());
+        locationRepository.save(unit.getLocation());
+
+        accommodationUnitRepository.save(unit);
+
         for (Image image : unit.getImages()){
             image.setBelongsToAccommodationUnit(unit); // rest set in new AccommodationUnit
             imageRepository.save(image);
@@ -88,6 +94,7 @@ public class AccommodationUnitServiceImpl {
 
         unit.setExtraService(list);
         accommodation.getAccommodationUnit().add(unit);
+
         return unit;
     }
 
@@ -122,7 +129,7 @@ public class AccommodationUnitServiceImpl {
         return unit;
     }
 
-    public AccommodationUnit deleteUnit(Long accId, Long unitId) {
+    public void deleteUnit(Long accId, Long unitId) {
 
         Accommodation accommodation = accommodationRepository.getOne(accId);
         AccommodationUnit accommodationUnit = accommodationUnitRepository.getOne(unitId);
@@ -136,8 +143,6 @@ public class AccommodationUnitServiceImpl {
         accommodationRepository.save(accommodation);
 
         accommodationUnitRepository.delete(accommodationUnit);
-
-        return accommodationUnit;
     }
 
 

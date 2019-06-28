@@ -23,6 +23,7 @@ import com.megatravel.dtos.admin.Adapter1;
 import com.megatravel.dtos.types.LocationDTO;
 import com.megatravel.models.agent.AccommodationUnit;
 import com.megatravel.models.agent.ExtraService;
+import com.megatravel.models.agent.Image;
 import com.megatravel.models.agent.Pricing;
 
 
@@ -95,18 +96,25 @@ public class AccommodationUnitDTO {
     }
 
     public AccommodationUnitDTO(AccommodationUnit accommodationUnit) {
-        this.id = accommodationUnit.getId();
-        this.capacity = accommodationUnit.getCapacity();
-        this.size = accommodationUnit.getSize();
-        this.nameOfUnit = accommodationUnit.getNameOfUnit();
-        this.unitTypeDTO = new UnitTypeDTO(accommodationUnit.getUnitType());
-        this.pricingDTO = new ArrayList<>();
-        this.extraServiceDTO = new ArrayList<>();
-        for (Pricing p : accommodationUnit.getPricing()){
-            this.pricingDTO.add(new PricingDTO(p));
-        }
-        for (ExtraService s : accommodationUnit.getExtraService()){
-            this.extraServiceDTO.add(new ExtraServiceDTO(s));
+        if (accommodationUnit != null){
+            this.id = accommodationUnit.getId();
+            this.capacity = accommodationUnit.getCapacity();
+            this.size = accommodationUnit.getSize();
+            this.nameOfUnit = accommodationUnit.getNameOfUnit();
+            this.unitTypeDTO = new UnitTypeDTO(accommodationUnit.getUnitType());
+            this.pricingDTO = new ArrayList<>();
+            this.extraServiceDTO = new ArrayList<>();
+            this.imageDTO = new ArrayList<>();
+            for (Pricing p : accommodationUnit.getPricing()){
+                this.pricingDTO.add(new PricingDTO(p));
+            }
+            for (ExtraService s : accommodationUnit.getExtraService()){
+                this.extraServiceDTO.add(new ExtraServiceDTO(s));
+            }
+            for (Image im : accommodationUnit.getImages()){
+                this.imageDTO.add(new ImageDTO(im));
+            }
+            this.locationDTO = new LocationDTO(accommodationUnit.getLocation());
         }
     }
 

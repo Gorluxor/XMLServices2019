@@ -70,6 +70,7 @@ public class PricingDTO {
         this.id = pricing.getId();
         this.price = pricing.getPrice();
         this.startDate = pricing.getStartDate();
+        this.lastChangedDate = pricing.getLastChangedDate();
     }
 
     /**

@@ -1,17 +1,21 @@
 package com.megatravel.utils;
 
+import java.util.List;
+
+
 public class JwtToken {
 	String sub;
 	String iat;
 	String exp;
-	
+	List<JwtAuthorization> auth;
 	public JwtToken() {
 	}
-	public JwtToken(String sub,  String iat, String exp) {
+	public JwtToken(String sub,  String iat, String exp, List<JwtAuthorization> auth) {
 		super();
 		this.sub = sub;
 		this.iat = iat;
 		this.exp = exp;
+		this.auth = auth;
 	}
 	public String getSub() {
 		return sub;
@@ -31,6 +35,15 @@ public class JwtToken {
 	public void setExp(String exp) {
 		this.exp = exp;
 	}
+
+	public List<JwtAuthorization> getAuth() {
+		return auth;
+	}
+
+	public void setAuth(List<JwtAuthorization> auth) {
+		this.auth = auth;
+	}
+
 	@Override
 	public String toString() {
 		return "JwtToken [sub=" + sub + ", iat=" + iat + ", exp=" + exp + "]";

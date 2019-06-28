@@ -55,6 +55,12 @@ public class AccommodationServiceImpl {
         if (accommodation.getUser() == null || accommodation.getAccommodationType() == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "No such object in database");
         }
+
+        accommodation.setUser(userRepository.getOne(accommodation.getUser().getId()));
+
+        if (!accommodation.getUser().getRole().getRoleName().contains("AGENT")){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "No agent");
+        }
         accommodation.setExtraService(new ArrayList<>()); // admin doesn't add which extra services does the user have
 
         locationRepository.save(accommodation.getLocation());
@@ -75,13 +81,23 @@ public class AccommodationServiceImpl {
         }
         Accommodation accommodation = accommodationRepository.getOne(accommodationDTO.getId());
 
-        if (accommodation.getUser() == null || accommodation.getAccommodationType() == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "No info");
+        if (accommodationDTO.getUserDTO() != null){
+            User newUser = userRepository.getOne(accommodationDTO.getUserDTO().getId());
+            if (newUser.getRole().getRoleName().contains("AGENT")){
+                accommodation.setUser(newUser); // one of the available agents
+            }
         }
 
-        accommodation.setUser(userRepository.getOne(accommodation.getUser().getId())); // one of the available agents
-        accommodation.setAccommodationType(accommodationTypeRepository.getOne(accommodation.getAccommodationType().getId()));
+        if (accommodationDTO.getAccommodationTypeDTO() != null){
+            AccommodationType accommodationType = accommodationTypeRepository.getOne(accommodation.getAccommodationType().getId());
+            accommodation.setAccommodationType(accommodationType);
+        }
 
+        accommodation.setName(accommodationDTO.getName());
+        accommodation.setCategory(accommodationDTO.getCategory());
+        accommodation.setFreeToCancel(accommodationDTO.isFreeToCancel());
+        accommodation.setFreeToCancelDays(accommodationDTO.getFreeToCancelDays());
+        accommodation.setDescription(accommodationDTO.getDescription());
         accommodation.setLastChangedDate(new Date());
 
         accommodationRepository.save(accommodation);
@@ -89,7 +105,7 @@ public class AccommodationServiceImpl {
     }
 
 
-    public Accommodation deleteAccommodation(Long accId) {
+    public void deleteAccommodation(Long accId) {
 
         Accommodation accommodation = accommodationRepository.getOne(accId);
 
@@ -104,7 +120,6 @@ public class AccommodationServiceImpl {
         }
 
         accommodationRepository.delete(accommodation);
-        return accommodation;
     }
 
 

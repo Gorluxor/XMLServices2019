@@ -31,4 +31,14 @@ public class WebReservationServiceImpl implements ReservationInterface {
     public ReservationDTO confirmReservation(Long reservationId) {
         return null;
     }
+
+    @Override
+    public ReservationDTO createReservation(ReservationDTO reservationDTO) {
+        return null;
+    }
+
+    @Override
+    public ReservationDTO cancelReservation(Long reservationId) {
+        return null;
+    }
 }

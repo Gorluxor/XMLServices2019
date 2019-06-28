@@ -1,14 +1,18 @@
-package com.megatravel.utils;
+package com.megatravel.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
-@SuppressWarnings("unused")
+
+@SuppressWarnings({"Duplicates", "unused"})
 @Component
 public class TokenUtils {
     public static String getUsername(String jwtToken) {
+        if (jwtToken == null || jwtToken.length() == 0){
+            return "";
+        }
         String pureJwtToken = jwtToken.substring(7, jwtToken.length());
         return decodeJwt(pureJwtToken).getSub(); // email address in our case
     }

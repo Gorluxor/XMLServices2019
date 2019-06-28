@@ -1,12 +1,12 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/xmlagent?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&createDatabaseIfNotExist=true
-    username: Agent
-    password: AgentPasswordMYSQL!
+    url: jdbc:mysql://localhost:3306/xmlagent?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&createDatabaseIfNotExist=true&characterEncoding=UTF-8
+    username: XML
+    password: XMLSecureMYSQL!
     initialization-mode: always
     continue-on-error: "true"
-  datasourse:
-    data: /resources/data.sql
+#  datasourse:
+#    data: /resources/data.sql
   jpa:
     hibernate:
       show_sql: "true"
@@ -19,7 +19,7 @@ spring:
         characterEncoding: utf8
         useUnicode: "true"
   application:
-    name: Agent
+    name: agent
 server:
   error:
     whitelabel:

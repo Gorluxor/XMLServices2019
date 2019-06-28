@@ -33,9 +33,11 @@ public class UnitType {
     }
 
     public UnitType(UnitTypeDTO unitTypeDTO) {
-        this.id = unitTypeDTO.getId();
-        this.nameOfUnitType = unitTypeDTO.getNameOfUnitType();
-        this.lastChangedDate = unitTypeDTO.getLastChangedDate();
+        if (unitTypeDTO != null){
+            this.id = unitTypeDTO.getId();
+            this.nameOfUnitType = unitTypeDTO.getNameOfUnitType();
+            this.lastChangedDate = unitTypeDTO.getLastChangedDate();
+        }
     }
 
     public Date getLastChangedDate() {

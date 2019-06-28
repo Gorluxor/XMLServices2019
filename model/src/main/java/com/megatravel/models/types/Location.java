@@ -39,15 +39,17 @@ public class Location {
     }
 
     public Location(LocationDTO locationDTO) {
-        this.id = locationDTO.getId();
-        this.country = locationDTO.getCountry();
-        this.city = locationDTO.getCity();
-        this.street = locationDTO.getStreet();
-        this.number = locationDTO.getNumber();
-        this.postalCode = locationDTO.getPostalCode();
-        this.latitude = locationDTO.getLatitude();
-        this.longitude = locationDTO.getLongitude();
-        this.lastChangedDate = locationDTO.getLastChangedDate();
+        if (locationDTO != null){
+            this.id = locationDTO.getId();
+            this.country = locationDTO.getCountry();
+            this.city = locationDTO.getCity();
+            this.street = locationDTO.getStreet();
+            this.number = locationDTO.getNumber();
+            this.postalCode = locationDTO.getPostalCode();
+            this.latitude = locationDTO.getLatitude();
+            this.longitude = locationDTO.getLongitude();
+            this.lastChangedDate = locationDTO.getLastChangedDate();
+        }
     }
 
     public Location(String country, String city, String street, BigInteger number, int postalCode, Double latitude, Double longitude) {
