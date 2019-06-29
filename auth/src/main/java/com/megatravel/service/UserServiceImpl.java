@@ -2,12 +2,15 @@ package com.megatravel.service;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import com.megatravel.dtos.admin.RegistrationDTO;
 import com.megatravel.exceptions.CustomException;
 import com.megatravel.models.admin.User;
 
+import com.megatravel.models.types.Location;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -28,7 +31,7 @@ import com.megatravel.password.HashPassword;
 import com.megatravel.repository.RoleRepository;
 import com.megatravel.repository.UserRepository;
 
-
+@SuppressWarnings("Duplicates")
 @Component
 public class UserServiceImpl {
 	@Autowired
@@ -42,6 +45,9 @@ public class UserServiceImpl {
 
 	@Autowired
 	private AuthenticationManager authenticationManager;
+
+	@Autowired
+	RoleServiceImpl roleService;
 
 	public List<UserDTO> findAll(Pageable page) {
 		Page<User> users = userRepository.findAll(page);
@@ -92,6 +98,7 @@ public class UserServiceImpl {
 	}
 
 	public void remove(Long id) {
+
 		userRepository.deleteById(id);
 
 	}
@@ -149,6 +156,47 @@ public class UserServiceImpl {
 
 	public List<User> findFreeAgents(){
 		return userRepository.findByRole_IdAndAccommodationIsNull(3l); // 3 == ROLE_AGENT
+	}
+
+	public void blockUser(Long id) throws ResponseStatusException {
+		User user = userRepository.getOne(id);
+		if (user.getRole().getRoleName().contains("USER")){
+			user.setActivatedUser(false);
+			userRepository.save(user);
+		}else {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Not user type");
+		}
+	}
+
+	public void activateUser(Long id) throws ResponseStatusException {
+		User user = userRepository.getOne(id);
+		if (user.getRole().getRoleName().contains("USER")){
+			user.setActivatedUser(true);
+			userRepository.save(user);
+		}else {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Not user type");
+		}
+
+	}
+
+	public void registerAgent(RegistrationDTO registrationDTO){
+
+		User tmp = userRepository.findByEmail(registrationDTO.getEmail());
+		if(tmp != null) {
+			return;
+		}
+
+		User user = new User();
+		user.setEmail(registrationDTO.getEmail());
+		user.setPassword(registrationDTO.getPassword());
+		user.setName(registrationDTO.getName());
+		user.setLastName(registrationDTO.getLastName());
+		user.setPib(registrationDTO.getPib());
+		user.setLocation(registrationDTO.getLocationDTO() == null ? null : new Location(registrationDTO.getLocationDTO()));
+		Role role = roleService.findByRoleName("ROLE_AGENT");
+		user.setLastChangedDate(new Date());
+		user.setRole(role);
+		signup(user);
 	}
 
 

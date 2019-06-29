@@ -4,8 +4,12 @@ import javax.jws.WebService;
 
 import com.megatravel.dtos.admin.LoginDTO;
 import com.megatravel.interfaces.AuthServiceInterface;
+import com.megatravel.models.types.Location;
+import com.megatravel.repository.UserRepository;
+import com.netflix.discovery.converters.Auto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -16,8 +20,11 @@ import com.megatravel.configurations.WebApplicationContextLocator;
 
 import com.megatravel.models.admin.Role;
 import com.megatravel.models.admin.User;
+import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Date;
 
+@SuppressWarnings("Duplicates")
 @WebService(portName="AuthPort",
 	serviceName="AuthServiceInterface",
 	targetNamespace="http://interfaces.megatravel.com/",
@@ -33,7 +40,8 @@ public class AuthServiceImpl implements AuthServiceInterface {
 	@Autowired
 	RoleServiceImpl roleServiceImpl;
 	
-
+	@Autowired
+	private UserRepository userRepository;
 	
     public AuthServiceImpl() {
         AutowiredAnnotationBeanPostProcessor bpp = new AutowiredAnnotationBeanPostProcessor();
@@ -41,8 +49,9 @@ public class AuthServiceImpl implements AuthServiceInterface {
         bpp.setBeanFactory(currentContext.getAutowireCapableBeanFactory());
         bpp.processInjection(this);
     }
-	
-	
+
+
+
 	@Override
 	public String testMethod() {
 		return "USPEO";
@@ -54,6 +63,10 @@ public class AuthServiceImpl implements AuthServiceInterface {
 		User user = userServiceImpl.findByEmail(loginDTO.getEmail());
 		if(user == null) {
 			return null;
+		}else {
+			if (!user.isActivatedUser()){
+				throw new ResponseStatusException(HttpStatus.FORBIDDEN,"User not active");
+			}
 		}
 
 		try {
@@ -85,8 +98,9 @@ public class AuthServiceImpl implements AuthServiceInterface {
 		user.setPassword(registrationDTO.getPassword());
 		user.setName(registrationDTO.getName());
 		user.setLastName(registrationDTO.getLastName());
-		Role role = roleServiceImpl.findByRoleName("Role_USER");
+		Role role = roleServiceImpl.findByRoleName("ROLE_USER");
 
+		user.setLastChangedDate(new Date());
 		user.setRole(role);
 		userServiceImpl.signup(user);
 

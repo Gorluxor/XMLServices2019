@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+@CrossOrigin
 @RequestMapping(value = "/acc")
 @RestController
 public class AccommodationUnitController {

@@ -56,7 +56,7 @@ public class ReservationServiceImpl {
 
     public Reservation createReservation(@NotNull ReservationDTO reservationDTO, String email) {
 
-//        User user = userRepository.findByEmail(email);
+      User user = userRepository.findByEmail(email);
 //
 //        if (user == null){
 //            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "No user");
@@ -77,7 +77,17 @@ public class ReservationServiceImpl {
 
         reservation.setLastChangedDate(new Date());
 
-        reservation.setUser(userRepository.getOne(reservation.getUser().getId()));
+       if (reservationDTO.getUserDTO() == null){
+           if (user == null){
+               throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"No user");
+           }else {
+               reservation.setUser(user);
+           }
+       }else {
+           reservation.setUser(userRepository.getOne(reservation.getUser().getId()));
+       }
+
+
 
         if (reservation.getAccommodationUnit() == null || reservation.getAccommodationUnit().size() == 0){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "No Accommodation Units reserved");

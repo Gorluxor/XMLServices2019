@@ -83,6 +83,29 @@ public class UserController {
 		return new ResponseEntity<>(new UserDTO(userServiceImpl.findByEmail(email)), HttpStatus.OK);
 	}
 
+	@RequestMapping(value = "/block/{userId}", method = RequestMethod.PUT)
+	public ResponseEntity<String> disableUser(@PathVariable(name = "userId") Long userId){
+		userServiceImpl.blockUser(userId);
+		return new ResponseEntity<>("Blocked user",HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/activate/{userId}", method = RequestMethod.PUT)
+	public ResponseEntity<String> activateUser(@PathVariable(name = "userId") Long userId) {
+		userServiceImpl.activateUser(userId);
+		return new ResponseEntity<>("User activated", HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/delete/{userId}", method = RequestMethod.DELETE)
+	public ResponseEntity<String> deleteUser(@PathVariable(name = "userId") Long userId){
+		userServiceImpl.remove(userId);
+		return new ResponseEntity<>("User deleted", HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/agentRegister", method = RequestMethod.POST)
+	public ResponseEntity<String> registerAgent(@RequestBody RegistrationDTO registrationDTO){
+		userServiceImpl.registerAgent(registrationDTO);
+		return new ResponseEntity<>("Added agent", HttpStatus.OK);
+	}
 
 	@RequestMapping(value = "/free", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
 	public ResponseEntity<List<UserDTO>> getFreeAgents(){
