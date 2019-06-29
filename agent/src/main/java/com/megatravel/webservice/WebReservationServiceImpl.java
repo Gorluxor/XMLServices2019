@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.context.WebApplicationContext;
 
 import javax.jws.WebService;
+import java.util.List;
 
 
 @WebService(portName="ReservationPort",
@@ -39,6 +40,11 @@ public class WebReservationServiceImpl implements ReservationInterface {
 
     @Override
     public ReservationDTO cancelReservation(Long reservationId) {
+        return null;
+    }
+
+    @Override
+    public List<ReservationDTO> getListReservationsForUser(Long userId) {
         return null;
     }
 }

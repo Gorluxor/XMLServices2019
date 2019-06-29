@@ -82,13 +82,13 @@
 		</dependency>
 
 
-		<dependency>
-			<groupId>com.megatravel</groupId>
-			<artifactId>model</artifactId>
-			<version>1.0</version>
-			<scope>compile</scope>
+		<!--<dependency>-->
+			<!--<groupId>com.megatravel</groupId>-->
+			<!--<artifactId>model</artifactId>-->
+			<!--<version>1.0</version>-->
+			<!--<scope>compile</scope>-->
 
-		</dependency>
+		<!--</dependency>-->
 
 
 	</dependencies>

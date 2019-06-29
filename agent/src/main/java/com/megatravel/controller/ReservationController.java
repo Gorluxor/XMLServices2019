@@ -1,6 +1,7 @@
 package com.megatravel.controller;
 
 import com.megatravel.dtos.reservations.ReservationDTO;
+import com.megatravel.models.reservations.Reservation;
 import com.megatravel.service.ReservationServiceImpl;
 import com.megatravel.utils.TokenUtils;
 import com.megatravel.webservice.WebReservationServiceImpl;
@@ -9,8 +10,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
 
 @CrossOrigin
 @RestController
@@ -38,5 +42,20 @@ public class ReservationController {
         reservationService.cancelReservation(id, email);
         return new ResponseEntity<>("Canceled the reservation", HttpStatus.OK);
     }
+
+    @RequestMapping(value = "/user", method = RequestMethod.GET)
+    public ResponseEntity<List<ReservationDTO>> getReservationsForUser(HttpServletRequest request){
+        String email = TokenUtils.getUsername(request.getHeader("Authorization"));
+        List<Reservation> results = reservationService.getListReservationsForUser(0L,email);
+        List<ReservationDTO> values = new ArrayList<>();
+        if (results != null){
+            for (Reservation reservation : results){
+                values.add(new ReservationDTO(reservation));
+            }
+        }
+        return new ResponseEntity<>(values, HttpStatus.OK);
+    }
+
+
 
 }

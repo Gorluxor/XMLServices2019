@@ -127,4 +127,20 @@ public class ReservationServiceImpl {
 
         reservationRepository.delete(reservation);
     }
+
+    public List<Reservation> getListReservationsForUser(Long id, String email){
+        User user;
+        if (id == 0){
+            user = userRepository.findByEmail(email);
+        }else {
+            user = userRepository.getOne(id);
+        }
+
+        if (user == null){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Bad request");
+        }
+        return reservationRepository.findAllByUserId(user.getId());
+    }
+
+
 }
