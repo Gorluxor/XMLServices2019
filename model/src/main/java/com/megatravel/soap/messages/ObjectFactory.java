@@ -6,7 +6,7 @@
 //
 
 
-package com.megatravel.dtos.messages;
+package com.megatravel.soap.messages;
 
 import javax.xml.bind.annotation.XmlRegistry;
 
@@ -38,7 +38,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link MessageDTO }
-     * 
+     *
      */
     public MessageDTO createMessageDTO() {
         return new MessageDTO();
@@ -46,7 +46,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link ChatRoomDTO }
-     * 
+     *
      */
     public ChatRoomDTO createChatRoomDTO() {
         return new ChatRoomDTO();

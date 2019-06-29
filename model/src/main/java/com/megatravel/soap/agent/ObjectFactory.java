@@ -6,7 +6,7 @@
 //
 
 
-package com.megatravel.dtos.agent;
+package com.megatravel.soap.agent;
 
 import javax.xml.bind.annotation.XmlRegistry;
 
@@ -38,7 +38,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link AccommodationUnitDTO }
-     * 
+     *
      */
     public AccommodationUnitDTO createAccommodationUnitDTO() {
         return new AccommodationUnitDTO();
@@ -46,7 +46,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link UnitTypeDTO }
-     * 
+     *
      */
     public UnitTypeDTO createUnitTypeDTO() {
         return new UnitTypeDTO();
@@ -54,7 +54,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link PricingDTO }
-     * 
+     *
      */
     public PricingDTO createPricingDTO() {
         return new PricingDTO();
@@ -62,7 +62,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link ExtraServiceDTO }
-     * 
+     *
      */
     public ExtraServiceDTO createExtraServiceDTO() {
         return new ExtraServiceDTO();
@@ -70,7 +70,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link ImageDTO }
-     * 
+     *
      */
     public ImageDTO createImageDTO() {
         return new ImageDTO();

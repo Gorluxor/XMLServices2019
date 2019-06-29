@@ -6,7 +6,7 @@
 //
 
 
-package com.megatravel.dtos.types;
+package com.megatravel.soap.types;
 
 import javax.xml.bind.annotation.XmlRegistry;
 

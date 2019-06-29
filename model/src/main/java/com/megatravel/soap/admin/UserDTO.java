@@ -6,18 +6,14 @@
 //
 
 
-package com.megatravel.dtos.admin;
+package com.megatravel.soap.admin;
 
-import java.util.Date;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-import com.megatravel.dtos.admin.Adapter1;
-import com.megatravel.dtos.types.LocationDTO;
 import com.megatravel.models.admin.User;
+import com.megatravel.soap.types.LocationDTO;
+
+import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import java.util.Date;
 
 
 /**
@@ -86,7 +82,7 @@ public class UserDTO {
     @XmlElement(required = true)
     protected String country;
     @XmlElement(required = true, type = String.class)
-    @XmlJavaTypeAdapter(Adapter1 .class)
+    @XmlJavaTypeAdapter(Adapter1.class)
     protected Date birthday;
     @XmlElement(required = true)
     protected String phoneNumber;
@@ -94,7 +90,7 @@ public class UserDTO {
     protected String pib;
     protected boolean activatedUser;
     @XmlElement(required = true, type = String.class)
-    @XmlJavaTypeAdapter(Adapter1 .class)
+    @XmlJavaTypeAdapter(Adapter1.class)
     protected Date lastChangedDate;
     @XmlElement(namespace = "http://www.megatravel.com/types")
     protected LocationDTO locationDTO;
@@ -125,11 +121,11 @@ public class UserDTO {
 
     /**
      * Gets the value of the id property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link Long }
-     *     
+     *
      */
     public Long getId() {
         return id;
@@ -137,11 +133,11 @@ public class UserDTO {
 
     /**
      * Sets the value of the id property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link Long }
-     *     
+     *
      */
     public void setId(Long value) {
         this.id = value;
@@ -149,11 +145,11 @@ public class UserDTO {
 
     /**
      * Gets the value of the name property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getName() {
         return name;
@@ -161,11 +157,11 @@ public class UserDTO {
 
     /**
      * Sets the value of the name property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setName(String value) {
         this.name = value;
@@ -173,11 +169,11 @@ public class UserDTO {
 
     /**
      * Gets the value of the lastName property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getLastName() {
         return lastName;
@@ -185,11 +181,11 @@ public class UserDTO {
 
     /**
      * Sets the value of the lastName property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setLastName(String value) {
         this.lastName = value;
@@ -197,11 +193,11 @@ public class UserDTO {
 
     /**
      * Gets the value of the email property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getEmail() {
         return email;
@@ -209,11 +205,11 @@ public class UserDTO {
 
     /**
      * Sets the value of the email property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setEmail(String value) {
         this.email = value;
@@ -221,11 +217,11 @@ public class UserDTO {
 
     /**
      * Gets the value of the username property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getUsername() {
         return username;
@@ -233,11 +229,11 @@ public class UserDTO {
 
     /**
      * Sets the value of the username property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setUsername(String value) {
         this.username = value;
@@ -245,11 +241,11 @@ public class UserDTO {
 
     /**
      * Gets the value of the password property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getPassword() {
         return password;
@@ -257,11 +253,11 @@ public class UserDTO {
 
     /**
      * Sets the value of the password property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setPassword(String value) {
         this.password = value;
@@ -269,11 +265,11 @@ public class UserDTO {
 
     /**
      * Gets the value of the country property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getCountry() {
         return country;
@@ -281,11 +277,11 @@ public class UserDTO {
 
     /**
      * Sets the value of the country property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setCountry(String value) {
         this.country = value;
@@ -293,11 +289,11 @@ public class UserDTO {
 
     /**
      * Gets the value of the birthday property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public Date getBirthday() {
         return birthday;
@@ -305,11 +301,11 @@ public class UserDTO {
 
     /**
      * Sets the value of the birthday property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setBirthday(Date value) {
         this.birthday = value;
@@ -317,11 +313,11 @@ public class UserDTO {
 
     /**
      * Gets the value of the phoneNumber property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getPhoneNumber() {
         return phoneNumber;
@@ -329,11 +325,11 @@ public class UserDTO {
 
     /**
      * Sets the value of the phoneNumber property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setPhoneNumber(String value) {
         this.phoneNumber = value;
@@ -341,11 +337,11 @@ public class UserDTO {
 
     /**
      * Gets the value of the pib property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getPib() {
         return pib;
@@ -353,11 +349,11 @@ public class UserDTO {
 
     /**
      * Sets the value of the pib property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setPib(String value) {
         this.pib = value;
@@ -365,7 +361,7 @@ public class UserDTO {
 
     /**
      * Gets the value of the activatedUser property.
-     * 
+     *
      */
     public boolean isActivatedUser() {
         return activatedUser;
@@ -373,7 +369,7 @@ public class UserDTO {
 
     /**
      * Sets the value of the activatedUser property.
-     * 
+     *
      */
     public void setActivatedUser(boolean value) {
         this.activatedUser = value;
@@ -381,11 +377,11 @@ public class UserDTO {
 
     /**
      * Gets the value of the lastChangedDate property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public Date getLastChangedDate() {
         return lastChangedDate;
@@ -393,11 +389,11 @@ public class UserDTO {
 
     /**
      * Sets the value of the lastChangedDate property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setLastChangedDate(Date value) {
         this.lastChangedDate = value;
@@ -405,11 +401,11 @@ public class UserDTO {
 
     /**
      * Gets the value of the locationDTO property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link LocationDTO }
-     *     
+     *
      */
     public LocationDTO getLocationDTO() {
         return locationDTO;
@@ -417,11 +413,11 @@ public class UserDTO {
 
     /**
      * Sets the value of the locationDTO property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link LocationDTO }
-     *     
+     *
      */
     public void setLocationDTO(LocationDTO value) {
         this.locationDTO = value;
@@ -429,11 +425,11 @@ public class UserDTO {
 
     /**
      * Gets the value of the roleDTO property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link RoleDTO }
-     *     
+     *
      */
     public RoleDTO getRoleDTO() {
         return roleDTO;
@@ -441,7 +437,7 @@ public class UserDTO {
 
     /**
      * Sets the value of the roleDTO property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link RoleDTO }

@@ -6,16 +6,13 @@
 //
 
 
-package com.megatravel.dtos.agent;
+package com.megatravel.soap.agent;
 
-import java.util.Date;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
+import com.megatravel.soap.admin.Adapter1;
+
+import javax.xml.bind.annotation.*;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-import com.megatravel.dtos.admin.Adapter1;
+import java.util.Date;
 
 
 /**
@@ -49,7 +46,7 @@ public class SyncDataDTO {
     @XmlElement(name = "Id")
     protected long id;
     @XmlElement(required = true, type = String.class)
-    @XmlJavaTypeAdapter(Adapter1 .class)
+    @XmlJavaTypeAdapter(Adapter1.class)
     protected Date dateOfSync;
 
 

@@ -6,22 +6,19 @@
 //
 
 
-package com.megatravel.dtos.reservations;
+package com.megatravel.soap.reservations;
 
+import com.megatravel.models.agent.AccommodationUnit;
+import com.megatravel.models.reservations.Reservation;
+import com.megatravel.soap.admin.UserDTO;
+import com.megatravel.soap.agent.AccommodationUnitDTO;
+
+import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-import com.megatravel.dtos.admin.UserDTO;
-import com.megatravel.dtos.agent.AccommodationUnitDTO;
-import com.megatravel.models.agent.AccommodationUnit;
-import com.megatravel.models.reservations.Reservation;
 
 
 /**
@@ -66,16 +63,16 @@ public class ReservationDTO {
 
     protected long id;
     @XmlElement(required = true, type = String.class)
-    @XmlJavaTypeAdapter(Adapter1 .class)
+    @XmlJavaTypeAdapter(Adapter1.class)
     protected Date arrivalDate;
     @XmlElement(required = true, type = String.class)
-    @XmlJavaTypeAdapter(Adapter1 .class)
+    @XmlJavaTypeAdapter(Adapter1.class)
     protected Date departureDate;
     protected boolean stayRealized;
     @XmlElement(required = true)
     protected BigDecimal reservationPrice;
     @XmlElement(required = true, type = String.class)
-    @XmlJavaTypeAdapter(Adapter1 .class)
+    @XmlJavaTypeAdapter(Adapter1.class)
     protected Date lastChangedDate;
     @XmlElement(namespace = "http://www.megatravel.com/admin")
     protected UserDTO userDTO;

@@ -1,4 +1,4 @@
-FROM anapsix/alpine-java
+FROM openjdk:8-jdk-alpine
 ADD target/auth-0.0.1-SNAPSHOT.jar auth.jar
 ENTRYPOINT ["java", "-jar", "/auth.jar"]
-EXPOSE 2222
+EXPOSE 8081

@@ -6,7 +6,7 @@
 //
 
 
-package com.megatravel.dtos.rating;
+package com.megatravel.soap.rating;
 
 import javax.xml.bind.annotation.XmlRegistry;
 
@@ -38,7 +38,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link RatingDTO }
-     * 
+     *
      */
     public RatingDTO createRatingDTO() {
         return new RatingDTO();

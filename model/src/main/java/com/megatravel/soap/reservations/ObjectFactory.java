@@ -6,7 +6,7 @@
 //
 
 
-package com.megatravel.dtos.reservations;
+package com.megatravel.soap.reservations;
 
 import javax.xml.bind.annotation.XmlRegistry;
 
@@ -38,7 +38,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link ReservationDTO }
-     * 
+     *
      */
     public ReservationDTO createReservationDTO() {
         return new ReservationDTO();

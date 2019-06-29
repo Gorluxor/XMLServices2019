@@ -6,4 +6,4 @@
 //
 
 @javax.xml.bind.annotation.XmlSchema(namespace = "http://megatravel.com/reservations", elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED)
-package com.megatravel.dtos.reservations;
+package com.megatravel.soap.reservations;

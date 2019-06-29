@@ -6,7 +6,7 @@
 //
 
 
-package com.megatravel.dtos.admin;
+package com.megatravel.soap.admin;
 
 import javax.xml.bind.annotation.XmlRegistry;
 
@@ -38,7 +38,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link UserDTO }
-     * 
+     *
      */
     public UserDTO createUserDTO() {
         return new UserDTO();
@@ -46,7 +46,7 @@ public class ObjectFactory {
 
     /**
      * Create an instance of {@link RoleDTO }
-     * 
+     *
      */
     public RoleDTO createRoleDTO() {
         return new RoleDTO();

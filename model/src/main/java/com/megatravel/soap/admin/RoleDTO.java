@@ -6,17 +6,13 @@
 //
 
 
-package com.megatravel.dtos.admin;
+package com.megatravel.soap.admin;
 
-import java.util.Date;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-import com.megatravel.dtos.admin.Adapter1;
 import com.megatravel.models.admin.Role;
+
+import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import java.util.Date;
 
 
 /**
@@ -51,7 +47,7 @@ public class RoleDTO {
 
     protected long id;
     @XmlElement(required = true, type = String.class)
-    @XmlJavaTypeAdapter(Adapter1 .class)
+    @XmlJavaTypeAdapter(Adapter1.class)
     protected Date lastChangedDate;
     @XmlElement(required = true)
     protected String name;

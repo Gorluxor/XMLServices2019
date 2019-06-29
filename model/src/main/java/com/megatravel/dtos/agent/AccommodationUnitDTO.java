@@ -115,6 +115,8 @@ public class AccommodationUnitDTO {
                 this.imageDTO.add(new ImageDTO(im));
             }
             this.locationDTO = new LocationDTO(accommodationUnit.getLocation());
+            this.cancelationDays = accommodationUnit.getCancelationDays();
+            this.lastChangedDate = accommodationUnit.getLastChangedDate();
         }
     }
 

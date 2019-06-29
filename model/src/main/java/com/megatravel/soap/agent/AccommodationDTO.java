@@ -6,23 +6,20 @@
 //
 
 
-package com.megatravel.dtos.agent;
+package com.megatravel.soap.agent;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-import com.megatravel.dtos.admin.UserDTO;
-import com.megatravel.dtos.admin.Adapter1;
-import com.megatravel.dtos.types.LocationDTO;
 import com.megatravel.models.agent.Accommodation;
 import com.megatravel.models.agent.AccommodationUnit;
 import com.megatravel.models.agent.ExtraService;
+import com.megatravel.soap.admin.Adapter1;
+import com.megatravel.soap.admin.UserDTO;
+import com.megatravel.soap.types.LocationDTO;
+
+import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -80,7 +77,7 @@ public class AccommodationDTO {
     @XmlElement(required = true)
     protected AccommodationTypeDTO accommodationTypeDTO;
     @XmlElement(required = true, type = String.class)
-    @XmlJavaTypeAdapter(Adapter1 .class)
+    @XmlJavaTypeAdapter(Adapter1.class)
     protected Date lastChangedDate;
     @XmlElement(namespace = "http://www.megatravel.com/admin")
     protected UserDTO userDTO;
@@ -150,7 +147,7 @@ public class AccommodationDTO {
 
     /**
      * Gets the value of the id property.
-     * 
+     *
      */
     public long getId() {
         return id;
@@ -158,7 +155,7 @@ public class AccommodationDTO {
 
     /**
      * Sets the value of the id property.
-     * 
+     *
      */
     public void setId(long value) {
         this.id = value;
@@ -166,11 +163,11 @@ public class AccommodationDTO {
 
     /**
      * Gets the value of the name property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getName() {
         return name;
@@ -178,11 +175,11 @@ public class AccommodationDTO {
 
     /**
      * Sets the value of the name property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setName(String value) {
         this.name = value;
@@ -190,11 +187,11 @@ public class AccommodationDTO {
 
     /**
      * Gets the value of the description property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getDescription() {
         return description;
@@ -202,11 +199,11 @@ public class AccommodationDTO {
 
     /**
      * Sets the value of the description property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setDescription(String value) {
         this.description = value;
@@ -214,11 +211,11 @@ public class AccommodationDTO {
 
     /**
      * Gets the value of the locationDTO property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link LocationDTO }
-     *     
+     *
      */
     public LocationDTO getLocationDTO() {
         return locationDTO;
@@ -226,11 +223,11 @@ public class AccommodationDTO {
 
     /**
      * Sets the value of the locationDTO property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link LocationDTO }
-     *     
+     *
      */
     public void setLocationDTO(LocationDTO value) {
         this.locationDTO = value;
@@ -238,11 +235,11 @@ public class AccommodationDTO {
 
     /**
      * Gets the value of the accommodationTypeDTO property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link AccommodationTypeDTO }
-     *     
+     *
      */
     public AccommodationTypeDTO getAccommodationTypeDTO() {
         return accommodationTypeDTO;
@@ -250,11 +247,11 @@ public class AccommodationDTO {
 
     /**
      * Sets the value of the accommodationTypeDTO property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link AccommodationTypeDTO }
-     *     
+     *
      */
     public void setAccommodationTypeDTO(AccommodationTypeDTO value) {
         this.accommodationTypeDTO = value;
@@ -262,11 +259,11 @@ public class AccommodationDTO {
 
     /**
      * Gets the value of the lastChangedDate property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public Date getLastChangedDate() {
         return lastChangedDate;
@@ -274,11 +271,11 @@ public class AccommodationDTO {
 
     /**
      * Sets the value of the lastChangedDate property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setLastChangedDate(Date value) {
         this.lastChangedDate = value;
@@ -286,11 +283,11 @@ public class AccommodationDTO {
 
     /**
      * Gets the value of the userDTO property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link UserDTO }
-     *     
+     *
      */
     public UserDTO getUserDTO() {
         return userDTO;
@@ -298,11 +295,11 @@ public class AccommodationDTO {
 
     /**
      * Sets the value of the userDTO property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link UserDTO }
-     *     
+     *
      */
     public void setUserDTO(UserDTO value) {
         this.userDTO = value;
@@ -310,25 +307,25 @@ public class AccommodationDTO {
 
     /**
      * Gets the value of the accommodationUnitDTO property.
-     * 
+     *
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the accommodationUnitDTO property.
-     * 
+     *
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
      *    getAccommodationUnitDTO().add(newItem);
      * </pre>
-     * 
-     * 
+     *
+     *
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link AccommodationUnitDTO }
-     * 
-     * 
+     *
+     *
      */
     public List<AccommodationUnitDTO> getAccommodationUnitDTO() {
         if (accommodationUnitDTO == null) {
@@ -339,25 +336,25 @@ public class AccommodationDTO {
 
     /**
      * Gets the value of the extraServiceDTO property.
-     * 
+     *
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the extraServiceDTO property.
-     * 
+     *
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
      *    getExtraServiceDTO().add(newItem);
      * </pre>
-     * 
-     * 
+     *
+     *
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link ExtraServiceDTO }
-     * 
-     * 
+     *
+     *
      */
     public List<ExtraServiceDTO> getExtraServiceDTO() {
         if (extraServiceDTO == null) {

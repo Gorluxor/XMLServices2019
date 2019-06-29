@@ -6,17 +6,14 @@
 //
 
 
-package com.megatravel.dtos.messages;
+package com.megatravel.soap.messages;
 
-import java.util.Date;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-import com.megatravel.dtos.admin.UserDTO;
 import com.megatravel.models.messages.Message;
+import com.megatravel.soap.admin.UserDTO;
+
+import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import java.util.Date;
 
 
 /**
@@ -61,10 +58,10 @@ public class MessageDTO {
     @XmlElement(name = "Msg", required = true)
     protected String msg;
     @XmlElement(name = "TimeStamp", required = true, type = String.class)
-    @XmlJavaTypeAdapter(Adapter1 .class)
+    @XmlJavaTypeAdapter(Adapter1.class)
     protected Date timeStamp;
     @XmlElement(required = true, type = String.class)
-    @XmlJavaTypeAdapter(Adapter1 .class)
+    @XmlJavaTypeAdapter(Adapter1.class)
     protected Date lastChangedDate;
     @XmlElement(name = "userDTO", namespace = "http://www.megatravel.com/admin", required = true)
     protected UserDTO sender;
@@ -89,7 +86,7 @@ public class MessageDTO {
 
     /**
      * Gets the value of the id property.
-     * 
+     *
      */
     public long getId() {
         return id;
@@ -97,7 +94,7 @@ public class MessageDTO {
 
     /**
      * Sets the value of the id property.
-     * 
+     *
      */
     public void setId(long value) {
         this.id = value;
@@ -105,11 +102,11 @@ public class MessageDTO {
 
     /**
      * Gets the value of the msg property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public String getMsg() {
         return msg;
@@ -117,11 +114,11 @@ public class MessageDTO {
 
     /**
      * Sets the value of the msg property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setMsg(String value) {
         this.msg = value;
@@ -129,11 +126,11 @@ public class MessageDTO {
 
     /**
      * Gets the value of the timeStamp property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public Date getTimeStamp() {
         return timeStamp;
@@ -141,11 +138,11 @@ public class MessageDTO {
 
     /**
      * Sets the value of the timeStamp property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setTimeStamp(Date value) {
         this.timeStamp = value;
@@ -153,11 +150,11 @@ public class MessageDTO {
 
     /**
      * Gets the value of the lastChangedDate property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
+     *
      */
     public Date getLastChangedDate() {
         return lastChangedDate;
@@ -165,11 +162,11 @@ public class MessageDTO {
 
     /**
      * Sets the value of the lastChangedDate property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link String }
-     *     
+     *
      */
     public void setLastChangedDate(Date value) {
         this.lastChangedDate = value;
@@ -177,11 +174,11 @@ public class MessageDTO {
 
     /**
      * Gets the value of the sender property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link UserDTO }
-     *     
+     *
      */
     public UserDTO getSender() {
         return sender;
@@ -189,11 +186,11 @@ public class MessageDTO {
 
     /**
      * Sets the value of the sender property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link UserDTO }
-     *     
+     *
      */
     public void setSender(UserDTO value) {
         this.sender = value;
@@ -201,11 +198,11 @@ public class MessageDTO {
 
     /**
      * Gets the value of the receiver property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link UserDTO }
-     *     
+     *
      */
     public UserDTO getReceiver() {
         return receiver;
@@ -213,11 +210,11 @@ public class MessageDTO {
 
     /**
      * Sets the value of the receiver property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link UserDTO }
-     *     
+     *
      */
     public void setReceiver(UserDTO value) {
         this.receiver = value;
@@ -225,11 +222,11 @@ public class MessageDTO {
 
     /**
      * Gets the value of the chatRoomDTO property.
-     * 
+     *
      * @return
      *     possible object is
      *     {@link ChatRoomDTO }
-     *     
+     *
      */
     public ChatRoomDTO getChatRoomDTO() {
         return chatRoomDTO;
@@ -237,7 +234,7 @@ public class MessageDTO {
 
     /**
      * Sets the value of the chatRoomDTO property.
-     * 
+     *
      * @param value
      *     allowed object is
      *     {@link ChatRoomDTO }

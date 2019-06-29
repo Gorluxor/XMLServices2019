@@ -6,19 +6,15 @@
 //
 
 
-package com.megatravel.dtos.types;
+package com.megatravel.soap.types;
 
+import com.megatravel.models.types.Location;
+import com.megatravel.soap.admin.Adapter1;
+
+import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.math.BigInteger;
 import java.util.Date;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlSchemaType;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-import com.megatravel.dtos.admin.Adapter1;
-import com.megatravel.models.types.Location;
 
 
 /**
@@ -77,7 +73,7 @@ public class LocationDTO {
     protected Double latitude;
     protected Double longitude;
     @XmlElement(type = String.class)
-    @XmlJavaTypeAdapter(Adapter1 .class)
+    @XmlJavaTypeAdapter(Adapter1.class)
     protected Date lastChangedDate;
 
     public LocationDTO() {

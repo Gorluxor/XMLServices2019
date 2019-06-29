@@ -1,6 +1,27 @@
 version: '3'
 services:
+  mysql-standalone:
+    image: mysql:8.0
+    container_name: mysql-standalone
+    # restart: always
+    environment:
+      MYSQL_DATABASE: 'xmlagent'
+      MYSQL_USER: 'root'
+      #MYSQL_PASSWORD: 'password'
+      MYSQL_ROOT_PASSWORD: 'password'
+    ports:
+      - '6603:3306'
+    expose:
+      - '3306'
 
+  eureka:
+    image: eureka
+    container_name: eureka
+    build:
+      context: ./eureka
+      dockerfile: Dockerfile
+    ports:
+      - "8761:8761"
 
   gateway:
     image: gateway
@@ -9,20 +30,11 @@ services:
       context: ./gateway
       dockerfile: Dockerfile
     ports:
-      - "8080:8080"
-
-
-  agent:
-    image: agent
-    build:
-      context: ./agent
-      dockerfile: Dockerfile
-    ports:
-      - "2222"
+      - "9999:9999"
     depends_on:
-      - gateway
+      - eureka
     links:
-      - gateway:gateway
+      - eureka:eureka
 
   auth:
     image: auth
@@ -30,8 +42,11 @@ services:
       context: ./auth
       dockerfile: Dockerfile
     ports:
-      - "2222"
+      - "8081"
     depends_on:
-      - gateway
+      - eureka
     links:
-      - gateway:gateway
+      - eureka:eureka
+      - mysql-standalone:mysql
+
+

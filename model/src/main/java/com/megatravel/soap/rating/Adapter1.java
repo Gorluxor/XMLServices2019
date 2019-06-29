@@ -6,10 +6,10 @@
 //
 
 
-package com.megatravel.dtos.rating;
+package com.megatravel.soap.rating;
 
-import java.util.Date;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
+import java.util.Date;
 
 public class Adapter1
     extends XmlAdapter<String, Date>

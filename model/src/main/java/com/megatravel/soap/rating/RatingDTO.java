@@ -6,19 +6,16 @@
 //
 
 
-package com.megatravel.dtos.rating;
+package com.megatravel.soap.rating;
 
-import java.util.Date;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-import com.megatravel.dtos.admin.UserDTO;
-import com.megatravel.dtos.agent.AccommodationDTO;
-import com.megatravel.dtos.reservations.ReservationDTO;
 import com.megatravel.models.rating.Rating;
+import com.megatravel.soap.admin.UserDTO;
+import com.megatravel.soap.agent.AccommodationDTO;
+import com.megatravel.soap.reservations.ReservationDTO;
+
+import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import java.util.Date;
 
 
 /**
@@ -67,7 +64,7 @@ public class RatingDTO {
     protected double ratingValue;
     protected String comment;
     @XmlElement(required = true, type = String.class)
-    @XmlJavaTypeAdapter(Adapter1 .class)
+    @XmlJavaTypeAdapter(Adapter1.class)
     protected Date date;
     protected boolean adminApproved;
     @XmlElement(namespace = "http://www.megatravel.com/admin", required = true)
@@ -77,7 +74,7 @@ public class RatingDTO {
     @XmlElement(namespace = "http://www.megatravel.com/agent", required = true)
     protected AccommodationDTO accommodationDTO;
     @XmlElement(type = String.class)
-    @XmlJavaTypeAdapter(Adapter1 .class)
+    @XmlJavaTypeAdapter(Adapter1.class)
     protected Date lastChangedDate;
 
     public RatingDTO() {

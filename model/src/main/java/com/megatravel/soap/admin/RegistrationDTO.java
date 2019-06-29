@@ -6,18 +6,13 @@
 //
 
 
-package com.megatravel.dtos.admin;
+package com.megatravel.soap.admin;
 
-import java.util.Date;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
+import com.megatravel.soap.types.LocationDTO;
+
+import javax.xml.bind.annotation.*;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-import com.megatravel.dtos.admin.Adapter1;
-import com.megatravel.dtos.types.LocationDTO;
-import com.megatravel.dtos.admin.RoleDTO;
+import java.util.Date;
 
 /**
  * <p>Java class for anonymous complex type.
@@ -90,7 +85,7 @@ public class RegistrationDTO {
     @XmlElement(required = true)
     protected String country;
     @XmlElement(required = true, type = String.class)
-    @XmlJavaTypeAdapter(Adapter1 .class)
+    @XmlJavaTypeAdapter(Adapter1.class)
     protected Date birthday;
     @XmlElement(required = true)
     protected String phoneNumber;
@@ -98,7 +93,7 @@ public class RegistrationDTO {
     protected String pib;
     protected boolean activatedUser;
     @XmlElement(required = true, type = String.class)
-    @XmlJavaTypeAdapter(Adapter1 .class)
+    @XmlJavaTypeAdapter(Adapter1.class)
     protected Date lastChangedDate;
     @XmlElement(namespace = "http://www.megatravel.com/types")
     protected LocationDTO locationDTO;
