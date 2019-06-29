@@ -43,7 +43,7 @@ public class ReservationController {
         return new ResponseEntity<>("Canceled the reservation", HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/user", method = RequestMethod.GET)
+    @RequestMapping(value = "/user", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<List<ReservationDTO>> getReservationsForUser(HttpServletRequest request){
         String email = TokenUtils.getUsername(request.getHeader("Authorization"));
         List<Reservation> results = reservationService.getListReservationsForUser(0L,email);
