@@ -19,8 +19,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+
 @Entity
-@SuppressWarnings("WeakerAccess")
+@SuppressWarnings({"WeakerAccess","Duplicates"})
 public class Accommodation {
 
     @Id
@@ -85,6 +86,8 @@ public class Accommodation {
             case "Three star":
                 return "Three star";
             case "Four star":
+                return "Four star";
+            case "Five star":
                 return "Five star";
             default:
                 return "Uncategorized";

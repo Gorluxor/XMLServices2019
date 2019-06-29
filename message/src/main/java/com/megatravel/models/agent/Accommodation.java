@@ -19,7 +19,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@SuppressWarnings("WeakerAccess")
+@SuppressWarnings({"WeakerAccess", "Duplicates"})
 public class Accommodation {
 
     @Id
@@ -70,7 +70,6 @@ public class Accommodation {
         this.accommodationType = accommodationDTO.getAccommodationTypeDTO() == null ? null : new AccommodationType(accommodationDTO.getAccommodationTypeDTO());
         this.user = accommodationDTO.getUserDTO() == null ? null : new User(accommodationDTO.getUserDTO());
     }
-
     public static String validCategory(String value){
         if (value == null){
             return "Uncategorized";
@@ -84,6 +83,8 @@ public class Accommodation {
             case "Three star":
                 return "Three star";
             case "Four star":
+                return "Four star";
+            case "Five star":
                 return "Five star";
             default:
                 return "Uncategorized";
