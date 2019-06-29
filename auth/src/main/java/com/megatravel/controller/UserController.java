@@ -84,21 +84,21 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/block/{userId}", method = RequestMethod.PUT)
-	public ResponseEntity<String> disableUser(@PathVariable(name = "userId") Long userId){
+	public ResponseEntity<Void> disableUser(@PathVariable(name = "userId") Long userId){
 		userServiceImpl.blockUser(userId);
-		return new ResponseEntity<>("Blocked user",HttpStatus.OK);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/activate/{userId}", method = RequestMethod.PUT)
-	public ResponseEntity<String> activateUser(@PathVariable(name = "userId") Long userId) {
+	public ResponseEntity<Void> activateUser(@PathVariable(name = "userId") Long userId) {
 		userServiceImpl.activateUser(userId);
-		return new ResponseEntity<>("User activated", HttpStatus.OK);
+		return new ResponseEntity<>( HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/delete/{userId}", method = RequestMethod.DELETE)
-	public ResponseEntity<String> deleteUser(@PathVariable(name = "userId") Long userId){
+	public ResponseEntity<Void> deleteUser(@PathVariable(name = "userId") Long userId){
 		userServiceImpl.remove(userId);
-		return new ResponseEntity<>("User deleted", HttpStatus.OK);
+		return new ResponseEntity<>( HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/agentRegister", method = RequestMethod.POST)
