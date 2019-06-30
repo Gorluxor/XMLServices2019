@@ -53,7 +53,7 @@ public class AccommodationUnitController {
     @RequestMapping(value = "/{accId}/unit/{unitId}", method = RequestMethod.DELETE)
     public ResponseEntity<?> deleteUnit(@PathVariable("accId") Long accommodationId, @PathVariable("unitId") Long unitId){
         accommodationService.deleteUnit(accommodationId, unitId);
-        return new ResponseEntity<>("Removed unit", HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @RequestMapping(value = "/agent", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})

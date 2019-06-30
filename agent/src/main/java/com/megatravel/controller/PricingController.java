@@ -34,7 +34,7 @@ public class PricingController {
     @RequestMapping(value = "/unit/{unitId}/price/{priceId}", method = RequestMethod.DELETE)
     public ResponseEntity<?> deletePricing( @PathVariable(name = "unitId") Long unitId, @PathVariable(name = "priceId") Long priceId ){
         pricingService.deletePriceForUnit(unitId, priceId);
-        return new ResponseEntity<>( "Deleted pricing" , HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @RequestMapping(value = "/unit/{unitId}/price",method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE})
