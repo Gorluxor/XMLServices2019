@@ -48,7 +48,7 @@ public class MessageController {
         return new ResponseEntity<>(new MessageDTO(this.messageService.sendMessage(chatRoomId, messageDTO)), HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "/chatRoom", method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    @RequestMapping(value = "/chatRoom/create", method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<ChatRoomDTO> createRoom(@RequestBody ChatRoomDTO chatRoomDTO){
         return new ResponseEntity<>(new ChatRoomDTO(messageService.createChatRoom(chatRoomDTO)), HttpStatus.CREATED);
     }
