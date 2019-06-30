@@ -109,4 +109,10 @@ public class MessageServiceImpl {
 
         return chatRoom;
     }
+
+
+    public ChatRoom getChatRoomForReservationId(Long id){
+        return chatRoomRepository.findFirstByReservation_Id(id);
+    }
+
 }
