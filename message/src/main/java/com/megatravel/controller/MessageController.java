@@ -37,6 +37,12 @@ public class MessageController {
         return new ResponseEntity<>(ret, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/res/{id}/chatroom", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    public ResponseEntity<ChatRoomDTO> getChatRoomForReservationId(@PathVariable(name = "id") Long id){
+        return new ResponseEntity<>(new ChatRoomDTO(messageService.getChatRoomForReservationId(id)), HttpStatus.OK);
+    }
+
+
     @RequestMapping(value = "/{chatRoomId}", method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<MessageDTO> sendMessage(@PathVariable("chatRoomId") Long chatRoomId, @RequestBody MessageDTO messageDTO){
         return new ResponseEntity<>(new MessageDTO(this.messageService.sendMessage(chatRoomId, messageDTO)), HttpStatus.CREATED);

@@ -142,5 +142,28 @@ public class ReservationServiceImpl {
         return reservationRepository.findAllByUserId(user.getId());
     }
 
+    public List<Reservation> getListReservationForAgent(String email){
+
+        User user = userRepository.findByEmail(email);
+
+        if (user == null){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Jwt...");
+        }
+
+        return reservationRepository.allByAgent(user.getId());
+    }
+
+    public List<Reservation> getListUnrealizedForAgent(String email){
+
+        User user = userRepository.findByEmail(email);
+        if (user == null){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Jwt...");
+        }
+
+        return reservationRepository.allUnrealizedByAgent(user.getId());
+
+
+    }
+
 
 }

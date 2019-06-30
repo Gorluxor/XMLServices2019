@@ -17,16 +17,16 @@ import java.util.List;
 public interface MessageService {
 
     @WebMethod
-    List<ChatRoomDTO> getChatRooms(@WebParam(name = "UserId") Long userId) throws  ResponseStatusException;
+    List<ChatRoomDTO> getChatRooms(@WebParam(name = "UserId") Long userId);
 
     @WebMethod
-    List<MessageDTO> getListMessagesForChatRoom(@WebParam(name = "UserId") Long userId, @WebParam(name = "ChatroomId") Long chatRoomId) throws ResponseStatusException;
+    List<MessageDTO> getListMessagesForChatRoom(@WebParam(name = "UserId") Long userId, @WebParam(name = "ChatroomId") Long chatRoomId);
 
     @WebMethod
-    MessageDTO sendMessage(Long chatRoomIdOrReservationId, MessageDTO messageDTO) throws ResponseStatusException;
+    MessageDTO sendMessage(Long chatRoomIdOrReservationId, MessageDTO messageDTO);
 
     @WebMethod
-    ChatRoomDTO createChatRoom(ChatRoomDTO chatRoomDTO) throws ResponseStatusException;
+    ChatRoomDTO createChatRoom(ChatRoomDTO chatRoomDTO);
 
 
 

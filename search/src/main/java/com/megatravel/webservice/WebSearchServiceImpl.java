@@ -13,7 +13,10 @@ import org.springframework.web.context.WebApplicationContext;
 import javax.jws.WebService;
 import java.util.List;
 
-@WebService(endpointInterface = "com.megatravel.interfaces.SearchInterface")
+@WebService(portName = "SearchPort",
+            serviceName = "SearchServiceInterface",
+            targetNamespace = "http://interfaces.megatravel.com",
+            endpointInterface = "com.megatravel.interfaces.SearchInterface")
 @Component
 public class WebSearchServiceImpl implements SearchInterface {
 

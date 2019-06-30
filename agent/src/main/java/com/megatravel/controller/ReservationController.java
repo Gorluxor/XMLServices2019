@@ -47,15 +47,34 @@ public class ReservationController {
     public ResponseEntity<List<ReservationDTO>> getReservationsForUser(HttpServletRequest request){
         String email = TokenUtils.getUsername(request.getHeader("Authorization"));
         List<Reservation> results = reservationService.getListReservationsForUser(0L,email);
-        List<ReservationDTO> values = new ArrayList<>();
-        if (results != null){
-            for (Reservation reservation : results){
-                values.add(new ReservationDTO(reservation));
-            }
-        }
-        return new ResponseEntity<>(values, HttpStatus.OK);
+
+        return new ResponseEntity<>(convertToDTO(results), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/agent", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    public ResponseEntity<List<ReservationDTO>> getReservations( HttpServletRequest request){
+        String email = TokenUtils.getUsername(request.getHeader("Authorization"));
+        List<Reservation> reservations = reservationService.getListReservationForAgent(email);
+        return new ResponseEntity<>(convertToDTO(reservations), HttpStatus.OK);
+
+    }
+
+    @RequestMapping(value = "/agent/unrealized", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    public ResponseEntity<List<ReservationDTO>> getUnrealizedReservations(HttpServletRequest request){
+        String email = TokenUtils.getUsername(request.getHeader("Authorization"));
+        List<Reservation> reservations = reservationService.getListUnrealizedForAgent(email);
+        return new ResponseEntity<>(convertToDTO(reservations), HttpStatus.OK);
     }
 
 
+    private List<ReservationDTO> convertToDTO(List<Reservation> reservations){
+        List<ReservationDTO> values = new ArrayList<>();
+        if (reservations != null){
+            for (Reservation reservation : reservations){
+                values.add(new ReservationDTO(reservation));
+            }
+        }
+        return values;
+    }
 
 }
