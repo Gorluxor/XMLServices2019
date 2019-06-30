@@ -61,7 +61,7 @@ public class AccommodationController {
         return new ResponseEntity<>("This is a hello from Reservation", HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/agent", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    @RequestMapping(value = "/unitAgent", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<List<AccommodationDTO>> getAgentAccommodations(HttpServletRequest request){
         String email = TokenUtils.getUsername(request.getHeader("Authorization"));
         return new ResponseEntity<>(convertToAccDTO(accommodationService.getAccommodationForAgent(email)), HttpStatus.OK);
