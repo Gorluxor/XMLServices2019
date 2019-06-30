@@ -57,7 +57,7 @@ public class PricingController {
         return new ResponseEntity<>( new PricingDTO(pricingService.updatePriceForUnit(unitId, pricingDTO)), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/unit/{unitId}/price/search" , method = RequestMethod.GET)
+    @RequestMapping(value = "/unit/{unitId}/search/price" , method = RequestMethod.POST,consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE} , produces = {MediaType.APPLICATION_JSON_VALUE} )
     public double getPricingForDates(@PathVariable(name = "unitId") Long unitId, @RequestBody SearchDTO searchDTO) {
         checkIfDatesArePresent(searchDTO);
         return  pricingService.getPriceForDatesUnitId(unitId, searchDTO.getStartDate(), searchDTO.getEndDate());
