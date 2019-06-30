@@ -37,10 +37,10 @@ public class ReservationController {
     }
 
     @RequestMapping(value = "/cancel/{id}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-    public ResponseEntity<?> cancelReservation(@PathVariable("id") Long id, HttpServletRequest request){
+    public ResponseEntity<Void> cancelReservation(@PathVariable("id") Long id, HttpServletRequest request){
         String email = TokenUtils.getUsername(request.getHeader("Authorization"));
         reservationService.cancelReservation(id, email);
-        return new ResponseEntity<>("Canceled the reservation", HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @RequestMapping(value = "/user", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
