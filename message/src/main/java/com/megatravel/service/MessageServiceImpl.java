@@ -100,7 +100,7 @@ public class MessageServiceImpl {
             throw new ResponseStatusException(HttpStatus.NO_CONTENT, "No such object in database");
         }
         starterMessage.setReceiver(accommodationUnit.getAccommodation().getUser());
-
+        chatRoom.setLastChangedDate(new Date());
         chatRoom.setReservation(reservation);
         chatRoomRepository.save(chatRoom);
 

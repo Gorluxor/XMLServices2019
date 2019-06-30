@@ -1,6 +1,7 @@
 package com.megatravel.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -61,6 +62,7 @@ public class RoleServiceImpl {
 	}
 
 	public Role save(Role role) {
+		role.setLastChangedDate(new Date());
 		return roleRepository.save(role);
 	}
 	

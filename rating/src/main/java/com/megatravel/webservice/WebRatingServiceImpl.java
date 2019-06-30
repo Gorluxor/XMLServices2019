@@ -17,7 +17,7 @@ import java.util.List;
 @Service
 public class WebRatingServiceImpl implements RatingInterface {
 
-    public static final String ENDPOINT = "/rating";
+    public static final String ENDPOINT = "/services/rating";
 
     public WebRatingServiceImpl() {
         AutowiredAnnotationBeanPostProcessor bpp = new AutowiredAnnotationBeanPostProcessor();

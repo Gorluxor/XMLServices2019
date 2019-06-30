@@ -17,7 +17,7 @@ import java.util.List;
 @Service
 public class WebExtraServiceExtraServiceImpl implements ExtraServiceInterface {
 
-    public static final String ENDPOINT = "/extraservice";
+    public static final String ENDPOINT = "/services/extraservice";
 
     public WebExtraServiceExtraServiceImpl() {
         AutowiredAnnotationBeanPostProcessor bpp = new AutowiredAnnotationBeanPostProcessor();

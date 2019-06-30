@@ -18,7 +18,7 @@ import java.util.List;
 @Service
 public class WebUnitTypeServiceImpl implements UnitTypeInterface {
 
-    public static final String ENDPOINT = "/unitType";
+    public static final String ENDPOINT = "/services/unitType";
 
     public WebUnitTypeServiceImpl() {
         AutowiredAnnotationBeanPostProcessor bpp = new AutowiredAnnotationBeanPostProcessor();

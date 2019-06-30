@@ -19,7 +19,7 @@ import java.util.List;
 @Service
 public class WebReservationServiceImpl implements ReservationInterface {
 
-    public static final String ENDPOINT = "/reservation";
+    public static final String ENDPOINT = "/services/reservation";
 
     public WebReservationServiceImpl() {
         AutowiredAnnotationBeanPostProcessor bpp = new AutowiredAnnotationBeanPostProcessor();

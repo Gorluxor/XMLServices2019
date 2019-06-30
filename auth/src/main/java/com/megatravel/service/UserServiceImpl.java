@@ -131,6 +131,7 @@ public class UserServiceImpl {
 			byte[] password = hashPassword.hashPassword(user.getPassword(), salt);
 			user.setPassword(Base64Utility.encode(password));
 			user.setSalt(Base64Utility.encode(salt));
+			user.setLastChangedDate(new Date());
 			return userRepository.save(user);
 		} else {
 			throw new CustomException("Email is already in use", HttpStatus.UNPROCESSABLE_ENTITY);
@@ -147,6 +148,7 @@ public class UserServiceImpl {
 		if(role.isPresent()) {
 			user.setRole(role.get());
 			userRepository.save(user);
+			user.setLastChangedDate(new Date());
 		}
 		else {
 			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Invalid role id");
@@ -160,6 +162,7 @@ public class UserServiceImpl {
 
 	public void blockUser(Long id) throws ResponseStatusException {
 		User user = userRepository.getOne(id);
+		user.setLastChangedDate(new Date());
 		if (user.getRole().getRoleName().contains("USER")){
 			user.setActivatedUser(false);
 			userRepository.save(user);
@@ -170,6 +173,7 @@ public class UserServiceImpl {
 
 	public void activateUser(Long id) throws ResponseStatusException {
 		User user = userRepository.getOne(id);
+		user.setLastChangedDate(new Date());
 		if (user.getRole().getRoleName().contains("USER")){
 			user.setActivatedUser(true);
 			userRepository.save(user);

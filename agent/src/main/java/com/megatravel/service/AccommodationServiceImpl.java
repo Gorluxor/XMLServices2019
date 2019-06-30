@@ -64,7 +64,7 @@ public class AccommodationServiceImpl {
         accommodation.setExtraService(new ArrayList<>()); // admin doesn't add which extra services does the user have
 
         locationRepository.save(accommodation.getLocation());
-
+        accommodation.setLastChangedDate(new Date());
         accommodation.setUser(userRepository.getOne(accommodation.getUser().getId())); // one of the available agents
         accommodation.setAccommodationType(accommodationTypeRepository.getOne(accommodation.getAccommodationType().getId()));
 
@@ -115,12 +115,22 @@ public class AccommodationServiceImpl {
 
         if (accommodation.getAccommodationUnit() != null) {
             for (AccommodationUnit a : accommodation.getAccommodationUnit()) {
-                a.setUnitType(null);
+                accommodationUnitRepository.delete(a);
             }
         }
 
         accommodationRepository.delete(accommodation);
     }
 
+    public List<Accommodation> getAccommodationForAgent(String email){
+
+        User user = userRepository.findByEmail(email);
+
+        if (user == null || user.getRole() == null || !user.getRole().getRoleName().contains("AGENT")){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Bad request, no user");
+        }
+
+        return accommodationRepository.findAllByUserId(user.getId());
+    }
 
 }

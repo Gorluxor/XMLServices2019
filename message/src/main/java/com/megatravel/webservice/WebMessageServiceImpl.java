@@ -21,7 +21,7 @@ import java.util.List;
 @SOAPBinding(style=SOAPBinding.Style.RPC)
 public class WebMessageServiceImpl implements MessageService {
 
-    public static final String ENDPOINT = "/msg";
+    public static final String ENDPOINT = "/services/msg";
 
     public WebMessageServiceImpl() {
         AutowiredAnnotationBeanPostProcessor bpp = new AutowiredAnnotationBeanPostProcessor();

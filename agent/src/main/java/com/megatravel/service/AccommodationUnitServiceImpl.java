@@ -3,6 +3,7 @@ package com.megatravel.service;
 import com.megatravel.dtos.agent.AccommodationUnitDTO;
 import com.megatravel.dtos.agent.ExtraServiceDTO;
 import com.megatravel.dtos.agent.PricingDTO;
+import com.megatravel.models.admin.User;
 import com.megatravel.models.agent.*;
 import com.megatravel.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,9 @@ public class AccommodationUnitServiceImpl {
 
     @Autowired
     private AccommodationUnitRepository accommodationUnitRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     public AccommodationUnit createUnit(Long accId, AccommodationUnitDTO accommodationUnitDTO) throws ResponseStatusException {
 
@@ -118,6 +122,8 @@ public class AccommodationUnitServiceImpl {
         unit.setNameOfUnit(accommodationUnitDTO.getNameOfUnit());
         unit.setCancelationDays(accommodationUnitDTO.getCancelationDays());
         unit.setLastChangedDate(thisTime);
+        unit.setLastChangedDate(new Date());
+
         if (accommodationUnitDTO.getUnitTypeDTO() != null){
             unit.setUnitType(unitTypeRepository.getOne(accommodationUnitDTO.getUnitTypeDTO().getId()));
         }
@@ -156,6 +162,14 @@ public class AccommodationUnitServiceImpl {
         return accommodationUnitRepository.findByAccommodation_IdAndId(accId, unitId);
     }
 
+    public List<AccommodationUnit> getAgentUnits(String email){
+        User user = userRepository.findByEmail(email);
+
+        if (user == null || user.getRole() == null || !user.getRole().getRoleName().contains("AGENT")){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "No agent");
+        }
+        return accommodationUnitRepository.findAllByAccommodation_User_Id(user.getId());
+    }
 
 
 }

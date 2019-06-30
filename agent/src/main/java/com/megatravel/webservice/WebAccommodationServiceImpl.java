@@ -21,7 +21,7 @@ import java.util.List;
 @SOAPBinding(style=SOAPBinding.Style.RPC, parameterStyle=SOAPBinding.ParameterStyle.WRAPPED, use= SOAPBinding.Use.LITERAL)
 public class WebAccommodationServiceImpl implements AccommodationInterface {
 
-    public static final String ENDPOINT = "/accommodation";
+    public static final String ENDPOINT = "/services/accommodation";
 
     public WebAccommodationServiceImpl() {
         AutowiredAnnotationBeanPostProcessor bpp = new AutowiredAnnotationBeanPostProcessor();

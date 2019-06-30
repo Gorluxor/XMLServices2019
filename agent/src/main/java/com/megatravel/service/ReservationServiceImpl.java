@@ -47,7 +47,7 @@ public class ReservationServiceImpl {
         if (!reservation.getAccommodationUnit().get(0).getAccommodation().getUser().equals(user)){
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "");
         }
-
+        reservation.setLastChangedDate(new Date());
         reservation.setStayRealized(true);
         reservationRepository.save(reservation);
 

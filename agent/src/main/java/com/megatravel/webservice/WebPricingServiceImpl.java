@@ -19,7 +19,7 @@ import java.util.List;
 @Service
 public class WebPricingServiceImpl implements PricingInterface {
 
-    public static final String ENDPOINT = "/price";
+    public static final String ENDPOINT = "/services/price";
 
     public WebPricingServiceImpl() {
         AutowiredAnnotationBeanPostProcessor bpp = new AutowiredAnnotationBeanPostProcessor();

@@ -21,7 +21,7 @@ import java.util.List;
 public class WebAccommodationUnitServiceImpl implements AccommodationUnitInterface {
 
 
-    public static final String ENDPOINT = "/unit";
+    public static final String ENDPOINT = "/services/unit";
 
     public WebAccommodationUnitServiceImpl() {
         AutowiredAnnotationBeanPostProcessor bpp = new AutowiredAnnotationBeanPostProcessor();

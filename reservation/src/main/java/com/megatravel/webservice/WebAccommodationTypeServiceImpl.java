@@ -17,7 +17,7 @@ import java.util.List;
 @Service
 public class WebAccommodationTypeServiceImpl implements AccommodationTypeInterface {
 
-    public static final String ENDPOINT = "/accType";
+    public static final String ENDPOINT = "/services/accType";
 
     public WebAccommodationTypeServiceImpl() {
         AutowiredAnnotationBeanPostProcessor bpp = new AutowiredAnnotationBeanPostProcessor();

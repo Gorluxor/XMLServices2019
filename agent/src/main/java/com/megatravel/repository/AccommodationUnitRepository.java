@@ -12,5 +12,5 @@ public interface AccommodationUnitRepository extends JpaRepository<Accommodation
 
     List<AccommodationUnit> findAllByAccommodation_Id(Long id);
 
-
+    List<AccommodationUnit> findAllByAccommodation_User_Id(Long id);
 }

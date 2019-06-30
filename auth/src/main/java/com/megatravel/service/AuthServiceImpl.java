@@ -32,7 +32,7 @@ import java.util.Date;
 @Service
 public class AuthServiceImpl implements AuthServiceInterface {
 
-	public static final String ENDPOINT = "/login";
+	public static final String ENDPOINT = "/services/login";
 
 	@Autowired
 	UserServiceImpl userServiceImpl;

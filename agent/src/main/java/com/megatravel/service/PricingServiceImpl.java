@@ -94,6 +94,10 @@ public class PricingServiceImpl{
         Calendar end = Calendar.getInstance();
         end.setTime(endDate);
 
+        if (start.after(endDate)){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Dates are flipped");
+        }
+
         BigDecimal totalPrice = new BigDecimal(0);
 
         for (Date date = start.getTime(); start.before(end); start.add(Calendar.DATE, 1), date = start.getTime()) {

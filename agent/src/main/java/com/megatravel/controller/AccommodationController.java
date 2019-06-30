@@ -28,13 +28,8 @@ public class AccommodationController {
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<AccommodationDTO>> getAllAccommodations(){
-
         List<Accommodation> list = accommodationService.getAllAccommodations();
-        List<AccommodationDTO> values = new ArrayList<>();
-        for (Accommodation accommodation : list){
-            values.add(new AccommodationDTO(accommodation));
-        }
-        return new ResponseEntity<>(values, HttpStatus.OK);
+        return new ResponseEntity<>(convertToAccDTO(list), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{accId}", method = RequestMethod.GET)
@@ -66,7 +61,17 @@ public class AccommodationController {
         return new ResponseEntity<>("This is a hello from Reservation", HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/agent", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    public ResponseEntity<List<AccommodationDTO>> getAgentAccommodations(HttpServletRequest request){
+        String email = TokenUtils.getUsername(request.getHeader("Authorization"));
+        return new ResponseEntity<>(convertToAccDTO(accommodationService.getAccommodationForAgent(email)), HttpStatus.OK);
+    } // should be only one, but can still by database
 
-
-
+    private List<AccommodationDTO> convertToAccDTO(List<Accommodation> list){
+        List<AccommodationDTO> values = new ArrayList<>();
+        for (Accommodation accommodation : list){
+            values.add(new AccommodationDTO(accommodation));
+        }
+        return values;
+    }
 }
