@@ -35,17 +35,13 @@ public class MessageServiceImpl {
     @Autowired
     ReservationRepository reservationRepository;
 
-    public List<ChatRoomDTO> getChatRooms(Long userId) throws ResponseStatusException {
+    public List<ChatRoom> getChatRooms(Long userId) throws ResponseStatusException {
         if (!userRepository.existsById(userId)){
             throw new ResponseStatusException(HttpStatus.NO_CONTENT, "No such object in database");
         }
 
         List<ChatRoom> results = chatRoomRepository.allByUserId(userId);
-        List<ChatRoomDTO> retVal = new ArrayList<>();
-        for (ChatRoom chat: results ) {
-            retVal.add(new ChatRoomDTO(chat));
-        }
-        return retVal;
+        return results;
     }
 
     public List<Message> getListMessagesForChatRoom(Long userId, Long chatRoomId) throws ResponseStatusException {
@@ -113,6 +109,28 @@ public class MessageServiceImpl {
 
     public ChatRoom getChatRoomForReservationId(Long id){
         return chatRoomRepository.findFirstByReservation_Id(id);
+    }
+
+
+    public List<ChatRoomDTO> convertToChatroomDTO(List<ChatRoom> list){
+        List<ChatRoomDTO> results = new ArrayList<>();
+        if (list != null){
+
+            for (ChatRoom chat: list ) {
+                results.add(new ChatRoomDTO(chat));
+            }
+        }
+        return results;
+    }
+
+    public List<MessageDTO> convertToMessageDTO(List<Message> list){
+        List<MessageDTO> results = new ArrayList<>();
+        if (list != null){
+            for (Message message : list){
+                results.add(new MessageDTO(message));
+            }
+        }
+        return results;
     }
 
 }

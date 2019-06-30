@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="AccommodationUnitServiceInterface" targetNamespace="http://interfaces.megatravel.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://interfaces.megatravel.com/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.megatravel.com/types" version="1.0">
+<xs:complexType name="locationDTO">
+<xs:sequence>
+<xs:element minOccurs="0" name="city" type="xs:string"/>
+<xs:element minOccurs="0" name="country" type="xs:string"/>
+<xs:element name="id" type="xs:long"/>
+<xs:element minOccurs="0" name="lastChangedDate" type="xs:dateTime"/>
+<xs:element minOccurs="0" name="latitude" type="xs:double"/>
+<xs:element minOccurs="0" name="longitude" type="xs:double"/>
+<xs:element minOccurs="0" name="number" type="xs:integer"/>
+<xs:element name="postalCode" type="xs:int"/>
+<xs:element minOccurs="0" name="street" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:schema>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://www.megatravel.com/types" xmlns:ns2="http://www.megatravel.com/admin" xmlns:tns="http://www.megatravel.com/agent" elementFormDefault="qualified" targetNamespace="http://www.megatravel.com/agent" version="1.0">
+<xs:import namespace="http://www.megatravel.com/types"/>
+<xs:import namespace="http://www.megatravel.com/admin"/>
+<xs:complexType name="accommodationUnitDTO">
+<xs:sequence>
+<xs:element minOccurs="0" name="cancelationDays" type="xs:integer"/>
+<xs:element name="capacity" type="xs:int"/>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="extraServiceDTO" nillable="true" type="tns:extraServiceDTO"/>
+<xs:element name="id" type="xs:long"/>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="imageDTO" nillable="true" type="tns:imageDTO"/>
+<xs:element minOccurs="0" name="lastChangedDate" type="xs:dateTime"/>
+<xs:element minOccurs="0" name="locationDTO" type="ns1:locationDTO"/>
+<xs:element minOccurs="0" name="nameOfUnit" type="xs:string"/>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="pricingDTO" nillable="true" type="tns:pricingDTO"/>
+<xs:element name="size" type="xs:int"/>
+<xs:element minOccurs="0" name="unitTypeDTO" type="tns:unitTypeDTO"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="extraServiceDTO">
+<xs:sequence>
+<xs:element minOccurs="0" name="description" type="xs:string"/>
+<xs:element name="id" type="xs:long"/>
+<xs:element minOccurs="0" name="lastChangedDate" type="xs:dateTime"/>
+<xs:element minOccurs="0" name="nameOfService" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="imageDTO">
+<xs:sequence>
+<xs:element name="id" type="xs:long"/>
+<xs:element minOccurs="0" name="lastChangedDate" type="xs:dateTime"/>
+<xs:element minOccurs="0" name="title" type="xs:string"/>
+<xs:element minOccurs="0" name="uri" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="pricingDTO">
+<xs:sequence>
+<xs:element name="id" type="xs:long"/>
+<xs:element minOccurs="0" name="lastChangedDate" type="xs:dateTime"/>
+<xs:element minOccurs="0" name="price" type="xs:decimal"/>
+<xs:element minOccurs="0" name="startDate" type="xs:dateTime"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="unitTypeDTO">
+<xs:sequence>
+<xs:element name="id" type="xs:long"/>
+<xs:element minOccurs="0" name="lastChangedDate" type="xs:dateTime"/>
+<xs:element minOccurs="0" name="nameOfUnitType" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="syncDataDTO">
+<xs:sequence>
+<xs:element minOccurs="0" name="dateOfSync" type="xs:dateTime"/>
+<xs:element name="id" type="xs:long"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="accommodationTypeDTO">
+<xs:sequence>
+<xs:element name="id" type="xs:long"/>
+<xs:element minOccurs="0" name="lastChangedDate" type="xs:dateTime"/>
+<xs:element minOccurs="0" name="nameOfAccType" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="accommodationDTO">
+<xs:sequence>
+<xs:element minOccurs="0" name="accommodationTypeDTO" type="tns:accommodationTypeDTO"/>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="accommodationUnitDTO" nillable="true" type="tns:accommodationUnitDTO"/>
+<xs:element minOccurs="0" name="category" type="xs:string"/>
+<xs:element minOccurs="0" name="description" type="xs:string"/>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="extraServiceDTO" nillable="true" type="tns:extraServiceDTO"/>
+<xs:element name="freeToCancel" type="xs:boolean"/>
+<xs:element name="freeToCancelDays" type="xs:int"/>
+<xs:element name="id" type="xs:long"/>
+<xs:element minOccurs="0" name="lastChangedDate" type="xs:dateTime"/>
+<xs:element minOccurs="0" name="locationDTO" type="ns1:locationDTO"/>
+<xs:element minOccurs="0" name="name" type="xs:string"/>
+<xs:element minOccurs="0" name="userDTO" type="ns2:userDTO"/>
+</xs:sequence>
+</xs:complexType>
+</xs:schema>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://www.megatravel.com/types" xmlns:tns="http://www.megatravel.com/admin" elementFormDefault="qualified" targetNamespace="http://www.megatravel.com/admin" version="1.0">
+<xs:import namespace="http://www.megatravel.com/types"/>
+<xs:complexType name="userDTO">
+<xs:sequence>
+<xs:element name="activatedUser" type="xs:boolean"/>
+<xs:element minOccurs="0" name="birthday" type="xs:dateTime"/>
+<xs:element minOccurs="0" name="country" type="xs:string"/>
+<xs:element minOccurs="0" name="email" type="xs:string"/>
+<xs:element minOccurs="0" name="id" type="xs:long"/>
+<xs:element minOccurs="0" name="lastChangedDate" type="xs:dateTime"/>
+<xs:element minOccurs="0" name="lastName" type="xs:string"/>
+<xs:element minOccurs="0" name="locationDTO" type="ns1:locationDTO"/>
+<xs:element minOccurs="0" name="name" type="xs:string"/>
+<xs:element minOccurs="0" name="password" type="xs:string"/>
+<xs:element minOccurs="0" name="phoneNumber" type="xs:string"/>
+<xs:element minOccurs="0" name="pib" type="xs:string"/>
+<xs:element minOccurs="0" name="roleDTO" type="tns:roleDTO"/>
+<xs:element minOccurs="0" name="username" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="roleDTO">
+<xs:sequence>
+<xs:element name="id" type="xs:long"/>
+<xs:element minOccurs="0" name="lastChangedDate" type="xs:dateTime"/>
+<xs:element minOccurs="0" name="name" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:schema>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://www.megatravel.com/agent" xmlns:ns2="http://www.megatravel.com/types" xmlns:tns="http://interfaces.megatravel.com/" elementFormDefault="unqualified" targetNamespace="http://interfaces.megatravel.com/" version="1.0">
+<xs:import namespace="http://www.megatravel.com/agent"/>
+<xs:import namespace="http://www.megatravel.com/types"/>
+<xs:element name="createUnit" type="tns:createUnit"/>
+<xs:element name="createUnitResponse" type="tns:createUnitResponse"/>
+<xs:element name="deleteUnit" type="tns:deleteUnit"/>
+<xs:element name="deleteUnitResponse" type="tns:deleteUnitResponse"/>
+<xs:element name="getAllUnits" type="tns:getAllUnits"/>
+<xs:element name="getAllUnitsResponse" type="tns:getAllUnitsResponse"/>
+<xs:element name="getUnit" type="tns:getUnit"/>
+<xs:element name="getUnitResponse" type="tns:getUnitResponse"/>
+<xs:element name="updateUnit" type="tns:updateUnit"/>
+<xs:element name="updateUnitResponse" type="tns:updateUnitResponse"/>
+<xs:complexType name="deleteUnit">
+<xs:sequence>
+<xs:element minOccurs="0" name="AccId" type="xs:long"/>
+<xs:element minOccurs="0" name="UnitId" type="xs:long"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="deleteUnitResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="return" type="ns1:accommodationUnitDTO"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="updateUnit">
+<xs:sequence>
+<xs:element minOccurs="0" name="AccId" type="xs:long"/>
+<xs:element minOccurs="0" name="arg1" type="ns1:accommodationUnitDTO"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="updateUnitResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="return" type="ns1:accommodationUnitDTO"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="createUnit">
+<xs:sequence>
+<xs:element minOccurs="0" name="AccId" type="xs:long"/>
+<xs:element minOccurs="0" name="arg1" type="ns1:accommodationUnitDTO"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="createUnitResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="return" type="ns1:accommodationUnitDTO"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="getUnit">
+<xs:sequence>
+<xs:element minOccurs="0" name="AccId" type="xs:long"/>
+<xs:element minOccurs="0" name="UnitId" type="xs:long"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="getUnitResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="return" type="ns1:accommodationUnitDTO"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="getAllUnits">
+<xs:sequence>
+<xs:element minOccurs="0" name="AccId" type="xs:long"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="getAllUnitsResponse">
+<xs:sequence>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="ns1:accommodationUnitDTO"/>
+</xs:sequence>
+</xs:complexType>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="deleteUnit">
+    <wsdl:part name="parameters" element="tns:deleteUnit">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="updateUnit">
+    <wsdl:part name="parameters" element="tns:updateUnit">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="deleteUnitResponse">
+    <wsdl:part name="parameters" element="tns:deleteUnitResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getUnitResponse">
+    <wsdl:part name="parameters" element="tns:getUnitResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="createUnitResponse">
+    <wsdl:part name="parameters" element="tns:createUnitResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="createUnit">
+    <wsdl:part name="parameters" element="tns:createUnit">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getUnit">
+    <wsdl:part name="parameters" element="tns:getUnit">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getAllUnitsResponse">
+    <wsdl:part name="parameters" element="tns:getAllUnitsResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="updateUnitResponse">
+    <wsdl:part name="parameters" element="tns:updateUnitResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getAllUnits">
+    <wsdl:part name="parameters" element="tns:getAllUnits">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="AccommodationUnitInterface">
+    <wsdl:operation name="deleteUnit">
+      <wsdl:input name="deleteUnit" message="tns:deleteUnit">
+    </wsdl:input>
+      <wsdl:output name="deleteUnitResponse" message="tns:deleteUnitResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateUnit">
+      <wsdl:input name="updateUnit" message="tns:updateUnit">
+    </wsdl:input>
+      <wsdl:output name="updateUnitResponse" message="tns:updateUnitResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createUnit">
+      <wsdl:input name="createUnit" message="tns:createUnit">
+    </wsdl:input>
+      <wsdl:output name="createUnitResponse" message="tns:createUnitResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getUnit">
+      <wsdl:input name="getUnit" message="tns:getUnit">
+    </wsdl:input>
+      <wsdl:output name="getUnitResponse" message="tns:getUnitResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAllUnits">
+      <wsdl:input name="getAllUnits" message="tns:getAllUnits">
+    </wsdl:input>
+      <wsdl:output name="getAllUnitsResponse" message="tns:getAllUnitsResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="AccommodationUnitInterfaceServiceSoapBinding" type="tns:AccommodationUnitInterface">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="deleteUnit">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="deleteUnit">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="deleteUnitResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateUnit">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="updateUnit">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="updateUnitResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createUnit">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="createUnit">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="createUnitResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getUnit">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getUnit">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getUnitResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAllUnits">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getAllUnits">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getAllUnitsResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="AccommodationUnitServiceInterface">
+    <wsdl:port name="AccommodationUnitPort" binding="tns:AccommodationUnitInterfaceServiceSoapBinding">
+      <soap:address location="http://localhost:9090/AccommodationUnitPort"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

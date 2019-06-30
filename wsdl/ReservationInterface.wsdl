@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="ReservationServiceInterface" targetNamespace="http://interfaces.megatravel.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://interfaces.megatravel.com/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.megatravel.com/types" version="1.0">
+<xs:complexType name="locationDTO">
+<xs:sequence>
+<xs:element minOccurs="0" name="city" type="xs:string"/>
+<xs:element minOccurs="0" name="country" type="xs:string"/>
+<xs:element name="id" type="xs:long"/>
+<xs:element minOccurs="0" name="lastChangedDate" type="xs:dateTime"/>
+<xs:element minOccurs="0" name="latitude" type="xs:double"/>
+<xs:element minOccurs="0" name="longitude" type="xs:double"/>
+<xs:element minOccurs="0" name="number" type="xs:integer"/>
+<xs:element name="postalCode" type="xs:int"/>
+<xs:element minOccurs="0" name="street" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:schema>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://www.megatravel.com/types" xmlns:ns2="http://www.megatravel.com/admin" xmlns:tns="http://www.megatravel.com/agent" elementFormDefault="qualified" targetNamespace="http://www.megatravel.com/agent" version="1.0">
+<xs:import namespace="http://www.megatravel.com/types"/>
+<xs:import namespace="http://www.megatravel.com/admin"/>
+<xs:complexType name="accommodationUnitDTO">
+<xs:sequence>
+<xs:element minOccurs="0" name="cancelationDays" type="xs:integer"/>
+<xs:element name="capacity" type="xs:int"/>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="extraServiceDTO" nillable="true" type="tns:extraServiceDTO"/>
+<xs:element name="id" type="xs:long"/>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="imageDTO" nillable="true" type="tns:imageDTO"/>
+<xs:element minOccurs="0" name="lastChangedDate" type="xs:dateTime"/>
+<xs:element minOccurs="0" name="locationDTO" type="ns1:locationDTO"/>
+<xs:element minOccurs="0" name="nameOfUnit" type="xs:string"/>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="pricingDTO" nillable="true" type="tns:pricingDTO"/>
+<xs:element name="size" type="xs:int"/>
+<xs:element minOccurs="0" name="unitTypeDTO" type="tns:unitTypeDTO"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="extraServiceDTO">
+<xs:sequence>
+<xs:element minOccurs="0" name="description" type="xs:string"/>
+<xs:element name="id" type="xs:long"/>
+<xs:element minOccurs="0" name="lastChangedDate" type="xs:dateTime"/>
+<xs:element minOccurs="0" name="nameOfService" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="imageDTO">
+<xs:sequence>
+<xs:element name="id" type="xs:long"/>
+<xs:element minOccurs="0" name="lastChangedDate" type="xs:dateTime"/>
+<xs:element minOccurs="0" name="title" type="xs:string"/>
+<xs:element minOccurs="0" name="uri" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="pricingDTO">
+<xs:sequence>
+<xs:element name="id" type="xs:long"/>
+<xs:element minOccurs="0" name="lastChangedDate" type="xs:dateTime"/>
+<xs:element minOccurs="0" name="price" type="xs:decimal"/>
+<xs:element minOccurs="0" name="startDate" type="xs:dateTime"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="unitTypeDTO">
+<xs:sequence>
+<xs:element name="id" type="xs:long"/>
+<xs:element minOccurs="0" name="lastChangedDate" type="xs:dateTime"/>
+<xs:element minOccurs="0" name="nameOfUnitType" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="accommodationTypeDTO">
+<xs:sequence>
+<xs:element name="id" type="xs:long"/>
+<xs:element minOccurs="0" name="lastChangedDate" type="xs:dateTime"/>
+<xs:element minOccurs="0" name="nameOfAccType" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="accommodationDTO">
+<xs:sequence>
+<xs:element minOccurs="0" name="accommodationTypeDTO" type="tns:accommodationTypeDTO"/>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="accommodationUnitDTO" nillable="true" type="tns:accommodationUnitDTO"/>
+<xs:element minOccurs="0" name="category" type="xs:string"/>
+<xs:element minOccurs="0" name="description" type="xs:string"/>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="extraServiceDTO" nillable="true" type="tns:extraServiceDTO"/>
+<xs:element name="freeToCancel" type="xs:boolean"/>
+<xs:element name="freeToCancelDays" type="xs:int"/>
+<xs:element name="id" type="xs:long"/>
+<xs:element minOccurs="0" name="lastChangedDate" type="xs:dateTime"/>
+<xs:element minOccurs="0" name="locationDTO" type="ns1:locationDTO"/>
+<xs:element minOccurs="0" name="name" type="xs:string"/>
+<xs:element minOccurs="0" name="userDTO" type="ns2:userDTO"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="syncDataDTO">
+<xs:sequence>
+<xs:element minOccurs="0" name="dateOfSync" type="xs:dateTime"/>
+<xs:element name="id" type="xs:long"/>
+</xs:sequence>
+</xs:complexType>
+</xs:schema>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://www.megatravel.com/types" xmlns:tns="http://www.megatravel.com/admin" elementFormDefault="qualified" targetNamespace="http://www.megatravel.com/admin" version="1.0">
+<xs:import namespace="http://www.megatravel.com/types"/>
+<xs:complexType name="userDTO">
+<xs:sequence>
+<xs:element name="activatedUser" type="xs:boolean"/>
+<xs:element minOccurs="0" name="birthday" type="xs:dateTime"/>
+<xs:element minOccurs="0" name="country" type="xs:string"/>
+<xs:element minOccurs="0" name="email" type="xs:string"/>
+<xs:element minOccurs="0" name="id" type="xs:long"/>
+<xs:element minOccurs="0" name="lastChangedDate" type="xs:dateTime"/>
+<xs:element minOccurs="0" name="lastName" type="xs:string"/>
+<xs:element minOccurs="0" name="locationDTO" type="ns1:locationDTO"/>
+<xs:element minOccurs="0" name="name" type="xs:string"/>
+<xs:element minOccurs="0" name="password" type="xs:string"/>
+<xs:element minOccurs="0" name="phoneNumber" type="xs:string"/>
+<xs:element minOccurs="0" name="pib" type="xs:string"/>
+<xs:element minOccurs="0" name="roleDTO" type="tns:roleDTO"/>
+<xs:element minOccurs="0" name="username" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="roleDTO">
+<xs:sequence>
+<xs:element name="id" type="xs:long"/>
+<xs:element minOccurs="0" name="lastChangedDate" type="xs:dateTime"/>
+<xs:element minOccurs="0" name="name" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="registrationDTO">
+<xs:sequence>
+<xs:element name="activatedUser" type="xs:boolean"/>
+<xs:element minOccurs="0" name="birthday" type="xs:dateTime"/>
+<xs:element minOccurs="0" name="country" type="xs:string"/>
+<xs:element minOccurs="0" name="email" type="xs:string"/>
+<xs:element name="id" type="xs:long"/>
+<xs:element minOccurs="0" name="lastChangedDate" type="xs:dateTime"/>
+<xs:element minOccurs="0" name="lastName" type="xs:string"/>
+<xs:element minOccurs="0" name="locationDTO" type="ns1:locationDTO"/>
+<xs:element minOccurs="0" name="name" type="xs:string"/>
+<xs:element minOccurs="0" name="password" type="xs:string"/>
+<xs:element minOccurs="0" name="phoneNumber" type="xs:string"/>
+<xs:element minOccurs="0" name="pib" type="xs:string"/>
+<xs:element minOccurs="0" name="repeatPassword" type="xs:string"/>
+<xs:element minOccurs="0" name="roleDTO" type="tns:roleDTO"/>
+<xs:element minOccurs="0" name="username" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="loginDTO">
+<xs:sequence>
+<xs:element minOccurs="0" name="email" type="xs:string"/>
+<xs:element minOccurs="0" name="lastChangedDate" type="xs:dateTime"/>
+<xs:element minOccurs="0" name="password" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:schema>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://www.megatravel.com/types" xmlns:ns2="http://www.megatravel.com/admin" elementFormDefault="qualified" targetNamespace="http://megatravel.com/reservations" version="1.0">
+<xs:import namespace="http://www.megatravel.com/types"/>
+<xs:import namespace="http://www.megatravel.com/admin"/>
+<xs:complexType name="reservationDTO">
+<xs:sequence>
+<xs:element minOccurs="0" name="arrivalDate" type="xs:dateTime"/>
+<xs:element minOccurs="0" name="departureDate" type="xs:dateTime"/>
+<xs:element name="id" type="xs:long"/>
+<xs:element minOccurs="0" name="lastChangedDate" type="xs:dateTime"/>
+<xs:element minOccurs="0" name="reservationPrice" type="xs:decimal"/>
+<xs:element name="stayRealized" type="xs:boolean"/>
+<xs:element minOccurs="0" name="userDTO" type="ns2:userDTO"/>
+</xs:sequence>
+</xs:complexType>
+</xs:schema>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://www.megatravel.com/admin" xmlns:ns2="http://megatravel.com/reservations" xmlns:tns="http://interfaces.megatravel.com/" elementFormDefault="unqualified" targetNamespace="http://interfaces.megatravel.com/" version="1.0">
+<xs:import namespace="http://www.megatravel.com/admin"/>
+<xs:import namespace="http://megatravel.com/reservations"/>
+<xs:element name="cancelReservation" type="tns:cancelReservation"/>
+<xs:element name="cancelReservationResponse" type="tns:cancelReservationResponse"/>
+<xs:element name="confirmReservation" type="tns:confirmReservation"/>
+<xs:element name="confirmReservationResponse" type="tns:confirmReservationResponse"/>
+<xs:element name="createReservation" type="tns:createReservation"/>
+<xs:element name="createReservationResponse" type="tns:createReservationResponse"/>
+<xs:element name="getListReservationsForUser" type="tns:getListReservationsForUser"/>
+<xs:element name="getListReservationsForUserResponse" type="tns:getListReservationsForUserResponse"/>
+<xs:complexType name="confirmReservation">
+<xs:sequence>
+<xs:element minOccurs="0" name="ReservationId" type="xs:long"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="confirmReservationResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="return" type="ns2:reservationDTO"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="getListReservationsForUser">
+<xs:sequence>
+<xs:element minOccurs="0" name="userId" type="xs:long"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="getListReservationsForUserResponse">
+<xs:sequence>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="ns2:reservationDTO"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="createReservation">
+<xs:sequence>
+<xs:element minOccurs="0" name="ReservationDTO" type="ns2:reservationDTO"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="createReservationResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="return" type="ns2:reservationDTO"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="cancelReservation">
+<xs:sequence>
+<xs:element minOccurs="0" name="ReservationId" type="xs:long"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="cancelReservationResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="return" type="ns2:reservationDTO"/>
+</xs:sequence>
+</xs:complexType>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="getListReservationsForUserResponse">
+    <wsdl:part name="parameters" element="tns:getListReservationsForUserResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="confirmReservation">
+    <wsdl:part name="parameters" element="tns:confirmReservation">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="createReservation">
+    <wsdl:part name="parameters" element="tns:createReservation">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="createReservationResponse">
+    <wsdl:part name="parameters" element="tns:createReservationResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="confirmReservationResponse">
+    <wsdl:part name="parameters" element="tns:confirmReservationResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cancelReservation">
+    <wsdl:part name="parameters" element="tns:cancelReservation">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cancelReservationResponse">
+    <wsdl:part name="parameters" element="tns:cancelReservationResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getListReservationsForUser">
+    <wsdl:part name="parameters" element="tns:getListReservationsForUser">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="ReservationInterface">
+    <wsdl:operation name="confirmReservation">
+      <wsdl:input name="confirmReservation" message="tns:confirmReservation">
+    </wsdl:input>
+      <wsdl:output name="confirmReservationResponse" message="tns:confirmReservationResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getListReservationsForUser">
+      <wsdl:input name="getListReservationsForUser" message="tns:getListReservationsForUser">
+    </wsdl:input>
+      <wsdl:output name="getListReservationsForUserResponse" message="tns:getListReservationsForUserResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createReservation">
+      <wsdl:input name="createReservation" message="tns:createReservation">
+    </wsdl:input>
+      <wsdl:output name="createReservationResponse" message="tns:createReservationResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="cancelReservation">
+      <wsdl:input name="cancelReservation" message="tns:cancelReservation">
+    </wsdl:input>
+      <wsdl:output name="cancelReservationResponse" message="tns:cancelReservationResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ReservationInterfaceServiceSoapBinding" type="tns:ReservationInterface">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="confirmReservation">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="confirmReservation">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="confirmReservationResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getListReservationsForUser">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getListReservationsForUser">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getListReservationsForUserResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createReservation">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="createReservation">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="createReservationResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="cancelReservation">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="cancelReservation">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="cancelReservationResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ReservationServiceInterface">
+    <wsdl:port name="ReservationPort" binding="tns:ReservationInterfaceServiceSoapBinding">
+      <soap:address location="http://localhost:9090/ReservationPort"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

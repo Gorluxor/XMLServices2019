@@ -1,10 +1,8 @@
 package com.megatravel.util;
 
 
-import com.megatravel.service.SearchServiceImpl;
-import com.megatravel.webservice.WebSearchServiceImpl;
+import com.megatravel.webservice.SearchServiceImpl;
 import com.netflix.appinfo.ApplicationInfoManager;
-import com.netflix.appinfo.EurekaInstanceConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -34,7 +32,7 @@ public class DynamicEndpointPublisher {
 
         int port = this.getEmptyPort();
         map.put(SOAP_PORT, Integer.toString(port));
-        publishEndpoint(port, WebSearchServiceImpl.ENDPOINT, WebSearchServiceImpl.class);
+        publishEndpoint(port, SearchServiceImpl.ENDPOINT, SearchServiceImpl.class);
     }
 
 

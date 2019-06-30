@@ -17,7 +17,7 @@ import java.util.List;
 
 @SuppressWarnings("Duplicates")
 @Service
-public class SearchServiceImpl {
+public class SearchService {
 
     @Autowired
     private AccommodationRepository accommodationRepository;

@@ -93,9 +93,9 @@ public class ReservationDTO {
         this.userDTO = reservation.getUser() == null? null : new UserDTO(reservation.getUser());
         this.accommodationUnitDTO = new ArrayList<>();
         this.lastChangedDate = reservation.getLastChangedDate();
-        for (AccommodationUnit au : reservation.getAccommodationUnit()){
-            this.accommodationUnitDTO.add(new AccommodationUnitDTO(au));
-        }
+//        for (AccommodationUnit au : reservation.getAccommodationUnit()){
+//            this.accommodationUnitDTO.add(new AccommodationUnitDTO(au));
+//        }
         this.reservationPrice = reservation.getReservationPrice();
 
     }

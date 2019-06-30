@@ -24,7 +24,7 @@ public class MessageController {
 
     @RequestMapping(value = "/user/{id}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public  ResponseEntity<List<ChatRoomDTO>> getInbox(@PathVariable("id") Long id){
-        return new ResponseEntity<>(messageService.getChatRooms(id), HttpStatus.OK);
+        return new ResponseEntity<>(messageService.convertToChatroomDTO(messageService.getChatRooms(id)), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/user/{id}/chatroom/{chatRoomId}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})

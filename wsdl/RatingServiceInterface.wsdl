@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<wsdl:definitions name="RatingServiceMicroService" targetNamespace="http://interfaces.megatravel.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://interfaces.megatravel.com/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+<wsdl:definitions name="RatingServiceInterface" targetNamespace="http://interfaces.megatravel.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://interfaces.megatravel.com/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
   <wsdl:types>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.megatravel.com/types" version="1.0">
 <xs:element name="locationDTO">
@@ -13,6 +13,7 @@
 <xs:element name="postalCode" type="xs:int"/>
 <xs:element minOccurs="0" name="latitude" type="xs:double"/>
 <xs:element minOccurs="0" name="longitude" type="xs:double"/>
+<xs:element minOccurs="0" name="lastChangedDate" type="xs:string"/>
 </xs:sequence>
 </xs:complexType>
 </xs:element>
@@ -32,6 +33,8 @@
 <xs:element name="adminApproved" type="xs:boolean"/>
 <xs:element ref="ns2:userDTO"/>
 <xs:element ref="ns4:reservationDTO"/>
+<xs:element ref="ns3:accommodationDTO"/>
+<xs:element minOccurs="0" name="lastChangedDate" type="xs:string"/>
 </xs:sequence>
 </xs:complexType>
 </xs:element>
@@ -39,15 +42,23 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://www.megatravel.com/types" xmlns:ns2="http://www.megatravel.com/admin" xmlns:tns="http://www.megatravel.com/agent" elementFormDefault="qualified" targetNamespace="http://www.megatravel.com/agent" version="1.0">
 <xs:import namespace="http://www.megatravel.com/types"/>
 <xs:import namespace="http://www.megatravel.com/admin"/>
+<xs:element name="SyncDataDTO">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="Id" type="xs:long"/>
+<xs:element name="dateOfSync" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
 <xs:element name="accommodationDTO">
 <xs:complexType>
 <xs:sequence>
 <xs:element name="id" type="xs:long"/>
 <xs:element name="name" type="xs:string"/>
 <xs:element name="description" type="xs:string"/>
-<xs:element name="cancelationDays" type="xs:positiveInteger"/>
 <xs:element ref="ns1:locationDTO"/>
 <xs:element ref="tns:accommodationTypeDTO"/>
+<xs:element name="lastChangedDate" type="xs:string"/>
 <xs:element minOccurs="0" ref="ns2:userDTO"/>
 <xs:element maxOccurs="unbounded" minOccurs="0" name="accommodationUnitDTO" nillable="true">
 <xs:complexType>
@@ -57,11 +68,14 @@
 <xs:element name="size" type="xs:int"/>
 <xs:element name="nameOfUnit" type="xs:string"/>
 <xs:element ref="tns:unitTypeDTO"/>
+<xs:element name="cancelationDays" type="xs:positiveInteger"/>
+<xs:element name="lastChangedDate" type="xs:string"/>
 <xs:element maxOccurs="unbounded" minOccurs="0" name="pricingDTO" nillable="true">
 <xs:complexType>
 <xs:sequence>
 <xs:element name="id" type="xs:long"/>
 <xs:element name="price" type="xs:decimal"/>
+<xs:element name="lastChangedDate" type="xs:string"/>
 <xs:element name="startDate" type="xs:string"/>
 </xs:sequence>
 </xs:complexType>
@@ -71,23 +85,29 @@
 <xs:sequence>
 <xs:element name="id" type="xs:long"/>
 <xs:element name="nameOfService" type="xs:string"/>
+<xs:element name="lastChangedDate" type="xs:string"/>
 <xs:element name="description" type="xs:string"/>
 </xs:sequence>
 </xs:complexType>
 </xs:element>
-</xs:sequence>
-</xs:complexType>
-</xs:element>
-<xs:element maxOccurs="unbounded" minOccurs="0" name="extraServiceDTO" nillable="true"/>
 <xs:element maxOccurs="unbounded" minOccurs="0" name="imageDTO" nillable="true">
 <xs:complexType>
 <xs:sequence>
 <xs:element name="id" type="xs:long"/>
 <xs:element name="title" type="xs:string"/>
+<xs:element name="lastChangedDate" type="xs:string"/>
 <xs:element name="uri" type="xs:string"/>
 </xs:sequence>
 </xs:complexType>
 </xs:element>
+<xs:element minOccurs="0" ref="ns1:locationDTO"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="extraServiceDTO" nillable="true"/>
+<xs:element minOccurs="0" name="category" type="xs:string"/>
+<xs:element name="freeToCancel" type="xs:boolean"/>
+<xs:element name="freeToCancelDays" type="xs:int"/>
 </xs:sequence>
 </xs:complexType>
 </xs:element>
@@ -95,18 +115,20 @@
 <xs:complexType>
 <xs:sequence>
 <xs:element name="Id" type="xs:long"/>
+<xs:element name="lastChangedDate" type="xs:string"/>
 <xs:element name="nameOfAccType" type="xs:string"/>
 </xs:sequence>
 </xs:complexType>
 </xs:element>
 <xs:element name="accommodationUnitDTO"/>
+<xs:element name="extraServiceDTO"/>
 <xs:element name="imageDTO"/>
 <xs:element name="pricingDTO"/>
-<xs:element name="extraServiceDTO"/>
 <xs:element name="unitTypeDTO">
 <xs:complexType>
 <xs:sequence>
 <xs:element name="Id" type="xs:long"/>
+<xs:element name="lastChangedDate" type="xs:string"/>
 <xs:element name="nameOfUnitType" type="xs:string"/>
 </xs:sequence>
 </xs:complexType>
@@ -114,10 +136,41 @@
 </xs:schema>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://www.megatravel.com/types" xmlns:tns="http://www.megatravel.com/admin" elementFormDefault="qualified" targetNamespace="http://www.megatravel.com/admin" version="1.0">
 <xs:import namespace="http://www.megatravel.com/types"/>
+<xs:element name="LoginDTO">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="email" type="xs:string"/>
+<xs:element name="lastChangedDate" type="xs:string"/>
+<xs:element name="password" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="RegistrationDTO">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="Id" type="xs:long"/>
+<xs:element name="name" type="xs:string"/>
+<xs:element name="lastName" type="xs:string"/>
+<xs:element name="email" type="xs:string"/>
+<xs:element name="password" type="xs:string"/>
+<xs:element name="repeatPassword" type="xs:string"/>
+<xs:element name="username" type="xs:string"/>
+<xs:element name="country" type="xs:string"/>
+<xs:element name="birthday" type="xs:string"/>
+<xs:element name="phoneNumber" type="xs:string"/>
+<xs:element name="pib" type="xs:string"/>
+<xs:element name="activatedUser" type="xs:boolean"/>
+<xs:element name="lastChangedDate" type="xs:string"/>
+<xs:element minOccurs="0" ref="ns1:locationDTO"/>
+<xs:element ref="tns:roleDTO"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
 <xs:element name="roleDTO">
 <xs:complexType>
 <xs:sequence>
 <xs:element name="id" type="xs:long"/>
+<xs:element name="lastChangedDate" type="xs:string"/>
 <xs:element name="name" type="xs:string"/>
 </xs:sequence>
 </xs:complexType>
@@ -129,12 +182,14 @@
 <xs:element name="name" type="xs:string"/>
 <xs:element name="lastName" type="xs:string"/>
 <xs:element name="email" type="xs:string"/>
+<xs:element name="username" type="xs:string"/>
 <xs:element minOccurs="0" name="password" type="xs:string"/>
 <xs:element name="country" type="xs:string"/>
 <xs:element name="birthday" type="xs:string"/>
 <xs:element name="phoneNumber" type="xs:string"/>
 <xs:element name="pib" type="xs:string"/>
 <xs:element name="activatedUser" type="xs:boolean"/>
+<xs:element name="lastChangedDate" type="xs:string"/>
 <xs:element minOccurs="0" ref="ns1:locationDTO"/>
 <xs:element ref="tns:roleDTO"/>
 </xs:sequence>
@@ -153,20 +208,26 @@
 <xs:element name="departureDate" type="xs:string"/>
 <xs:element name="stayRealized" type="xs:boolean"/>
 <xs:element name="reservationPrice" type="xs:decimal"/>
+<xs:element name="lastChangedDate" type="xs:string"/>
 <xs:element minOccurs="0" ref="ns2:userDTO"/>
 <xs:element maxOccurs="unbounded" minOccurs="0" ref="ns3:accommodationUnitDTO"/>
 </xs:sequence>
 </xs:complexType>
 </xs:element>
 </xs:schema>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://www.megatravel.com/admin" xmlns:ns2="http://megatravel.com/reservations" xmlns:ns3="http://www.megatravel.com/rating" xmlns:tns="http://interfaces.megatravel.com/" elementFormDefault="unqualified" targetNamespace="http://interfaces.megatravel.com/" version="1.0">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://www.megatravel.com/admin" xmlns:ns2="http://megatravel.com/reservations" xmlns:ns3="http://www.megatravel.com/agent" xmlns:ns4="http://www.megatravel.com/rating" xmlns:tns="http://interfaces.megatravel.com/" elementFormDefault="unqualified" targetNamespace="http://interfaces.megatravel.com/" version="1.0">
 <xs:import namespace="http://www.megatravel.com/admin"/>
 <xs:import namespace="http://megatravel.com/reservations"/>
+<xs:import namespace="http://www.megatravel.com/agent"/>
 <xs:import namespace="http://www.megatravel.com/rating"/>
-<xs:element name="RemoveRating" type="tns:RemoveRating"/>
-<xs:element name="RemoveRatingResponse" type="tns:RemoveRatingResponse"/>
 <xs:element name="addRating" type="tns:addRating"/>
 <xs:element name="addRatingResponse" type="tns:addRatingResponse"/>
+<xs:element name="approveRating" type="tns:approveRating"/>
+<xs:element name="approveRatingResponse" type="tns:approveRatingResponse"/>
+<xs:element name="ratingForReservation" type="tns:ratingForReservation"/>
+<xs:element name="ratingForReservationResponse" type="tns:ratingForReservationResponse"/>
+<xs:element name="removeRating" type="tns:removeRating"/>
+<xs:element name="removeRatingResponse" type="tns:removeRatingResponse"/>
 <xs:complexType name="addRating">
 <xs:sequence>
 <xs:element minOccurs="0" name="ratingDTO">
@@ -179,6 +240,8 @@
 <xs:element form="qualified" name="adminApproved" type="xs:boolean"/>
 <xs:element ref="ns1:userDTO"/>
 <xs:element ref="ns2:reservationDTO"/>
+<xs:element ref="ns3:accommodationDTO"/>
+<xs:element form="qualified" minOccurs="0" name="lastChangedDate" type="xs:string"/>
 </xs:sequence>
 </xs:complexType>
 </xs:element>
@@ -189,12 +252,32 @@
 <xs:element minOccurs="0" name="return"/>
 </xs:sequence>
 </xs:complexType>
-<xs:complexType name="RemoveRating">
+<xs:complexType name="ratingForReservation">
+<xs:sequence>
+<xs:element minOccurs="0" name="reservationId" type="xs:long"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="ratingForReservationResponse">
+<xs:sequence>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="return"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="removeRating">
 <xs:sequence>
 <xs:element minOccurs="0" name="ratingId" type="xs:long"/>
 </xs:sequence>
 </xs:complexType>
-<xs:complexType name="RemoveRatingResponse">
+<xs:complexType name="removeRatingResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="return"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="approveRating">
+<xs:sequence>
+<xs:element minOccurs="0" name="ratingId" type="xs:long"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="approveRatingResponse">
 <xs:sequence>
 <xs:element minOccurs="0" name="return"/>
 </xs:sequence>
@@ -205,33 +288,61 @@
     <wsdl:part name="parameters" element="tns:addRating">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="RemoveRatingResponse">
-    <wsdl:part name="parameters" element="tns:RemoveRatingResponse">
+  <wsdl:message name="removeRating">
+    <wsdl:part name="parameters" element="tns:removeRating">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="removeRatingResponse">
+    <wsdl:part name="parameters" element="tns:removeRatingResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="approveRatingResponse">
+    <wsdl:part name="parameters" element="tns:approveRatingResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ratingForReservation">
+    <wsdl:part name="parameters" element="tns:ratingForReservation">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ratingForReservationResponse">
+    <wsdl:part name="parameters" element="tns:ratingForReservationResponse">
     </wsdl:part>
   </wsdl:message>
   <wsdl:message name="addRatingResponse">
     <wsdl:part name="parameters" element="tns:addRatingResponse">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="RemoveRating">
-    <wsdl:part name="parameters" element="tns:RemoveRating">
+  <wsdl:message name="approveRating">
+    <wsdl:part name="parameters" element="tns:approveRating">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:portType name="RatingService">
+  <wsdl:portType name="RatingInterface">
     <wsdl:operation name="addRating">
       <wsdl:input name="addRating" message="tns:addRating">
     </wsdl:input>
       <wsdl:output name="addRatingResponse" message="tns:addRatingResponse">
     </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="RemoveRating">
-      <wsdl:input name="RemoveRating" message="tns:RemoveRating">
+    <wsdl:operation name="ratingForReservation">
+      <wsdl:input name="ratingForReservation" message="tns:ratingForReservation">
     </wsdl:input>
-      <wsdl:output name="RemoveRatingResponse" message="tns:RemoveRatingResponse">
+      <wsdl:output name="ratingForReservationResponse" message="tns:ratingForReservationResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="removeRating">
+      <wsdl:input name="removeRating" message="tns:removeRating">
+    </wsdl:input>
+      <wsdl:output name="removeRatingResponse" message="tns:removeRatingResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="approveRating">
+      <wsdl:input name="approveRating" message="tns:approveRating">
+    </wsdl:input>
+      <wsdl:output name="approveRatingResponse" message="tns:approveRatingResponse">
     </wsdl:output>
     </wsdl:operation>
   </wsdl:portType>
-  <wsdl:binding name="RatingServiceServiceSoapBinding" type="tns:RatingService">
+  <wsdl:binding name="RatingInterfaceServiceSoapBinding" type="tns:RatingInterface">
     <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
     <wsdl:operation name="addRating">
       <soap:operation soapAction="" style="document"/>
@@ -242,19 +353,37 @@
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="RemoveRating">
+    <wsdl:operation name="ratingForReservation">
       <soap:operation soapAction="" style="document"/>
-      <wsdl:input name="RemoveRating">
+      <wsdl:input name="ratingForReservation">
         <soap:body use="literal"/>
       </wsdl:input>
-      <wsdl:output name="RemoveRatingResponse">
+      <wsdl:output name="ratingForReservationResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="removeRating">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="removeRating">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="removeRatingResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="approveRating">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="approveRating">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="approveRatingResponse">
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
   </wsdl:binding>
-  <wsdl:extraService name="RatingServiceMicroService">
-    <wsdl:port name="RatingServicePort" binding="tns:RatingServiceServiceSoapBinding">
-      <soap:address location="http://localhost:9090/RatingServicePort"/>
+  <wsdl:service name="RatingServiceInterface">
+    <wsdl:port name="RatingPort" binding="tns:RatingInterfaceServiceSoapBinding">
+      <soap:address location="http://localhost:9090/RatingPort"/>
     </wsdl:port>
-  </wsdl:extraService>
+  </wsdl:service>
 </wsdl:definitions>

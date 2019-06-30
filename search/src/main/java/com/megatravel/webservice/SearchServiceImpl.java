@@ -18,12 +18,12 @@ import java.util.List;
             targetNamespace = "http://interfaces.megatravel.com",
             endpointInterface = "com.megatravel.interfaces.SearchInterface")
 @Component
-public class WebSearchServiceImpl implements SearchInterface {
+public class SearchServiceImpl implements SearchInterface {
 
-    public static final String ENDPOINT = "/search";
+    public static final String ENDPOINT = "/services/search";
 
 
-    public WebSearchServiceImpl() {
+    public SearchServiceImpl() {
         AutowiredAnnotationBeanPostProcessor bpp = new AutowiredAnnotationBeanPostProcessor();
         WebApplicationContext currentContext = WebConfig.getWebApplicationContext();
         bpp.setBeanFactory(currentContext.getAutowireCapableBeanFactory());

@@ -14,8 +14,7 @@ public class StringUtilities {
 
 	public static final String SOAP_PORT = "soap-port";
 	public static final String SOAP_PREFIX = "/services";
-	public static final String WSDL_PORT = "soap:address location";
-	public static final String WSDL_SUFFIX = "?wsdl";
+
 
 	
 	@Autowired
@@ -54,18 +53,6 @@ public class StringUtilities {
 		}
 	}
 
-	public String createLocationFromURL(String url) {
-		String location = url.substring(0, url.indexOf(WSDL_SUFFIX));
-		return location;
-	}
-	
-	public String replaceWebServicePort(String wsdl, String newLocation) {
-		int elementIndex = wsdl.indexOf(WSDL_PORT);
-		int locationBeginIndex = wsdl.indexOf('"', elementIndex);
-		int locationEndIndex = wsdl.indexOf('"', locationBeginIndex + 1);
-		return wsdl.replace(wsdl.substring(locationBeginIndex + 1, locationEndIndex), newLocation);
-	}
-	
 	public String returnSoapAction(String url, String soap) {
 		int elementIndex = soap.indexOf("Body");
 		int locationBeginIndex = soap.indexOf(':', elementIndex);
