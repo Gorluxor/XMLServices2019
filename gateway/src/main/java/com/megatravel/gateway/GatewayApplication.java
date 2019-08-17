@@ -9,7 +9,7 @@ import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 
-import com.megatravel.gateway.filters.PostFilter;
+
 import com.megatravel.gateway.filters.PreFilter;
 
 
@@ -28,10 +28,7 @@ public class GatewayApplication {
         return new PreFilter();
     }
     
-    @Bean
-    public PostFilter postFilter() {
-        return new PostFilter();
-    }
+
 
 }
 

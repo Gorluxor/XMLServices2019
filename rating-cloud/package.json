@@ -1,0 +1,19 @@
+{
+  "name": "rating-cloud",
+  "version": "1.0.0",
+  "description": "rating servis",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Nikola Djordjevic",
+  "license": "ISC",
+  "dependencies": {
+    "@google-cloud/functions-framework": "^1.1.1",
+    "@google/cloud-debug": "^0.9.3",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "moment": "^2.24.0",
+    "mysql": "^2.15.0"
+  }
+}

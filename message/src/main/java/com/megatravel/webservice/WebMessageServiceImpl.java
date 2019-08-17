@@ -22,7 +22,6 @@ import java.util.List;
             targetNamespace = "http://interfaces.megatravel.com",
             endpointInterface = "com.megatravel.interfaces.MessageService")
 @Service
-@SOAPBinding(style=SOAPBinding.Style.RPC,parameterStyle = )
 public class WebMessageServiceImpl implements MessageService {
 
     @Autowired
