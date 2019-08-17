@@ -1,0 +1,1 @@
+npx @googlecloud/functions-framework --target=adminApproveComment --port 8098

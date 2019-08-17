@@ -1,0 +1,1 @@
+npx @googlecloud/functions-framework --target=getAllRatings --port 8090
