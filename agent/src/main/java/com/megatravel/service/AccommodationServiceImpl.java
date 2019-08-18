@@ -44,6 +44,18 @@ public class AccommodationServiceImpl {
     }
 
 
+    public AccommodationDTO findOne(Long id) {
+        Optional<Accommodation> acc = accommodationRepository.findById(id);
+        if(acc.isPresent()) {
+
+            return new AccommodationDTO(acc.get());
+        }
+        else {
+
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT, "No accommodation with requested id");
+        }
+    }
+
     public Accommodation createAccommodation(AccommodationDTO accommodationDTO) {
 
         if (accommodationDTO == null) {

@@ -1,6 +1,7 @@
 package com.megatravel.service;
 
 
+import com.megatravel.dtos.admin.UserDTO;
 import com.megatravel.dtos.agent.AccommodationUnitDTO;
 import com.megatravel.dtos.reservations.ReservationDTO;
 import com.megatravel.models.admin.User;
@@ -19,6 +20,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ReservationServiceImpl {
@@ -34,6 +36,18 @@ public class ReservationServiceImpl {
 
     @Autowired
     private PricingServiceImpl pricingService;
+
+    public ReservationDTO findOne(Long id) {
+        Optional<Reservation> res = reservationRepository.findById(id);
+        if(res.isPresent()) {
+
+            return new ReservationDTO(res.get());
+        }
+        else {
+            System.out.println("NO RESERVATION");
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT, "No reservation with requested id");
+        }
+    }
 
     public Reservation confirmReservation(Long reservationId, String email){
 

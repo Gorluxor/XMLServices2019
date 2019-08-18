@@ -24,6 +24,8 @@ public class ReservationController {
     @Autowired
     private ReservationServiceImpl reservationService;
 
+
+
     @RequestMapping(value = "/confirm/{id}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<ReservationDTO> confirmReservation(@PathVariable("id") Long id, HttpServletRequest request){
         String email = TokenUtils.getUsername(request.getHeader("Authorization"));
