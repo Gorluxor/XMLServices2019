@@ -15,10 +15,7 @@ import com.megatravel.service.UserServiceImpl;
 import com.megatravel.utils.TokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
@@ -42,6 +39,28 @@ public class AccommodationController {
 
     @Autowired
     private ReservationServiceImpl reservationService;
+
+    @RequestMapping(value = "/adminApprove", method = RequestMethod.POST,consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    public ResponseEntity<?> adminApprove(@RequestBody RatingSQL ratingSQL, HttpServletRequest request){
+
+        HttpEntity<RatingSQL> rating = new HttpEntity<RatingSQL>(ratingSQL);
+
+        String response = template.postForObject("http://localhost:8098/adminApproveComment", rating, String.class);
+
+        return new ResponseEntity(response, HttpStatus.CREATED);
+    }
+
+    @RequestMapping(value = "/addRating", method = RequestMethod.POST,consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    public ResponseEntity<?> addRating(@RequestBody RatingSQL ratingSQL, HttpServletRequest request){
+
+
+
+        HttpEntity<RatingSQL> rating = new HttpEntity<RatingSQL>(ratingSQL);
+        String response = template.postForObject("http://localhost:8096/addRating", rating, String.class);
+
+        return new ResponseEntity(response, HttpStatus.CREATED);
+    }
+
 
     @RequestMapping(value = "/getRatings", method = RequestMethod.GET)
     public ResponseEntity<?> getRatings()
@@ -71,15 +90,24 @@ public class AccommodationController {
             try{
                 UserDTO u = new UserDTO();
                 u = userService.findOne(r.getUser_id());
+                pom.setUserDTO(u);
+            }catch(Exception e){
+
+            }
+            try{
                 ReservationDTO res = new ReservationDTO();
                 res = reservationService.findOne(r.getReservation_id());
+                pom.setReservationDTO(res);
+            }catch(Exception e1){
+
+            }
+            try{
                 AccommodationDTO a = new AccommodationDTO();
                 a = accommodationService.findOne(r.getAccommodation_id());
 
-                pom.setUserDTO(u);
+
                 pom.setAccommodationDTO(a);
-                pom.setReservationDTO(res);
-            }catch(Exception e){
+            }catch(Exception e2){
 
             }
 
@@ -117,20 +145,28 @@ public class AccommodationController {
             try{
                 UserDTO u = new UserDTO();
                 u = userService.findOne(r.getUser_id());
-                ReservationDTO res = new ReservationDTO();
-                res = reservationService.findOne(r.getReservation_id());
-                AccommodationDTO a = new AccommodationDTO();
-                a = accommodationService.findOne(r.getAccommodation_id());
-
                 pom.setUserDTO(u);
-                pom.setAccommodationDTO(a);
-                pom.setReservationDTO(res);
             }catch(Exception e){
 
             }
-            if(pom.isAdminApproved()){
-                ratingsFinal.add(pom);
+            try{
+                ReservationDTO res = new ReservationDTO();
+                res = reservationService.findOne(r.getReservation_id());
+                pom.setReservationDTO(res);
+            }catch(Exception e1){
+
             }
+            try{
+                AccommodationDTO a = new AccommodationDTO();
+                a = accommodationService.findOne(r.getAccommodation_id());
+
+
+                pom.setAccommodationDTO(a);
+            }catch(Exception e2){
+
+            }
+
+                ratingsFinal.add(pom);
 
 
         }
@@ -165,20 +201,32 @@ public class AccommodationController {
             try{
                 UserDTO u = new UserDTO();
                 u = userService.findOne(r.getUser_id());
-                ReservationDTO res = new ReservationDTO();
-                res = reservationService.findOne(r.getReservation_id());
-                AccommodationDTO a = new AccommodationDTO();
-                a = accommodationService.findOne(r.getAccommodation_id());
-
                 pom.setUserDTO(u);
-                pom.setAccommodationDTO(a);
-                pom.setReservationDTO(res);
             }catch(Exception e){
 
             }
-            if(!pom.isAdminApproved()){
-                ratingsFinal.add(pom);
+            try{
+                ReservationDTO res = new ReservationDTO();
+                res = reservationService.findOne(r.getReservation_id());
+                pom.setReservationDTO(res);
+            }catch(Exception e1){
+
             }
+               try{
+                   AccommodationDTO a = new AccommodationDTO();
+                   a = accommodationService.findOne(r.getAccommodation_id());
+
+
+                   pom.setAccommodationDTO(a);
+               }catch(Exception e2){
+
+               }
+
+
+
+
+                ratingsFinal.add(pom);
+
 
 
         }
