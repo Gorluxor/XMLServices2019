@@ -38,6 +38,7 @@ services:
 
   auth:
     image: auth
+    container_name: auth
     build:
       context: ./auth
       dockerfile: Dockerfile
@@ -48,5 +49,71 @@ services:
     links:
       - eureka:eureka
       - mysql-standalone:mysql
+
+  agent:
+    image: agent
+    container_name: agent
+    build:
+      context: ./agent
+      dockerfile: Dockerfile
+    ports:
+      - "8079"
+    depends_on:
+      - eureka
+    links:
+      - eureka:eureka
+
+  search:
+    image: search
+    container_name: search
+    build:
+      context: ./search
+      dockerfile: Dockerfile
+    ports:
+      - "8147"
+    depends_on:
+      - eureka
+    links:
+      - eureka:eureka
+
+  rating:
+    image: rating
+    container_name: rating
+    build:
+      context: ./rating
+      dockerfile: Dockerfile
+    ports:
+      - "8084"
+    depends_on:
+      - eureka
+    links:
+      - eureka:eureka
+
+
+  model:
+    image: model
+    container_name: model
+    build:
+      context: ./model
+      dockerfile: Dockerfile
+    ports:
+      - "8080"
+    depends_on:
+      - eureka
+    links:
+      - eureka:eureka
+
+  reservation:
+    image: reservation
+    container_name: reservation
+    build:
+      context: ./reservation
+      dockerfile: Dockerfile
+    ports:
+      - "8888"
+    depends_on:
+      - eureka
+    links:
+      - eureka:eureka
 
 
