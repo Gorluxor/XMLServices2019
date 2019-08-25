@@ -45,10 +45,8 @@ public class UserController {
 	@Autowired
 	RoleServiceImpl roleServiceImpl;
 
-	@RequestMapping(method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE,
-			MediaType.APPLICATION_XML_VALUE })
-
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@RequestMapping(method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+	//@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public ResponseEntity<List<UserDTO>> getAllUsers(Pageable page, HttpServletRequest request) {
 		
 		System.out.println(request.getHeader("Authorization"));
@@ -123,15 +121,20 @@ public class UserController {
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_VALUE})
 	public ResponseEntity<String> login(@RequestBody LoginDTO loginDTO) {
-		
+
+		System.out.println("u metodi "  + loginDTO.getEmail());
 		User user = userServiceImpl.findByEmail(loginDTO.getEmail());
 		if(user == null) {
+			System.out.println("Nema korisnika");
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 
 		try {
+			System.out.println("Kreiranje jwt-a " + loginDTO.getPassword());
 			String jwt = userServiceImpl.signin(loginDTO.getEmail(), loginDTO.getPassword());
+			System.out.println("Kreirao jwt ");
 			ObjectMapper mapper = new ObjectMapper();
+			System.out.println("Inicijalizovao maper ");
 			return new ResponseEntity<>(mapper.writeValueAsString(jwt), HttpStatus.OK);
 		} catch (Exception e) {
 			//e.printStackTrace();
@@ -157,8 +160,11 @@ public class UserController {
 		user.setPassword(registrationDTO.getPassword());
 		user.setName(registrationDTO.getName());
 		user.setLastName(registrationDTO.getLastName());
+		user.setBirthday(registrationDTO.getBirthday());
+		user.setPhoneNumber(registrationDTO.getPhoneNumber());
+		user.setCountry(registrationDTO.getCountry());
 		user.setActivatedUser(true);
-		Role role = roleServiceImpl.findByRoleName("ROLE_USER");
+		Role role = roleServiceImpl.findByRoleName("USER");
 
 		user.setRole(role);
 		userServiceImpl.signup(user);

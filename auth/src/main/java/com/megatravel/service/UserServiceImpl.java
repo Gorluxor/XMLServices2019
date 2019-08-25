@@ -106,19 +106,28 @@ public class UserServiceImpl {
 	public String signin(String email, String password) {
 		try {
 			User user = userRepository.findByEmail(email);
+			System.out.println("email " + email);
+			if(user != null) {
+				System.out.println("pronadjen korisnik ");
+			}
 			HashPassword hashPassword = new HashPassword();
+			System.out.println("kreirao hash ");
 			byte[] hashed;
+			System.out.println("kreirao promenljivu ");
 			try {
 				hashed = hashPassword.hashPassword(password, Base64Utility.decode(user.getSalt()));
+				System.out.println("kreirao hash 2");
 				authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, Base64Utility.encode(hashed)));
-			} catch (IOException e) {
+				System.out.println("autentifikovao se ");
+			} catch (Exception e) {
+				System.out.println("Nije prosla autentifikacije");
 				e.printStackTrace();
 			}
-			
 
-			return jwtTokenProvider.createToken(email, userRepository.findByEmail(email).getRole());
+			System.out.println("proslo sve, kreiranje tokena");
+			return jwtTokenProvider.createToken(email, user.getRole());
 		} catch (AuthenticationException e) {
-
+			System.out.println("Ne valja username i password ");
 			throw new CustomException("Invalid username/password supplied", HttpStatus.UNPROCESSABLE_ENTITY);
 		}
 	}

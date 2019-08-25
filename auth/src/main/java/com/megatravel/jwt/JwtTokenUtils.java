@@ -43,6 +43,7 @@ public class JwtTokenUtils {
 	}
 
 	public String createToken(String email, Role roles) {
+		System.out.println(" kreiranje tokena ");
 		List<SimpleGrantedAuthority> usersType = new ArrayList<>();	
 
 		usersType.add(new SimpleGrantedAuthority(roles.getRoleName()));

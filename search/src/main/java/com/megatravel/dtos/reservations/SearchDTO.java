@@ -298,5 +298,19 @@ public class SearchDTO {
         this.accommodationType = value;
     }
 
-
+    @Override
+    public String toString() {
+        return "SearchDTO{" +
+                "city='" + city + '\'' +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", numberOfPeople=" + numberOfPeople +
+                ", extraServices=" + extraServices +
+                ", accommodationType='" + accommodationType + '\'' +
+                ", distance=" + distance +
+                ", searchFreeDays=" + searchFreeDays +
+                ", freeToCancel=" + freeToCancel +
+                ", category='" + category + '\'' +
+                '}';
+    }
 }

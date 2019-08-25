@@ -39,6 +39,7 @@ public class SearchService {
 
 
     public List<Accommodation> normalSearchAccommodation(SearchDTO searchDTO) throws ResponseStatusException{
+        System.out.println(searchDTO);
         validSearch(searchDTO);
         String startDate = changeToString(searchDTO.getStartDate());
         String endDate = changeToString(searchDTO.getEndDate());
@@ -67,6 +68,7 @@ public class SearchService {
 
         if (searchDTO.getAccommodationType() != null){
 
+            System.out.println(searchDTO);
             AccommodationType accommodationType = accommodationTypeRepository.findByNameOfAccType(searchDTO.getAccommodationType());
 
             System.out.println("City:"+searchDTO.getCity() + "Start:" + startDate + "EndDate:" + endDate+ "People:" + searchDTO.getNumberOfPeople()+ "TypeId:" + accommodationType.getId()+ "SearchString:" + searchString + "FreeDays:" + searchDTO.getSearchFreeDays()+ "\n");
