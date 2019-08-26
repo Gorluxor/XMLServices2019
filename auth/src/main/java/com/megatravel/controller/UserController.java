@@ -45,8 +45,8 @@ public class UserController {
 	@Autowired
 	RoleServiceImpl roleServiceImpl;
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
-	//@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public ResponseEntity<List<UserDTO>> getAllUsers(Pageable page, HttpServletRequest request) {
 		
 		System.out.println(request.getHeader("Authorization"));
@@ -81,6 +81,12 @@ public class UserController {
 		return new ResponseEntity<>(new UserDTO(userServiceImpl.findByEmail(email)), HttpStatus.OK);
 	}
 
+    @RequestMapping(value = "/role/{email}", method = RequestMethod.GET)
+    public ResponseEntity<String> getRoleByEmail(@PathVariable String email) {
+        UserDTO userDTO=new UserDTO(userServiceImpl.findByEmail(email));
+        return new ResponseEntity<>(userDTO.getRoleDTO().getName(), HttpStatus.OK);
+    }
+
 	@RequestMapping(value = "/block/{userId}", method = RequestMethod.PUT)
 	public ResponseEntity<Void> disableUser(@PathVariable(name = "userId") Long userId){
 		userServiceImpl.blockUser(userId);
@@ -100,9 +106,9 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/agentRegister", method = RequestMethod.POST)
-	public ResponseEntity<String> registerAgent(@RequestBody RegistrationDTO registrationDTO){
+	public ResponseEntity<Void> registerAgent(@RequestBody RegistrationDTO registrationDTO){
 		userServiceImpl.registerAgent(registrationDTO);
-		return new ResponseEntity<>("Added agent", HttpStatus.OK);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/free", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
@@ -164,7 +170,7 @@ public class UserController {
 		user.setPhoneNumber(registrationDTO.getPhoneNumber());
 		user.setCountry(registrationDTO.getCountry());
 		user.setActivatedUser(true);
-		Role role = roleServiceImpl.findByRoleName("USER");
+		Role role = roleServiceImpl.findByRoleName("ROLE_USER");
 
 		user.setRole(role);
 		userServiceImpl.signup(user);

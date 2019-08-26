@@ -27,9 +27,10 @@ public class MessageController {
         return new ResponseEntity<>(messageService.convertToChatroomDTO(messageService.getChatRooms(id)), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/user/{id}/chatroom/{chatRoomId}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-    public  ResponseEntity<List<MessageDTO>> getChatRoomMessages(@PathVariable("id") Long id, @PathVariable("chatRoomId") Long chatRoomId){
-        List<Message> messages = messageService.getListMessagesForChatRoom(id,chatRoomId);
+    @RequestMapping(value = "/user/{id}/chatroom/{reservationId}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    public  ResponseEntity<List<MessageDTO>> getChatRoomMessages(@PathVariable("id") Long id, @PathVariable("reservationId") Long reservationId){
+        System.out.println("User: " + id + " ReservationID: " + reservationId);
+        List<Message> messages = messageService.getListMessagesForChatRoom(id,reservationId);
         List<MessageDTO> ret = new ArrayList<>();
         for (Message m : messages){
             ret.add(new MessageDTO(m));
@@ -43,9 +44,9 @@ public class MessageController {
     }
 
 
-    @RequestMapping(value = "/{chatRoomId}", method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-    public ResponseEntity<MessageDTO> sendMessage(@PathVariable("chatRoomId") Long chatRoomId, @RequestBody MessageDTO messageDTO){
-        return new ResponseEntity<>(new MessageDTO(this.messageService.sendMessage(chatRoomId, messageDTO)), HttpStatus.CREATED);
+    @RequestMapping(value = "/{reservationId}", method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    public ResponseEntity<MessageDTO> sendMessage(@PathVariable("reservationId") Long reservationId, @RequestBody MessageDTO messageDTO){
+        return new ResponseEntity<>(new MessageDTO(this.messageService.sendMessage(reservationId, messageDTO)), HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/chatRoom/create", method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})

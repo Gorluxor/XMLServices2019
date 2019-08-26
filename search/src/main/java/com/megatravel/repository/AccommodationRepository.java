@@ -10,7 +10,8 @@ import java.util.List;
 @Repository
 public interface AccommodationRepository extends JpaRepository<Accommodation, Long> {
 
-
+    @Override
+    List<Accommodation> findAll();
 
     @Query(value = "  select * from accommodation qs where qs.id  in \n" +
             " ( select a.accommodation_id from accommodation_unit a where a.id and a.unit_type_id = 1 in (select q.id from accommodation_unit q where q.location_id in \n" +

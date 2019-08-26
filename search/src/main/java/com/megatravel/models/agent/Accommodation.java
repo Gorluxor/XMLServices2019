@@ -208,6 +208,21 @@ public class Accommodation {
         return this.extraService;
     }
 
-
-
+    @Override
+    public String toString() {
+        return "Accommodation{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", location=" + location +
+                ", accommodationType=" + accommodationType +
+                ", user=" + user +
+                ", accommodationUnit=" + accommodationUnit +
+                ", extraService=" + extraService +
+                ", category='" + category + '\'' +
+                ", freeToCancel=" + freeToCancel +
+                ", freeToCancelDays=" + freeToCancelDays +
+                ", lastChangedDate=" + lastChangedDate +
+                '}';
+    }
 }

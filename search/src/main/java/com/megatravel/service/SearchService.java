@@ -43,6 +43,10 @@ public class SearchService {
         validSearch(searchDTO);
         String startDate = changeToString(searchDTO.getStartDate());
         String endDate = changeToString(searchDTO.getEndDate());
+        System.out.println("Pretrazivanje po bazi");
+
+        System.out.println(accommodationRepository.findAll());
+
         return accommodationRepository.normalSearch(searchDTO.getCity(),startDate, endDate, searchDTO.getNumberOfPeople());
 
     }
@@ -71,7 +75,7 @@ public class SearchService {
             System.out.println(searchDTO);
             AccommodationType accommodationType = accommodationTypeRepository.findByNameOfAccType(searchDTO.getAccommodationType());
 
-            System.out.println("City:"+searchDTO.getCity() + "Start:" + startDate + "EndDate:" + endDate+ "People:" + searchDTO.getNumberOfPeople()+ "TypeId:" + accommodationType.getId()+ "SearchString:" + searchString + "FreeDays:" + searchDTO.getSearchFreeDays()+ "\n");
+            System.out.println("City:"+searchDTO.getCity() + "Start:" + startDate + "EndDate:" + endDate+ "People:" + searchDTO.getNumberOfPeople()+ "TypeId:" + accommodationType.getId()+ "SearchString:" + searchString + " FreeDays:" + searchDTO.getSearchFreeDays()+ "\n");
             try{
                 list = accommodationRepository.advancedSearch(searchDTO.getCity(), startDate, endDate, searchDTO.getNumberOfPeople(), accommodationType.getId(), searchString, searchDTO.isFreeToCancel(), searchDTO.getSearchFreeDays() );
             }catch (Exception e){
@@ -83,15 +87,20 @@ public class SearchService {
         System.out.println("ListBeforeExtraServices:" + list.size());
         List<ExtraService> extraServices = findExtraServices(searchDTO.getExtraServices());
 
+        System.out.println(extraServices);
+
         List<Accommodation> afterFilter = new ArrayList<>();
         if (searchDTO.getExtraServices() != null && list != null){
             for (Accommodation accommodation : list){
+                System.out.println(accommodation.getExtraService());
+
                 if (accommodation.getExtraService().containsAll(extraServices)){
                     afterFilter.add(accommodation);
                 }
             }
         }
 
+        System.out.println("ListAfterExtraServices: " + afterFilter.size());
         if (searchDTO.getDistance() != 0)
             afterFilter = calculateDistanceFromCity(afterFilter, searchDTO.getDistance(), searchDTO.getCity());
 

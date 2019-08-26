@@ -30,6 +30,7 @@ public class SearchController {
 
     @RequestMapping(value = "/accommodation/advanced", method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<List<AccommodationDTO>> advancedSearchAccommodation(@RequestBody SearchDTO searchDTO){
+        System.out.println("Pozvan accommodation-advanced");
         return new ResponseEntity<>(convertToAccommodationListDTO(searchService.advanceSearchAccommodation(searchDTO)), HttpStatus.OK);
     }
 

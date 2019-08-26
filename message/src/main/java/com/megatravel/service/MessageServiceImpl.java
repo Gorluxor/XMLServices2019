@@ -44,15 +44,17 @@ public class MessageServiceImpl {
         return results;
     }
 
-    public List<Message> getListMessagesForChatRoom(Long userId, Long chatRoomId) throws ResponseStatusException {
-        List<Message> results = messageRepository.allMessagesToChat(chatRoomId, userId);
+    public List<Message> getListMessagesForChatRoom(Long userId, Long reservationId) throws ResponseStatusException {
+        ChatRoom cr = chatRoomRepository.findFirstByReservation_Id(reservationId);
+
+        List<Message> results = messageRepository.allMessagesToChat(cr.getId(), userId);
         if (!userRepository.existsById(userId)){
             throw new ResponseStatusException(HttpStatus.NO_CONTENT, "No such object in database");
         }
         return results;
     }
 
-    public Message sendMessage(Long chatRoomIdOrReservationId, MessageDTO messageDTO) throws ResponseStatusException {
+    public Message sendMessage(Long reservationId, MessageDTO messageDTO) throws ResponseStatusException {
 
 
         Message msg = new Message(messageDTO);
@@ -66,7 +68,7 @@ public class MessageServiceImpl {
         Date date = new Date();
         // sender and receiver are not null by .getId (otherwise throws exception)
         msg.setTimeStamp(date);
-        ChatRoom chatRoom = chatRoomRepository.getOne(chatRoomIdOrReservationId);
+        ChatRoom chatRoom = chatRoomRepository.findFirstByReservation_Id(reservationId);
 
         msg.setChatRoom(chatRoom);
         msg.setReceiver(receiver);

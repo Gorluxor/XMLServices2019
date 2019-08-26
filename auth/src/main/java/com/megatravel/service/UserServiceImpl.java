@@ -1,12 +1,14 @@
 package com.megatravel.service;
 
 import java.io.IOException;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 import com.megatravel.dtos.admin.RegistrationDTO;
+import com.megatravel.dtos.types.LocationDTO;
 import com.megatravel.exceptions.CustomException;
 import com.megatravel.models.admin.User;
 
@@ -201,11 +203,12 @@ public class UserServiceImpl {
 
 		User user = new User();
 		user.setEmail(registrationDTO.getEmail());
+		user.setPhoneNumber(registrationDTO.getPhoneNumber());
 		user.setPassword(registrationDTO.getPassword());
 		user.setName(registrationDTO.getName());
 		user.setLastName(registrationDTO.getLastName());
 		user.setPib(registrationDTO.getPib());
-		user.setLocation(registrationDTO.getLocationDTO() == null ? null : new Location(registrationDTO.getLocationDTO()));
+		user.setLocation(new Location("SRB", "Grad", "Ulica", BigInteger.valueOf(22), 13211, 15.11, 17.12));
 		Role role = roleService.findByRoleName("ROLE_AGENT");
 		user.setLastChangedDate(new Date());
 		user.setRole(role);
