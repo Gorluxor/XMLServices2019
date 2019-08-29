@@ -130,7 +130,7 @@ public class UserController {
 
 		System.out.println("u metodi "  + loginDTO.getEmail());
 		User user = userServiceImpl.findByEmail(loginDTO.getEmail());
-		if(user == null) {
+		if(user == null || user.isActivatedUser()==false) {
 			System.out.println("Nema korisnika");
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}

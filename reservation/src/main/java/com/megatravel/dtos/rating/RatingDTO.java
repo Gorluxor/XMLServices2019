@@ -284,4 +284,18 @@ public class RatingDTO {
         this.lastChangedDate = value;
     }
 
+    @Override
+    public String toString() {
+        return "RatingDTO{" +
+                "id=" + id +
+                ", ratingValue=" + ratingValue +
+                ", comment='" + comment + '\'' +
+                ", date=" + date +
+                ", adminApproved=" + adminApproved +
+                ", userDTO=" + userDTO +
+                ", reservationDTO=" + reservationDTO +
+                ", accommodationDTO=" + accommodationDTO +
+                ", lastChangedDate=" + lastChangedDate +
+                '}';
+    }
 }

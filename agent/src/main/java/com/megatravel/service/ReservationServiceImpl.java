@@ -156,6 +156,34 @@ public class ReservationServiceImpl {
         return reservationRepository.findAllByUserId(user.getId());
     }
 
+    public List<Reservation> getRealised(Long id, String email){
+        User user;
+        if (id == 0){
+            user = userRepository.findByEmail(email);
+        }else {
+            user = userRepository.getOne(id);
+        }
+
+        if (user == null){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Bad request");
+        }
+        List<Reservation> reservations = reservationRepository.findAllByUserId(user.getId());
+
+        List<Reservation> realised = new ArrayList<>();
+
+        for (Reservation r: reservations) {
+
+            if(r.isStayRealized())
+            {
+                realised.add(r);
+            }
+
+        }
+
+        return realised;
+
+    }
+
     public List<Reservation> getListReservationForAgent(String email){
 
         User user = userRepository.findByEmail(email);

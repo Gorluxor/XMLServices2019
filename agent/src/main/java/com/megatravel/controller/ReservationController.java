@@ -53,6 +53,14 @@ public class ReservationController {
         return new ResponseEntity<>(convertToDTO(results), HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/user/realised", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<List<ReservationDTO>> getRealised(HttpServletRequest request){
+        String email = TokenUtils.getUsername(request.getHeader("Authorization"));
+        List<Reservation> results = reservationService.getRealised(0L,email);
+
+        return new ResponseEntity<>(convertToDTO(results), HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/agent", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<List<ReservationDTO>> getReservations( HttpServletRequest request){
         String email = TokenUtils.getUsername(request.getHeader("Authorization"));

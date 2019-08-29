@@ -177,7 +177,11 @@ public class UserServiceImpl {
 		if (user.getRole().getRoleName().contains("USER")){
 			user.setActivatedUser(false);
 			userRepository.save(user);
-		}else {
+		}else if (user.getRole().getRoleName().contains("AGENT")){
+			user.setActivatedUser(false);
+			userRepository.save(user);
+		}
+		else {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Not user type");
 		}
 	}
@@ -186,6 +190,9 @@ public class UserServiceImpl {
 		User user = userRepository.getOne(id);
 		user.setLastChangedDate(new Date());
 		if (user.getRole().getRoleName().contains("USER")){
+			user.setActivatedUser(true);
+			userRepository.save(user);
+		}else if (user.getRole().getRoleName().contains("AGENT")){
 			user.setActivatedUser(true);
 			userRepository.save(user);
 		}else {
@@ -202,6 +209,7 @@ public class UserServiceImpl {
 		}
 
 		User user = new User();
+		user.setActivatedUser(false);
 		user.setEmail(registrationDTO.getEmail());
 		user.setPhoneNumber(registrationDTO.getPhoneNumber());
 		user.setPassword(registrationDTO.getPassword());

@@ -39,7 +39,7 @@ exports.addRating = function addRating(req, res) {
     connection.query("insert into rating (rating_value, comment, date, admin_approved, user_id, accommodation_id, reservation_id) values (?,?,?,?,?,?,?)",[rating_value, comment, date, admin_approved, user_id, accommodation_id, reservation_id], (err, result) => {
         if (err) res.status(400).send(err);
 else {
-        res.status(200).send('successfully added rating');
+        res.status(200).send(result);
     }
 });
 };
@@ -51,7 +51,7 @@ exports.adminApproveComment = function adminApproveComment(req, res) {
         (err, result)=> {
         if (err) { console.log(err); res.status(400).send(err); }
         else {
-            res.status(200).send("Successfully Approved Comment");
+            res.status(200).send(result);
 }
 });
 };
