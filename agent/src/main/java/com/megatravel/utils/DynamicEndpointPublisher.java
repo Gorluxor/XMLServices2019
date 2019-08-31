@@ -14,7 +14,7 @@ import javax.annotation.PostConstruct;
 import javax.xml.ws.Endpoint;
 import java.io.IOException;
 import java.net.ServerSocket;
-
+/*
 @SuppressWarnings("Duplicates")
 @Component
 public class DynamicEndpointPublisher {
@@ -64,3 +64,4 @@ public class DynamicEndpointPublisher {
 	}
 
 }
+*/
