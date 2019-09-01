@@ -1,0 +1,489 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    xmlns:jxb="http://java.sun.com/xml/ns/jaxb" jxb:version="2.1" xmlns:tns="http://interfaces.megatravel.com/"
+    targetNamespace="http://interfaces.megatravel.com/">
+       
+    <xs:element name="locationDTO">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="tns:id"/>
+                <xs:element name="country" type="tns:name"/>
+                <xs:element name="city" type="tns:name"/>
+                <xs:element name="street" type="tns:name"/>
+                <xs:element name="number" type="xs:positiveInteger"/>
+                <xs:element name="postalCode" type="tns:postalCode"/>
+                <xs:element minOccurs="0" name="latitude" type="tns:latitude"/>
+                <xs:element minOccurs="0" name="longitude" type="tns:longitude"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:simpleType name="id">
+        <xs:restriction base="xs:long">
+            <xs:minInclusive value="0"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="description">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="50"/>
+            <xs:minLength value="0"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="name">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="30"/>
+            <xs:minLength value="2"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="price">
+        <xs:restriction base="xs:decimal">
+            <xs:minInclusive value="0"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="longitude">
+        <xs:restriction base="xs:double">
+            <xs:pattern value=""/>
+            <xs:minInclusive value="-180"/>
+            <xs:maxInclusive value="180"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="latitude">
+        <xs:restriction base="xs:double">
+            <xs:minInclusive value="-90"/>
+            <xs:maxInclusive value="90"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="postalCode">
+        <xs:restriction base="xs:positiveInteger">
+            <xs:minInclusive value="4000"/>
+            <xs:maxInclusive value="99999"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="capacity">
+        <xs:restriction base="xs:positiveInteger">
+            <xs:maxInclusive value="100"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="size">
+        <xs:restriction base="xs:positiveInteger">
+            <xs:minInclusive value="1"/>
+            <xs:maxInclusive value="10000"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="password">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="5"/>
+            <xs:maxLength value="30"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="phoneNumber">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="6"/>
+            <xs:maxLength value="20"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="pib">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="8"/>
+            <xs:maxLength value="13"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="email">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="3"/>
+            <xs:maxLength value="100"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="rating">
+        <xs:restriction base="xs:double">
+            <xs:minInclusive value="1"/>
+            <xs:maxInclusive value="5"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="msg">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="500"/>
+            <xs:minLength value="1"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="Date">
+        <xs:annotation>
+            <xs:appinfo>
+                <jxb:javaType name="java.util.Date" parseMethod="com.megatravel.util.DateConverter.parseDate" printMethod="com.megatravel.util.DateConverter.printDate"/>
+            </xs:appinfo>
+        </xs:annotation>
+        <xs:restriction base="xs:dateTime">
+            <xs:pattern value=".+T[^Z+-]+"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+    <xs:element name="roleDTO">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="tns:id"/>
+                <xs:element name="name" type="tns:name"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="LoginDTO">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="email" type="tns:email"/>
+                <xs:element name="password" type="tns:password"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>  
+    
+    <xs:element name="userDTO">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Id" minOccurs="0" type="tns:id"/>
+                <xs:element name="name" type="tns:name"/>
+                <xs:element name="lastName" type="tns:name"/>
+                <xs:element name="email" type="tns:email"/>
+                <xs:element name="password" minOccurs="0" type="tns:password"/>
+                <xs:element name="country" type="tns:name"/>
+                <xs:element name="birthday" type="tns:Date"/>
+                <xs:element name="phoneNumber" type="tns:phoneNumber"/>
+                <xs:element name="pib" type="tns:pib"/>
+                <xs:element name="activatedUser" type="xs:boolean"/>
+                <xs:element minOccurs="0" ref="tns:locationDTO"/>
+                <xs:element ref="tns:roleDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    
+    <xs:element name="RegistrationDTO">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Id" type="tns:id"/>
+                <xs:element name="name" type="tns:name"/>
+                <xs:element name="lastName" type="tns:name"/>
+                <xs:element name="email" type="tns:email"/>
+                <xs:element name="password" type="tns:password"/>
+                <xs:element name="repeatPassword" type="tns:password"/>
+                <xs:element name="country" type="tns:name"/>
+                <xs:element name="birthday" type="tns:Date"/>
+                <xs:element name="phoneNumber" type="tns:phoneNumber"/>
+                <xs:element name="pib" type="tns:pib"/>
+                <xs:element name="activatedUser" type="xs:boolean"/>
+                <xs:element minOccurs="0" ref="tns:locationDTO"/>
+                <xs:element ref="tns:roleDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="messageDTO">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="tns:id"/>
+                <xs:element name="Msg" type="tns:msg"/>
+                <xs:element name="TimeStamp" type="tns:Date"/>
+                <xs:element ref="tns:userDTO">
+                    <xs:annotation>
+                        <xs:appinfo>
+                            <jxb:property name="sender"/>
+                        </xs:appinfo>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element ref="tns:userDTO">
+                    <xs:annotation>
+                        <xs:appinfo>
+                            <jxb:property name="receiver"/>
+                        </xs:appinfo>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element ref="tns:chatRoomDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="chatRoomDTO">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="tns:id"/>
+                <xs:element name="name" type="tns:name"/>
+                <xs:element ref="tns:reservationDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    
+    <xs:element name="extraServiceDTO">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="tns:id"/>
+                <xs:element name="nameOfService" type="tns:name"/>
+                <xs:element name="description" type="tns:description"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="pricingDTO">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="tns:id"/>
+                <xs:element name="price" type="tns:price"/>
+                <xs:element name="startDate" type="tns:Date"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="imageDTO">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="tns:id"/>
+                <xs:element name="title" type="tns:description"/>
+                <xs:element name="uri" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="accommodationUnitDTO">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="tns:id"/>
+                <xs:element name="capacity" type="tns:capacity"/>
+                <xs:element name="size" type="tns:size"/>
+                <xs:element name="nameOfUnit" type="tns:name"/>
+                <xs:element ref="tns:unitTypeDTO"/>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="tns:pricingDTO"/>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="tns:extraServiceDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="accommodationDTO">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="tns:id"/>
+                <xs:element name="name" type="tns:name"/>
+                <xs:element name="description" type="tns:description"/>
+                <xs:element name="cancelationDays" type="xs:positiveInteger"/>
+                <xs:element ref="tns:locationDTO"/>
+                <xs:element ref="tns:accommodationTypeDTO"/>
+                <xs:element minOccurs="0" ref="tns:userDTO"/>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="tns:accommodationUnitDTO"/>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="tns:extraServiceDTO"/>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="tns:imageDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="accommodationTypeDTO">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Id" type="tns:id"/>
+                <xs:element name="nameOfAccType" type="tns:name"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="unitTypeDTO">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Id" type="tns:id"/>
+                <xs:element name="nameOfUnitType" type="tns:name"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+      
+    <xs:element name="reservationDTO">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="tns:id"/>
+                <xs:element name="arrivalDate" type="tns:Date"/>
+                <xs:element name="departureDate" type="tns:Date"/>
+                <xs:element name="stayRealized" type="xs:boolean"/>
+                <xs:element form="qualified" name="reservationPrice" type="tns:price"/>
+                <xs:element minOccurs="0" ref="tns:userDTO"/>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="tns:accommodationUnitDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    
+    <xs:element name="ratingDTO">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="tns:id"/>
+                <xs:element name="ratingValue" type="tns:rating"/>
+                <xs:element maxOccurs="1" minOccurs="0" name="comment" type="tns:msg"/>
+                <xs:element maxOccurs="1" name="date" type="tns:Date"/>
+                <xs:element name="adminApproved" type="xs:boolean"/>
+                <xs:element ref="tns:userDTO"/>
+                <xs:element ref="tns:reservationDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="GetAllAccommodations">
+        <xs:complexType>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetAllAccommodationsResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="tns:accommodationDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="GetAccommodation">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" name="AccId" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetAccommodationResponse">
+        <xs:complexType>
+        <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" ref="tns:accommodationDTO"/>
+        </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="GetAllAccType">
+        <xs:complexType>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetAllAccTypeResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="tns:accommodationTypeDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="GetAccType">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" name="AccommodationTypeId" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetAccTypeResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="tns:accommodationTypeDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="CreateAccType">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" ref="tns:accommodationTypeDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="CreateAccTypeResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="tns:accommodationTypeDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="Login">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" ref="tns:LoginDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="LoginResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" name="return" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="ConfirmReservation">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" name="ReservationId" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="ConfirmReservationResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" ref="tns:reservationDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="GetListReservationsForAgent">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" name="email" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetListReservationsForAgentResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="tns:reservationDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="CreateReservation">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" ref="tns:reservationDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="CreateReservationResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" ref="tns:reservationDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="SendMessage">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" name="arg0" type="xs:long"/>
+                <xs:element minOccurs="0" ref="tns:messageDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="SendMessageResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" ref="tns:messageDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetListMessagesForChatRoom">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" name="UserId" type="xs:long"/>
+                <xs:element minOccurs="0" name="ChatroomId" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetListMessagesForChatRoomResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="tns:messageDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="GetChatRooms">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" name="UserId" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetChatRoomsResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="tns:chatRoomDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+</xs:schema>

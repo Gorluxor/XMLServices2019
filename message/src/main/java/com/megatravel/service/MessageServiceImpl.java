@@ -54,6 +54,16 @@ public class MessageServiceImpl {
         return results;
     }
 
+
+    public List<Message> getListMessagesForChatRoomChatRoom(Long userId, Long reservationId) throws ResponseStatusException {
+
+        List<Message> results = messageRepository.allMessagesToChat(reservationId, userId);
+        if (!userRepository.existsById(userId)){
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT, "No such object in database");
+        }
+        return results;
+    }
+
     public Message sendMessage(Long reservationId, MessageDTO messageDTO) throws ResponseStatusException {
 
 

@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 
 import com.megatravel.service.MessageServiceImpl;
 import com.netflix.appinfo.ApplicationInfoManager;
-
+/*
 @SuppressWarnings("Duplicates")
 @Component
 public class DynamicEndpointPublisher {
@@ -59,3 +59,4 @@ public class DynamicEndpointPublisher {
     }
 
 }
+*/
