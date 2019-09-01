@@ -49,7 +49,7 @@ public class ReservationServiceImpl {
         }
     }
 
-    public Reservation confirmReservation(Long reservationId, String email){
+    public Reservation confirmReservationWithUser(Long reservationId, String email){
 
         User user = userRepository.findByEmail(email);
         if (user == null){
@@ -66,6 +66,20 @@ public class ReservationServiceImpl {
         reservationRepository.save(reservation);
 
         return reservation;
+    }
+
+
+    public Reservation confirmReservation(Long reservationId){
+
+        System.out.println("USAO OVDE");
+        Optional<Reservation> reservation = reservationRepository.findById(reservationId);
+     //   Reservation reservation = reservationRepository.findById(reservationId);
+        reservation.get().setLastChangedDate(new Date());
+        reservation.get().setStayRealized(true);
+        System.out.println("CUVANJE");
+        reservationRepository.save(reservation.get());
+          System.out.println("RETURN");
+        return reservation.get();
     }
 
     public Reservation createReservation(@NotNull ReservationDTO reservationDTO, String email) {

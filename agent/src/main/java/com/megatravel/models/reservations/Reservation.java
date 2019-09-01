@@ -155,5 +155,17 @@ public class Reservation {
         this.accommodationUnit = accommodationUnit;
     }
 
-
+    @Override
+    public String toString() {
+        return "Reservation{" +
+                "id=" + id +
+                ", arrivalDate=" + arrivalDate +
+                ", departureDate=" + departureDate +
+                ", stayRealized=" + stayRealized +
+                ", reservationPrice=" + reservationPrice +
+                ", user=" + user +
+                ", accommodationUnit=" + accommodationUnit +
+                ", lastChangedDate=" + lastChangedDate +
+                '}';
+    }
 }

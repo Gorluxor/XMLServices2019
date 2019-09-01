@@ -28,8 +28,7 @@ public class ReservationController {
 
     @RequestMapping(value = "/confirm/{id}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<ReservationDTO> confirmReservation(@PathVariable("id") Long id, HttpServletRequest request){
-        String email = TokenUtils.getUsername(request.getHeader("Authorization"));
-        return new ResponseEntity<>(new ReservationDTO(reservationService.confirmReservation(id, email)), HttpStatus.OK);
+        return new ResponseEntity<>(new ReservationDTO(reservationService.confirmReservation(id)), HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})

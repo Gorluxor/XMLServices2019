@@ -59,7 +59,8 @@ public class AuthServiceImpl implements AuthServiceInterface {
 
 	@Override
 	public String login(LoginDTO loginDTO) {
-		
+
+		System.out.println("User " + loginDTO.getEmail());
 		User user = userServiceImpl.findByEmail(loginDTO.getEmail());
 		if(user == null) {
 			return null;
