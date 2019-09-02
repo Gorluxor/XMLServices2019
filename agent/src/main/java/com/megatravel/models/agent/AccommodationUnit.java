@@ -87,6 +87,32 @@ public class AccommodationUnit {
 
     }
 
+
+    public AccommodationUnit(com.megatravel.interfaces.AccommodationUnitDTO accommodationUnitDTO) {
+        this.id = accommodationUnitDTO.getId();
+        this.capacity = accommodationUnitDTO.getCapacity();
+        this.size = accommodationUnitDTO.getSize();
+        this.nameOfUnit = accommodationUnitDTO.getNameOfUnit();
+      //  this.unitType = new UnitType(accommodationUnitDTO.getUnitTypeDTO());
+      //  this.lastChangedDate = accommodationUnitDTO.getLastChangedDate();
+     //   this.cancelationDays = accommodationUnitDTO.getCancelationDays();
+     //   this.location = new Location(accommodationUnitDTO.getLocationDTO());
+    //    List<ImageDTO> images = accommodationUnitDTO.getImageDTO();
+    /*    List<Image> values = new ArrayList<>();
+        if (images != null){
+            for (ImageDTO imageDTO : images){
+                Image im = new Image();
+                im.lastChangedDate = imageDTO.getLastChangedDate() == null ? new Date() : imageDTO.getLastChangedDate();
+                im.uri = imageDTO.getUri();
+                im.title = imageDTO.getTitle();
+                values.add(im);
+            }
+        }
+        this.images = values;*/
+
+
+    }
+
     public AccommodationUnit(int capacity, int size, String nameOfUnit, UnitType unitType, List<Pricing> pricing, List<ExtraService> extraService) {
         this.capacity = capacity;
         this.size = size;

@@ -139,6 +139,63 @@ public class ReservationServiceImpl {
 
     }
 
+    public Reservation createRes(@NotNull com.megatravel.interfaces.ReservationDTO reservationDTO, String email) {
+
+        User user = userRepository.findByEmail(email);
+//
+//        if (user == null){
+//            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "No user");
+//        }else {
+//            boolean CanMakeReservation = user.getRole().getRoleName().contains("AGENT") || user.getRole().getRoleName().contains("USER");
+//            if (!CanMakeReservation){
+//                throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User can't make reservation!");
+//            }
+//        } //Security stuff
+
+        if (reservationDTO == null){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Bad reservationDTO");
+        }
+
+        Reservation reservation = new Reservation(reservationDTO);
+
+        reservation.setStayRealized(false);
+
+        reservation.setLastChangedDate(new Date());
+
+        if (reservationDTO.getUserDTO() == null){
+            if (user == null){
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"No user");
+            }else {
+                reservation.setUser(user);
+            }
+        }else {
+            reservation.setUser(userRepository.getOne(reservation.getUser().getId()));
+        }
+
+
+
+        if (reservation.getAccommodationUnit() == null || reservation.getAccommodationUnit().size() == 0){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "No Accommodation Units reserved");
+        }
+        if (reservation.getDepartureDate().before(reservation.getArrivalDate())){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Departure before arrival? time travel?");
+        }
+
+        List<AccommodationUnit> list = new ArrayList<>();
+        BigDecimal priceTotal = new BigDecimal(0); //Shouldn't trust frontend calculation for price
+        for (com.megatravel.interfaces.AccommodationUnitDTO accommodationUnitDTO : reservationDTO.getAccommodationUnitDTO()){
+            list.add(accommodationUnitRepository.getOne(accommodationUnitDTO.getId()));
+            priceTotal = priceTotal.add(new BigDecimal(pricingService.getPriceForDatesUnitId(accommodationUnitDTO.getId(), reservationDTO.getArrivalDate(), reservationDTO.getDepartureDate())));
+        }
+        reservation.setAccommodationUnit(list);
+        reservation.setReservationPrice(priceTotal);
+        reservation.setLastChangedDate(new Date());
+
+        reservationRepository.save(reservation);
+        return reservation;
+
+    }
+
     public void cancelReservation(Long reservationId, String email) {
 
         User user = userRepository.findByEmail(email);

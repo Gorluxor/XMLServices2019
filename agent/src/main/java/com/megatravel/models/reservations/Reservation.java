@@ -71,6 +71,28 @@ public class Reservation {
     }
 
 
+    public Reservation(com.megatravel.interfaces.ReservationDTO reservationDTO) {
+        this.id = reservationDTO.getId();
+        this.arrivalDate = reservationDTO.getArrivalDate();
+        this.departureDate = reservationDTO.getDepartureDate();
+        this.stayRealized = reservationDTO.isStayRealized();
+        this.reservationPrice = reservationDTO.getReservationPrice();
+        this.user = reservationDTO.getUserDTO() == null ? null : new User(reservationDTO.getUserDTO());
+
+        if (reservationDTO.getAccommodationUnitDTO() == null){
+            this.accommodationUnit = null;
+        }else {
+            List<AccommodationUnit> list = new ArrayList<>();
+            for (com.megatravel.interfaces.AccommodationUnitDTO accommodationUnitDTO : reservationDTO.getAccommodationUnitDTO()){
+                list.add(new AccommodationUnit(accommodationUnitDTO));
+            }
+            this.accommodationUnit = list;
+        }
+
+     //   this.lastChangedDate = reservationDTO.getLastChangedDate();
+    }
+
+
     public Reservation(Date arrivalDate, Date departureDate, boolean stayRealized, BigDecimal reservationPrice, User user) {
         this.arrivalDate = arrivalDate;
         this.departureDate = departureDate;

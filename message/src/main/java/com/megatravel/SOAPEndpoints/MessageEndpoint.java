@@ -16,6 +16,7 @@ import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Endpoint
@@ -150,6 +151,135 @@ public class MessageEndpoint {
 
 
         response.setMessageDTO(messageDTOS);
+        return response;
+
+    }
+
+   /* @ResponsePayload
+    @PayloadRoot(namespace = NAMESPACE, localPart = "SendMessage")
+    public SendMessageResponse sendMessage(@RequestPayload  SendMessage input) {
+        SendMessageResponse response = new SendMessageResponse();
+
+        System.out.println("DOSAO");
+
+        System.out.println("ID" + input.getMessageDTO().getReceiver().getId());
+
+
+        com.megatravel.dtos.messages.MessageDTO messageDT = new com.megatravel.dtos.messages.MessageDTO();
+     //   messageDT.setId(input.getMessageDTO().getId());
+        messageDT.setMsg(input.getMessageDTO().getMsg());
+
+        com.megatravel.dtos.messages.ChatRoomDTO chatRoomDTO= new com.megatravel.dtos.messages.ChatRoomDTO();
+
+        chatRoomDTO.setId(input.getArg0());
+       // chatRoomDTO.setName(input.getMessageDTO().getChatRoomDTO().getName());
+
+        messageDT.setChatRoomDTO(chatRoomDTO);
+     //   messageDT.setTimeStamp(input.getMessageDTO().getTimeStamp());
+
+        com.megatravel.dtos.admin.UserDTO userDTO = new com.megatravel.dtos.admin.UserDTO();
+
+    //    userDTO.setActivatedUser(input.getMessageDTO().getReceiver().isActivatedUser());
+    //    userDTO.setBirthday(input.getMessageDTO().getReceiver().getBirthday());
+    //    userDTO.setCountry(input.getMessageDTO().getReceiver().getCountry());
+        userDTO.setEmail(input.getMessageDTO().getReceiver().getEmail());
+       userDTO.setId(input.getMessageDTO().getReceiver().getId());
+    //    userDTO.setLastName(input.getMessageDTO().getReceiver().getLastName());
+    //    userDTO.setName(input.getMessageDTO().getReceiver().getName());
+    //    com.megatravel.dtos.admin.RoleDTO roleDTO = new com.megatravel.dtos.admin.RoleDTO();
+    //    roleDTO.setId(input.getMessageDTO().getReceiver().getRoleDTO().getId());
+   //     roleDTO.setName(input.getMessageDTO().getReceiver().getRoleDTO().getName());
+
+   //     userDTO.setRoleDTO(roleDTO);
+
+        messageDT.setReceiver(userDTO);
+
+
+        com.megatravel.dtos.admin.UserDTO userDT = new com.megatravel.dtos.admin.UserDTO();
+      //  userDT.setActivatedUser(input.getMessageDTO().getSender().isActivatedUser());
+     //   userDT.setBirthday(input.getMessageDTO().getSender().getBirthday());
+      //  userDT.setCountry(input.getMessageDTO().getSender().getCountry());
+        userDT.setEmail(input.getMessageDTO().getSender().getEmail());
+       userDT.setId(input.getMessageDTO().getSender().getId());
+        //userDT.setLastName(input.getMessageDTO().getSender().getLastName());
+       // userDT.setName(input.getMessageDTO().getSender().getName());
+      //  com.megatravel.dtos.admin.RoleDTO roleDT = new com.megatravel.dtos.admin.RoleDTO();
+     //   roleDT.setId(input.getMessageDTO().getSender().getRoleDTO().getId());
+    //    roleDT.setName(input.getMessageDTO().getSender().getRoleDTO().getName());
+
+   //     userDT.setRoleDTO(roleDT);
+
+        messageDT.setSender(userDT);
+
+        messageDT.setLastChangedDate(new Date());
+
+        System.out.println("DPSAP DPVDE");
+
+        Message c = messageService.sendMessageWithChatroom(input.getArg0(),messageDT);
+
+            MessageDTO messageDTO = new MessageDTO();
+
+            messageDTO.setId(c.getId());
+            messageDTO.setMsg(c.getMsg());
+
+            UserDTO s = new UserDTO();
+            s.setActivatedUser(c.getReceiver().isActivatedUser());
+            s.setBirthday(c.getReceiver().getBirthday());
+            s.setCountry(c.getReceiver().getCountry());
+            s.setEmail(c.getReceiver().getEmail());
+            s.setId(c.getReceiver().getId());
+            s.setLastName(c.getReceiver().getLastName());
+            s.setName(c.getReceiver().getName());
+            RoleDTO r = new RoleDTO();
+            r.setId(c.getReceiver().getRole().getId());
+            r.setName(c.getReceiver().getRole().getRoleName());
+
+            s.setRoleDTO(r);
+
+
+            UserDTO g = new UserDTO();
+            g.setActivatedUser(c.getSender().isActivatedUser());
+            g.setBirthday(c.getSender().getBirthday());
+            g.setCountry(c.getSender().getCountry());
+            g.setEmail(c.getSender().getEmail());
+            g.setId(c.getSender().getId());
+            g.setLastName(c.getSender().getLastName());
+            g.setName(c.getSender().getName());
+            RoleDTO rr = new RoleDTO();
+            rr.setId(c.getSender().getRole().getId());
+            rr.setName(c.getSender().getRole().getRoleName());
+
+            g.setRoleDTO(rr);
+
+            messageDTO.setReceiver(s);
+            messageDTO.setSender(g);
+            messageDTO.setTimeStamp(c.getTimeStamp());
+
+            ChatRoomDTO cc = new ChatRoomDTO();
+
+            cc.setId(c.getChatRoom().getId());
+            cc.setName(c.getChatRoom().getName());
+
+            messageDTO.setChatRoomDTO(cc);
+        System.out.println("DPSAP DPVDE");
+
+
+        response.setMessageDTO(messageDTO);
+        return response;
+
+    }
+*/
+
+
+    @ResponsePayload
+    @PayloadRoot(namespace = NAMESPACE, localPart = "SendMessage")
+    public SendMessageResponse sendMessage(@RequestPayload SendMessage input) {
+        SendMessageResponse response = new SendMessageResponse();
+
+        System.out.println("DOSAO");
+
+        System.out.println("ID" + input.getMessageDTO().getReceiver().getId());
+
         return response;
 
     }

@@ -72,6 +72,7 @@ public class AuthServiceImpl implements AuthServiceInterface {
 
 		try {
 			String jwt = userServiceImpl.signin(loginDTO.getEmail(), loginDTO.getPassword());
+			System.out.println("PREEE " + jwt);
 			ObjectMapper mapper = new ObjectMapper();
 			System.out.println("JWT token" + mapper.writeValueAsString(jwt));
 			return mapper.writeValueAsString(jwt);

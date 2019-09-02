@@ -41,6 +41,13 @@ public class Role {
         this.lastChangedDate = roleDTO.getLastChangedDate();
     }
 
+    public Role(com.megatravel.interfaces.RoleDTO roleDTO){
+        super();
+        this.id = roleDTO.getId();
+        this.roleName = roleDTO.getName();
+       // this.lastChangedDate = roleDTO.getLastChangedDate();
+    }
+
     public Role(@NotNull @Size(min = StaticData.minLength, max = StaticData.lengthValue) String roleName) {
         this.roleName = roleName;
     }

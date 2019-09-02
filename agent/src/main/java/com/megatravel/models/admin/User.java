@@ -82,6 +82,17 @@ public class User {
         this.lastChangedDate = userDTO.getLastChangedDate();
     }
 
+    public User(com.megatravel.interfaces.UserDTO userDTO) {
+        this.name = userDTO.getName();
+        this.lastName = userDTO.getLastName();
+        this.password = userDTO.getPassword();
+        this.email = userDTO.getEmail();
+        this.role = userDTO.getRoleDTO() == null ? null : new Role(userDTO.getRoleDTO());
+        this.id = userDTO.getId();
+       // this.lastChangedDate = userDTO.getLastChangedDate();
+    }
+
+
     public User(RegistrationDTO registrationDTO) {
         this.name = registrationDTO.getName();
         this.lastName = registrationDTO.getLastName();

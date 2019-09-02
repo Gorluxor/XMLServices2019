@@ -34,21 +34,34 @@ public class AuthEndpoint {
 
         System.out.println("User " + input.getLoginDTO().getEmail());
 
+        User user = authService.findByEmail(input.getLoginDTO().getEmail());
+        if (user == null) {
+            return null;
+        } else {
+            if (!user.isActivatedUser()) {
+                throw new ResponseStatusException(HttpStatus.FORBIDDEN, "User not active");
+            } else {
+                if (!user.getRole().getRoleName().contains("AGENT")) {
+                    throw new ResponseStatusException(HttpStatus.FORBIDDEN, "NIJE AGENT");
+                }
+            }
 
-        com.megatravel.dtos.admin.LoginDTO loginDTO =  new com.megatravel.dtos.admin.LoginDTO();
-        loginDTO.setEmail(input.getLoginDTO().getEmail());
-        loginDTO.setPassword(input.getLoginDTO().getPassword());
-        String jwt = service.login(loginDTO);
-        ObjectMapper mapper = new ObjectMapper();
 
-        try {
-            System.out.println("JWT token" + mapper.writeValueAsString(jwt));
-            response.setReturn(mapper.writeValueAsString(jwt));
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
+            com.megatravel.dtos.admin.LoginDTO loginDTO = new com.megatravel.dtos.admin.LoginDTO();
+            loginDTO.setEmail(input.getLoginDTO().getEmail());
+            loginDTO.setPassword(input.getLoginDTO().getPassword());
+            String jwt = service.login(loginDTO);
+            ObjectMapper mapper = new ObjectMapper();
 
-        return response;
+           /* try {
+                System.out.println("JWT token" + mapper.writeValueAsString(jwt));
+                response.setReturn(mapper.writeValueAsString(jwt));
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }*/
+            response.setReturn(jwt);
+
+            return response;
 
 /*
         User user = authService.findByEmail(input.getLoginDTO().getEmail());
@@ -72,8 +85,8 @@ public class AuthEndpoint {
         }*/
 
 
+        }
     }
-
 
 
 }

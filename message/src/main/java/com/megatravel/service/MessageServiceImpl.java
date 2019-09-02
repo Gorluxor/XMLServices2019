@@ -20,6 +20,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MessageServiceImpl {
@@ -81,6 +82,31 @@ public class MessageServiceImpl {
         ChatRoom chatRoom = chatRoomRepository.findFirstByReservation_Id(reservationId);
 
         msg.setChatRoom(chatRoom);
+        msg.setReceiver(receiver);
+        msg.setSender(sender);
+        msg.setLastChangedDate(date);
+        messageRepository.save(msg);
+
+        return msg;
+    }
+
+    public Message sendMessageWithChatroom(Long crID, MessageDTO messageDTO) throws ResponseStatusException {
+
+
+        Message msg = new Message(messageDTO);
+
+        if (msg.getSender() == null || msg.getReceiver() == null ){
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT, "No such object in database");
+        }
+        User sender = userRepository.getOne(msg.getSender().getId());
+        User receiver = userRepository.getOne(msg.getReceiver().getId());
+
+        Date date = new Date();
+        // sender and receiver are not null by .getId (otherwise throws exception)
+        msg.setTimeStamp(date);
+        Optional<ChatRoom> chatRoom = chatRoomRepository.findById(crID);
+
+        msg.setChatRoom(chatRoom.get());
         msg.setReceiver(receiver);
         msg.setSender(sender);
         msg.setLastChangedDate(date);
