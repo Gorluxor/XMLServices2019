@@ -42,7 +42,11 @@ public class Pricing {
         this.startDate = pricingDTO.getStartDate();
         this.lastChangedDate = pricingDTO.getLastChangedDate();
     }
-
+    public Pricing(com.megatravel.interfaces.PricingDTO pricingDTO) {
+        this.id = pricingDTO.getId();
+        this.price = pricingDTO.getPrice();
+        this.startDate = pricingDTO.getStartDate();
+    }
 
     public Pricing(long id, BigDecimal price, Date startDate) {
         this.id = id;

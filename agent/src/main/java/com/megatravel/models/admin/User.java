@@ -16,6 +16,7 @@ import com.megatravel.models.types.Location;
 import com.megatravel.validations.EmailValidation;
 import com.megatravel.validations.StaticData;
 
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
