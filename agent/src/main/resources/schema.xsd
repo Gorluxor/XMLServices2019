@@ -485,5 +485,60 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-    
+
+    <xs:element name="GetAllUnits">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" name="AccId" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetAllUnitsResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="tns:accommodationUnitDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="CreateUnit">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" name="AccId" type="xs:long"/>
+                <xs:element minOccurs="0" ref="tns:accommodationUnitDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="CreateUnitResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" name="uspelo" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="GetAllServices">
+        <xs:complexType>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetAllServicesResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="tns:extraServiceDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="GetAllUnitType">
+        <xs:complexType>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetAllUnitTypeResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="tns:unitTypeDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
 </xs:schema>
