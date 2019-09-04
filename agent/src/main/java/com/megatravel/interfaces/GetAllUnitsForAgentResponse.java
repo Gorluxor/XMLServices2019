@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element ref="{http://interfaces.megatravel.com/}accommodationDTO" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element ref="{http://interfaces.megatravel.com/}accommodationUnitDTO" maxOccurs="unbounded" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -37,43 +37,43 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "accommodationDTO"
+    "accommodationUnitDTO"
 })
-@XmlRootElement(name = "GetAllAccommodationsResponse")
-public class GetAllAccommodationsResponse {
+@XmlRootElement(name = "GetAllUnitsForAgentResponse")
+public class GetAllUnitsForAgentResponse {
 
-    protected List<AccommodationDTO> accommodationDTO;
+    protected List<AccommodationUnitDTO> accommodationUnitDTO;
 
     /**
-     * Gets the value of the accommodationDTO property.
+     * Gets the value of the accommodationUnitDTO property.
      * 
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the accommodationDTO property.
+     * This is why there is not a <CODE>set</CODE> method for the accommodationUnitDTO property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
-     *    getAccommodationDTO().add(newItem);
+     *    getAccommodationUnitDTO().add(newItem);
      * </pre>
      * 
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link AccommodationDTO }
+     * {@link AccommodationUnitDTO }
      * 
      * 
      */
-    public List<AccommodationDTO> getAccommodationDTO() {
-        if (accommodationDTO == null) {
-            accommodationDTO = new ArrayList<AccommodationDTO>();
+    public List<AccommodationUnitDTO> getAccommodationUnitDTO() {
+        if (accommodationUnitDTO == null) {
+            accommodationUnitDTO = new ArrayList<AccommodationUnitDTO>();
         }
-        return this.accommodationDTO;
+        return this.accommodationUnitDTO;
     }
 
-    public void setAccommodationDTO(List<AccommodationDTO> accommodationDTO) {
-        this.accommodationDTO = accommodationDTO;
+    public void setAccommodationUnitDTO(List<AccommodationUnitDTO> accommodationUnitDTO) {
+        this.accommodationUnitDTO = accommodationUnitDTO;
     }
 }

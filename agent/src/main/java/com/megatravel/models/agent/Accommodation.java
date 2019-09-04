@@ -14,6 +14,7 @@ import com.megatravel.models.admin.User;
 import com.megatravel.models.types.Location;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -39,7 +40,7 @@ public class Accommodation {
     @OneToOne
     protected User user; // User that administrates the accommodation
 
-    @OneToMany(mappedBy = "accommodation")
+    @OneToMany(mappedBy = "accommodation", fetch = FetchType.EAGER)
     protected List<AccommodationUnit> accommodationUnit = new ArrayList<>();
 
     @ManyToMany

@@ -13,6 +13,7 @@ import com.megatravel.dtos.agent.ImageDTO;
 import com.megatravel.models.types.Location;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
@@ -43,7 +44,7 @@ public class AccommodationUnit {
 
     @ManyToOne
     protected UnitType unitType;
-    @OneToMany(mappedBy = "priceForUnit", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "priceForUnit", fetch = FetchType.LAZY)
     protected List<Pricing> pricing = new ArrayList<>();
     @ManyToMany
     protected List<ExtraService> extraService = new ArrayList<>();
@@ -87,18 +88,17 @@ public class AccommodationUnit {
 
     }
 
-
     public AccommodationUnit(com.megatravel.interfaces.AccommodationUnitDTO accommodationUnitDTO) {
         this.id = accommodationUnitDTO.getId();
         this.capacity = accommodationUnitDTO.getCapacity();
         this.size = accommodationUnitDTO.getSize();
         this.nameOfUnit = accommodationUnitDTO.getNameOfUnit();
-      //  this.unitType = new UnitType(accommodationUnitDTO.getUnitTypeDTO());
-      //  this.lastChangedDate = accommodationUnitDTO.getLastChangedDate();
-     //   this.cancelationDays = accommodationUnitDTO.getCancelationDays();
-     //   this.location = new Location(accommodationUnitDTO.getLocationDTO());
-    //    List<ImageDTO> images = accommodationUnitDTO.getImageDTO();
-    /*    List<Image> values = new ArrayList<>();
+        this.unitType = new UnitType(accommodationUnitDTO.getUnitTypeDTO());
+  /*      this.lastChangedDate = accommodationUnitDTO.getLastChangedDate();
+        this.cancelationDays = accommodationUnitDTO.getCancelationDays();
+        this.location = new Location(accommodationUnitDTO.getLocationDTO());
+        List<ImageDTO> images = accommodationUnitDTO.getImageDTO();
+        List<Image> values = new ArrayList<>();
         if (images != null){
             for (ImageDTO imageDTO : images){
                 Image im = new Image();
@@ -108,7 +108,34 @@ public class AccommodationUnit {
                 values.add(im);
             }
         }
-        this.images = values;*/
+        this.images = values;
+*/
+
+    }
+
+
+
+    public AccommodationUnit(com.megatravel.interfaces.AccommodationUnitProsireniDTO accommodationUnitDTO) {
+        this.id = accommodationUnitDTO.getId();
+        this.capacity = accommodationUnitDTO.getCapacity();
+        this.size = accommodationUnitDTO.getSize();
+        this.nameOfUnit = accommodationUnitDTO.getNameOfUnit();
+        this.unitType = new UnitType(accommodationUnitDTO.getUnitTypeDTO());
+      //  this.lastChangedDate = accommodationUnitDTO.getLastChangedDate();
+        this.cancelationDays = BigInteger.valueOf(accommodationUnitDTO.getCancelationDays());
+
+        //this.location = new Location(accommodationUnitDTO.getL());
+       List<com.megatravel.interfaces.ImageDTO> images = accommodationUnitDTO.getImageDTO();
+        List<Image> values = new ArrayList<>();
+        if (images != null){
+            for (com.megatravel.interfaces.ImageDTO imageDTO : images){
+                Image im = new Image();
+                im.uri = imageDTO.getUri();
+                im.title = imageDTO.getTitle();
+                values.add(im);
+            }
+        }
+        this.images = values;
 
 
     }

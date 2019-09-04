@@ -31,7 +31,9 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="capacity" type="{http://interfaces.megatravel.com/}capacity"/>
  *         &lt;element name="size" type="{http://interfaces.megatravel.com/}size"/>
  *         &lt;element name="nameOfUnit" type="{http://interfaces.megatravel.com/}name"/>
+ *         &lt;element name="cancelationDays" type="{http://interfaces.megatravel.com/}capacity"/>
  *         &lt;element ref="{http://interfaces.megatravel.com/}unitTypeDTO"/>
+ *         &lt;element ref="{http://interfaces.megatravel.com/}imageDTO" maxOccurs="unbounded" minOccurs="0"/>
  *         &lt;element ref="{http://interfaces.megatravel.com/}pricingDTO" maxOccurs="unbounded" minOccurs="0"/>
  *         &lt;element ref="{http://interfaces.megatravel.com/}extraServiceDTO" maxOccurs="unbounded" minOccurs="0"/>
  *       &lt;/sequence>
@@ -48,20 +50,24 @@ import javax.xml.bind.annotation.XmlType;
     "capacity",
     "size",
     "nameOfUnit",
+    "cancelationDays",
     "unitTypeDTO",
+    "imageDTO",
     "pricingDTO",
     "extraServiceDTO"
 })
-@XmlRootElement(name = "accommodationUnitDTO")
-public class AccommodationUnitDTO {
+@XmlRootElement(name = "accommodationUnitProsireniDTO")
+public class AccommodationUnitProsireniDTO {
 
     protected long id;
     protected int capacity;
     protected int size;
     @XmlElement(required = true)
     protected String nameOfUnit;
+    protected int cancelationDays;
     @XmlElement(required = true)
     protected UnitTypeDTO unitTypeDTO;
+    protected List<ImageDTO> imageDTO;
     protected List<PricingDTO> pricingDTO;
     protected List<ExtraServiceDTO> extraServiceDTO;
 
@@ -138,6 +144,22 @@ public class AccommodationUnitDTO {
     }
 
     /**
+     * Gets the value of the cancelationDays property.
+     * 
+     */
+    public int getCancelationDays() {
+        return cancelationDays;
+    }
+
+    /**
+     * Sets the value of the cancelationDays property.
+     * 
+     */
+    public void setCancelationDays(int value) {
+        this.cancelationDays = value;
+    }
+
+    /**
      * Gets the value of the unitTypeDTO property.
      * 
      * @return
@@ -159,6 +181,35 @@ public class AccommodationUnitDTO {
      */
     public void setUnitTypeDTO(UnitTypeDTO value) {
         this.unitTypeDTO = value;
+    }
+
+    /**
+     * Gets the value of the imageDTO property.
+     * 
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the imageDTO property.
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getImageDTO().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link ImageDTO }
+     * 
+     * 
+     */
+    public List<ImageDTO> getImageDTO() {
+        if (imageDTO == null) {
+            imageDTO = new ArrayList<ImageDTO>();
+        }
+        return this.imageDTO;
     }
 
     /**

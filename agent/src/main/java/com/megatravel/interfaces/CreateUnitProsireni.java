@@ -25,9 +25,8 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="id" type="{http://interfaces.megatravel.com/}id"/>
- *         &lt;element name="title" type="{http://interfaces.megatravel.com/}description"/>
- *         &lt;element name="uri" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="AccId" type="{http://www.w3.org/2001/XMLSchema}long" minOccurs="0"/>
+ *         &lt;element ref="{http://interfaces.megatravel.com/}accommodationUnitProsireniDTO" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -38,81 +37,62 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "id",
-    "title",
-    "uri"
+    "accId",
+    "accommodationUnitProsireniDTO"
 })
-@XmlRootElement(name = "imageDTO")
-public class ImageDTO {
+@XmlRootElement(name = "CreateUnitProsireni")
+public class CreateUnitProsireni {
 
-    protected long id;
-    @XmlElement(required = true)
-    protected String title;
-    @XmlElement(required = true)
-    protected String uri;
+    @XmlElement(name = "AccId")
+    protected Long accId;
+    protected AccommodationUnitProsireniDTO accommodationUnitProsireniDTO;
 
     /**
-     * Gets the value of the id property.
-     * 
-     */
-    public long getId() {
-        return id;
-    }
-
-    /**
-     * Sets the value of the id property.
-     * 
-     */
-    public void setId(long value) {
-        this.id = value;
-    }
-
-    /**
-     * Gets the value of the title property.
+     * Gets the value of the accId property.
      * 
      * @return
      *     possible object is
-     *     {@link String }
+     *     {@link Long }
      *     
      */
-    public String getTitle() {
-        return title;
+    public Long getAccId() {
+        return accId;
     }
 
     /**
-     * Sets the value of the title property.
+     * Sets the value of the accId property.
      * 
      * @param value
      *     allowed object is
-     *     {@link String }
+     *     {@link Long }
      *     
      */
-    public void setTitle(String value) {
-        this.title = value;
+    public void setAccId(Long value) {
+        this.accId = value;
     }
 
     /**
-     * Gets the value of the uri property.
+     * Gets the value of the accommodationUnitProsireniDTO property.
      * 
      * @return
      *     possible object is
-     *     {@link String }
+     *     {@link AccommodationUnitProsireniDTO }
      *     
      */
-    public String getUri() {
-        return uri;
+    public AccommodationUnitProsireniDTO getAccommodationUnitProsireniDTO() {
+        return accommodationUnitProsireniDTO;
     }
 
     /**
-     * Sets the value of the uri property.
+     * Sets the value of the accommodationUnitProsireniDTO property.
      * 
      * @param value
      *     allowed object is
-     *     {@link String }
+     *     {@link AccommodationUnitProsireniDTO }
      *     
      */
-    public void setUri(String value) {
-        this.uri = value;
+    public void setAccommodationUnitProsireniDTO(AccommodationUnitProsireniDTO value) {
+        this.accommodationUnitProsireniDTO = value;
     }
 
 }

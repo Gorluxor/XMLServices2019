@@ -151,33 +151,33 @@ public class ReservationEndpoint {
         reservationDTO.setReservationPrice(r.getReservationPrice());
         reservationDTO.setStayRealized(r.isStayRealized());
         UserDTO userDTO = new UserDTO();
-        userDTO.setActivatedUser(r.getUser().isActivatedUser());
-        userDTO.setBirthday(r.getUser().getBirthday());
-        userDTO.setCountry(r.getUser().getCountry());
-        userDTO.setEmail(r.getUser().getEmail());
-        userDTO.setId(r.getUser().getId());
-        userDTO.setLastName(r.getUser().getLastName());
-        userDTO.setName(r.getUser().getName());
-        LocationDTO locationDTO = new LocationDTO();
+       // userDTO.setActivatedUser(r.getUser().isActivatedUser());
+      //  userDTO.setBirthday(r.getUser().getBirthday());
+      //  userDTO.setCountry(r.getUser().getCountry());
+      //  userDTO.setEmail(r.getUser().getEmail());
+      //  userDTO.setId(r.getUser().getId());
+      //  userDTO.setLastName(r.getUser().getLastName());
+       // userDTO.setName(r.getUser().getName());
+     /*   LocationDTO locationDTO = new LocationDTO();
         locationDTO.setCity(r.getUser().getLocation().getCity());
         locationDTO.setCountry(r.getUser().getLocation().getCountry());
-        locationDTO.setId(r.getUser().getLocation().getId());
-        locationDTO.setLatitude(r.getUser().getLocation().getLatitude());
-        locationDTO.setLongitude(r.getUser().getLocation().getLongitude());
-        locationDTO.setNumber(r.getUser().getLocation().getNumber());
-        locationDTO.setPostalCode(r.getUser().getLocation().getPostalCode());
-        locationDTO.setStreet(r.getUser().getLocation().getStreet());
+        locationDTO.setId(r.getUser().getLocation().getId());*/
+       // locationDTO.setLatitude(r.getUser().getLocation().getLatitude());
+        //locationDTO.setLongitude(r.getUser().getLocation().getLongitude());
+       // locationDTO.setNumber(r.getUser().getLocation().getNumber());
+       // locationDTO.setPostalCode(r.getUser().getLocation().getPostalCode());
+      //  locationDTO.setStreet(r.getUser().getLocation().getStreet());
 
-        userDTO.setLocationDTO(locationDTO);
-        userDTO.setPassword(r.getUser().getPassword());
-        userDTO.setPib(r.getUser().getPib());
-        userDTO.setPhoneNumber(r.getUser().getPhoneNumber());
+       // userDTO.setLocationDTO(locationDTO);
+       // userDTO.setPassword(r.getUser().getPassword());
+       // userDTO.setPib(r.getUser().getPib());
+       // userDTO.setPhoneNumber(r.getUser().getPhoneNumber());
 
-        RoleDTO roleDTO = new RoleDTO();
-        roleDTO.setId(r.getUser().getRole().getId());
-        roleDTO.setName(r.getUser().getRole().getRoleName());
+      //  RoleDTO roleDTO = new RoleDTO();
+      //  roleDTO.setId(r.getUser().getRole().getId());
+      //  roleDTO.setName(r.getUser().getRole().getRoleName());
 
-        userDTO.setRoleDTO(roleDTO);
+      //  userDTO.setRoleDTO(roleDTO);
         reservationDTO.setUserDTO(userDTO);
 
         response.setReservationDTO(reservationDTO);

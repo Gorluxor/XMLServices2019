@@ -541,4 +541,67 @@
         </xs:complexType>
     </xs:element>
 
+    <xs:element name="GetAllUnitsForAgent">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" name="agent" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetAllUnitsForAgentResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="tns:accommodationUnitDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="GetAllAccommodationsForAgent">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" name="agent" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetAllAccommodationsForAgentResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="tns:accommodationDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="accommodationUnitProsireniDTO">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="tns:id"/>
+                <xs:element name="capacity" type="tns:capacity"/>
+                <xs:element name="size" type="tns:size"/>
+                <xs:element name="nameOfUnit" type="tns:name"/>
+                <xs:element name="cancelationDays" type="tns:capacity"/>
+                <xs:element ref="tns:unitTypeDTO"/>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="tns:imageDTO"/>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="tns:pricingDTO"/>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="tns:extraServiceDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="CreateUnitProsireni">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" name="AccId" type="xs:long"/>
+                <xs:element minOccurs="0" ref="tns:accommodationUnitProsireniDTO"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="CreateUnitProsireniResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" name="uspelo" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
 </xs:schema>

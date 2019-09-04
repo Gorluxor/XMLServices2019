@@ -40,6 +40,12 @@ public class UnitType {
         }
     }
 
+
+    public UnitType(com.megatravel.interfaces.UnitTypeDTO unitTypeDTO) {
+            this.id = unitTypeDTO.getId();
+            this.nameOfUnitType = unitTypeDTO.getNameOfUnitType();
+    }
+
     public Date getLastChangedDate() {
         return lastChangedDate;
     }
