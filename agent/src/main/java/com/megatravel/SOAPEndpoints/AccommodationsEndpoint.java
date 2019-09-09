@@ -3,6 +3,7 @@ package com.megatravel.SOAPEndpoints;
 import com.megatravel.interfaces.*;
 import com.megatravel.interfaces.GetAllAccommodationsResponse;
 import com.megatravel.models.agent.*;
+import com.megatravel.models.types.Location;
 import com.megatravel.repository.*;
 import com.megatravel.service.AccommodationServiceImpl;
 import com.megatravel.service.AccommodationUnitServiceImpl;
@@ -334,8 +335,6 @@ import java.util.Optional;
         unit.setAccommodation(accommodation.get());
         unit.setLastChangedDate(new Date());
 
-     //   locationRepository.save(unit.getLocation());
-
         accommodationUnitRepository.save(unit);
 
         for (Image image : unit.getImages()){
@@ -364,6 +363,10 @@ import java.util.Optional;
 
         unit.setExtraService(list);
         accommodation.get().getAccommodationUnit().add(unit);
+
+        Optional<Location> location = locationRepository.findById(accommodation.get().getLocation().getId());
+
+        unit.setLocation(location.get());
 
         accommodationUnitRepository.save(unit);
 
