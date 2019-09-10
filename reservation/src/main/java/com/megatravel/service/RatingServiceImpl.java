@@ -113,5 +113,16 @@ public class RatingServiceImpl {
         }).getBody();
     }
 
+    public List<RatingSQL> ratingApproved(){
+
+        System.out.println("Dobijanje odobrenih recenzija");
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+        List<RatingSQL> recensions = new ArrayList<RatingSQL>();
+        HttpEntity<Object> entity = new HttpEntity<Object>(recensions, headers);
+        return restTemplate.exchange("http://localhost:8092/getAllApprovedRatings", HttpMethod.GET, entity, new ParameterizedTypeReference<List<RatingSQL>>() {
+        }).getBody();
+    }
+
 
 }

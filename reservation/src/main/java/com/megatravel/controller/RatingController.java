@@ -58,4 +58,19 @@ public class RatingController {
 
         return new ResponseEntity<List<RatingSQL>>(this.ratingService.ratingNotApproved(), HttpStatus.OK);
     }
+
+    @RequestMapping(value = "/AllApproved", method = RequestMethod.GET)
+    public ResponseEntity<List<RatingSQL>> listApproved(){
+        List<RatingSQL> ratingDTOS = this.ratingService.ratingApproved();
+
+        for (RatingSQL r:ratingDTOS) {
+
+            System.out.println(r + "\n");
+
+
+        }
+
+
+        return new ResponseEntity<List<RatingSQL>>(this.ratingService.ratingApproved(), HttpStatus.OK);
+    }
 }

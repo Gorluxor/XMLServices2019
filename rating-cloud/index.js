@@ -1,5 +1,4 @@
 const connection = require('./baza')
-var moment = require('moment');
 
 exports.getAllRatings = function getAllRatings(req, res) {
     connection.query("select * from rating", (err, result)=> {
